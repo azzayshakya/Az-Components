@@ -1,0 +1,272 @@
+
+/**
+ * ============================================================================
+ * ANTD TABLE CUSTOM STYLES
+ * ============================================================================
+ * Professional-level styling for Ant Design tables
+ * Fixes common issues: column gaps, alignment, overflow, responsiveness
+ * 
+ * USAGE:
+ * - Import this CSS file in your main app or component
+ * - Add className="custom-antd-table" to your table wrapper
+ * - Use provided utility classes for specific styling needs
+ * ============================================================================
+ */
+
+/* ============================================================================
+   1. TABLE CONTAINER & LAYOUT FIXES
+   ============================================================================ */
+
+/* Main table wrapper - fixes column spacing issues */
+.custom-antd-table .ant-table {
+  /* Force table to use full width and proper spacing */
+  table-layout: auto !important;
+  width: 100% !important;
+}
+
+/* Remove extra spacing between columns */
+.custom-antd-table .ant-table-thead > tr > th,
+.custom-antd-table .ant-table-tbody > tr > td {
+  padding: 12px 16px !important;
+  border-spacing: 0 !important;
+  border-collapse: collapse !important;
+}
+
+/* Fix column alignment - remove gaps */
+.custom-antd-table .ant-table-cell {
+  border-left: none !important;
+  border-right: none !important;
+}
+
+/* Ensure table content doesn't overflow */
+.custom-antd-table .ant-table-wrapper {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* ============================================================================
+   2. TABLE HEADER STYLING
+   ============================================================================ */
+
+/* Professional header styling */
+.custom-antd-table .ant-table-thead > tr > th {
+  background: #1e3a5f !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  text-align: left !important;
+  border-bottom: 2px solid #0f1f3a !important;
+  white-space: nowrap;
+  position: relative;
+}
+
+/* Header hover effect */
+.custom-antd-table .ant-table-thead > tr > th:hover {
+  background: #2c4f7c !important;
+}
+
+/* Sortable column indicator */
+.custom-antd-table .ant-table-column-sorters {
+  justify-content: flex-start !important;
+  padding: 0 !important;
+  gap: 8px;
+}
+
+/* Sort icon styling */
+.custom-antd-table .ant-table-column-sorter {
+  color: rgba(255, 255, 255, 0.65) !important;
+  margin-left: 4px !important;
+}
+
+.custom-antd-table .ant-table-column-sorter-up.active,
+.custom-antd-table .ant-table-column-sorter-down.active {
+  color: #ffffff !important;
+}
+
+/* Remove default header borders that cause gaps */
+.custom-antd-table .ant-table-thead > tr > th::before {
+  display: none !important;
+}
+
+/* ============================================================================
+   3. TABLE BODY STYLING
+   ============================================================================ */
+
+/* Body row styling */
+.custom-antd-table .ant-table-tbody > tr > td {
+  background: #ffffff !important;
+  color: #333333 !important;
+  font-size: 13px !important;
+  border-bottom: 1px solid #e8e8e8 !important;
+}
+
+/* Alternate row colors for better readability */
+.custom-antd-table .ant-table-tbody > tr:nth-child(even) > td {
+  background: #fafafa !important;
+}
+
+/* Row hover effect */
+.custom-antd-table .ant-table-tbody > tr:hover > td {
+  background: #e6f7ff !important;
+  cursor: pointer;
+}
+
+/* Selected row styling */
+.custom-antd-table .ant-table-tbody > tr.ant-table-row-selected > td {
+  background: #bae7ff !important;
+}
+
+/* ============================================================================
+   4. COLUMN WIDTH & ALIGNMENT FIXES
+   ============================================================================ */
+
+/* Fix ellipsis columns - prevent text overflow */
+.custom-antd-table .ant-table-cell-ellipsis {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+}
+
+/* Ensure columns fit content properly */
+.custom-antd-table .ant-table-thead > tr > th,
+.custom-antd-table .ant-table-tbody > tr > td {
+  max-width: none !important;
+  min-width: 100px !important;
+}
+
+/* Action column - fixed width */
+.custom-antd-table .ant-table-cell[data-index="action"],
+.custom-antd-table th:has([title="Action"]),
+.custom-antd-table td:last-child {
+  width: 120px !important;
+  min-width: 120px !important;
+  text-align: center !important;
+}
+
+/* ============================================================================
+   5. PAGINATION STYLING
+   ============================================================================ */
+
+.custom-antd-table .ant-pagination {
+  margin-top: 16px !important;
+  margin-bottom: 8px !important;
+  text-align: right !important;
+}
+
+.custom-antd-table .ant-pagination-total-text {
+  margin-right: auto !important;
+}
+
+.custom-antd-table .ant-select-selector {
+  border-radius: 4px !important;
+}
+
+/* ============================================================================
+   6. LOADING & EMPTY STATE
+   ============================================================================ */
+
+.custom-antd-table .ant-spin-nested-loading {
+  min-height: 200px;
+}
+
+.custom-antd-table .ant-empty {
+  padding: 40px 0 !important;
+}
+
+/* ============================================================================
+   7. RESPONSIVE TABLE FIXES
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .custom-antd-table .ant-table-thead > tr > th,
+  .custom-antd-table .ant-table-tbody > tr > td {
+    padding: 8px 12px !important;
+    font-size: 12px !important;
+  }
+
+  .custom-antd-table .ant-table-pagination {
+    text-align: center !important;
+  }
+}
+
+/* ============================================================================
+   8. SMALL SIZE TABLE VARIANT
+   ============================================================================ */
+
+.custom-antd-table .ant-table-small .ant-table-thead > tr > th,
+.custom-antd-table .ant-table-small .ant-table-tbody > tr > td {
+  padding: 8px 12px !important;
+}
+
+/* ============================================================================
+   9. SCROLLABLE TABLE FIXES
+   ============================================================================ */
+
+/* Fix sticky header issues */
+.custom-antd-table .ant-table-sticky-holder {
+  background: #1e3a5f !important;
+}
+
+.custom-antd-table .ant-table-sticky-scroll {
+  background: #f5f5f5 !important;
+  border-top: 1px solid #d9d9d9 !important;
+}
+
+/* ============================================================================
+   10. UTILITY CLASSES (Apply to ModeTable or CrudTable)
+   ============================================================================ */
+
+/* Bordered table variant */
+.custom-antd-table.table-bordered .ant-table-thead > tr > th,
+.custom-antd-table.table-bordered .ant-table-tbody > tr > td {
+  border: 1px solid #d9d9d9 !important;
+}
+
+/* Compact table variant */
+.custom-antd-table.table-compact .ant-table-thead > tr > th,
+.custom-antd-table.table-compact .ant-table-tbody > tr > td {
+  padding: 6px 10px !important;
+}
+
+/* Striped table variant (already applied by default) */
+.custom-antd-table.table-striped .ant-table-tbody > tr:nth-child(odd) > td {
+  background: #ffffff !important;
+}
+
+/* No hover effect variant */
+.custom-antd-table.table-no-hover .ant-table-tbody > tr:hover > td {
+  background: inherit !important;
+  cursor: default !important;
+}
+
+/* ============================================================================
+   11. FIXES FOR COLUMN SPACING ISSUE (YOUR SPECIFIC PROBLEM)
+   ============================================================================ */
+
+/* Remove all default spacing and borders that create gaps */
+.custom-antd-table .ant-table-container {
+  border-spacing: 0 !important;
+}
+
+.custom-antd-table .ant-table-content > table {
+  border-spacing: 0 !important;
+  border-collapse: collapse !important;
+}
+
+/* Force columns to stick together */
+.custom-antd-table .ant-table-thead > tr > th:not(:last-child),
+.custom-antd-table .ant-table-tbody > tr > td:not(:last-child) {
+  border-right: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Remove column resizer that might cause gaps */
+.custom-antd-table .react-resizable-handle {
+  display: none !important;
+}
+
+/* Fix for ellipsis columns causing width issues */
+.custom-antd-table .ant-table-cell-ellipsis.ant-table-cell-fix-right,
+.custom-antd-table .ant-table-cell-ellipsis.ant-table-cell-fix-left {
+  overflow: visible !important;
+}

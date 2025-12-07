@@ -19,7 +19,6 @@ export default function HomeWithAntdTableAndForm() {
     sortOrder: "ASC",
   });
 
-  // ⭐ ADDED SAMPLE TABLE DATA
   const tableData = [
     {
       id: 1,
@@ -36,26 +35,63 @@ export default function HomeWithAntdTableAndForm() {
       phone: "9123456789",
       designation: "Manager",
       organization: "Google",
-    }
+    },
   ];
 
-  // ⭐ ADDED COLUMNS
   const columns = [
-    { title: "Name", dataIndex: "name", key: "name" },
-    { title: "Email", dataIndex: "email", key: "email" },
-    { title: "Phone", dataIndex: "phone", key: "phone" },
-    { title: "Designation", dataIndex: "designation", key: "designation" },
-    { title: "Organization", dataIndex: "organization", key: "organization" },
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      width: 150,
+      sorter: true,
+      ellipsis: true,
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      width: 200,
+      sorter: true,
+      ellipsis: true,
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      key: "phone",
+      width: 150,
+      sorter: true,
+    },
+    {
+      title: "Designation",
+      dataIndex: "designation",
+      key: "designation",
+      width: 150,
+      sorter: true,
+    },
+    {
+      title: "Organization",
+      dataIndex: "organization",
+      key: "organization",
+      width: 150,
+      sorter: true,
+    },
     {
       title: "Action",
       key: "action",
+      width: 120,
+      fixed: "right",
       render: (_, row) => (
-        <Button danger size="small">
+        <Button danger size="small" onClick={() => handleDelete(row.id)}>
           Delete
         </Button>
-      )
-    }
+      ),
+    },
   ];
+
+  const handleDelete = (id) => {
+    console.log("Delete record:", id);
+  };
 
   return (
     <div style={{ padding: "20px" }}>
@@ -96,7 +132,26 @@ export default function HomeWithAntdTableAndForm() {
         paramObj={paramObj}
         setParamObj={setParamObj}
         setRefreshCounter={setRefreshCounter}
+        enableSorting={true}
+        showPagination={true}
       />
+
+      <br />
+
+      <ModeCard title="Custom Styled Table">
+        <CrudTable
+          tableData={tableData}
+          columns={columns}
+          paramObj={paramObj}
+          setParamObj={setParamObj}
+          setRefreshCounter={setRefreshCounter}
+          tableClassName="table-bordered table-striped"
+          headerStyle={{
+            background: "#52c41a",
+            color: "#ffffff",
+          }}
+        />
+      </ModeCard>
 
       <br />
 

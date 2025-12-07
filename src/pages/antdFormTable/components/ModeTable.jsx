@@ -5,6 +5,7 @@ export default function ModeTable({
   columns,
   dataSource,
   styles = {},
+  className = "",
   ...restProps
 }) {
   const mergedStyles = {
@@ -13,13 +14,19 @@ export default function ModeTable({
     ...styles,
   };
 
+  // Merge custom className with default professional styling
+  const tableClassName = `custom-antd-table ${className}`.trim();
+
   return (
-    <Table
-      columns={columns}
-      dataSource={dataSource}
-      style={mergedStyles.body}
-      {...restProps}
-    />
+    <div className={tableClassName}>
+      <Table
+        columns={columns}
+        dataSource={dataSource}
+        style={mergedStyles.body}
+        bordered={false}
+        {...restProps}
+      />
+    </div>
   );
 }
 
@@ -27,4 +34,5 @@ ModeTable.propTypes = {
   columns: PropTypes.array.isRequired,
   dataSource: PropTypes.array,
   styles: PropTypes.object,
+  className: PropTypes.string,
 };
