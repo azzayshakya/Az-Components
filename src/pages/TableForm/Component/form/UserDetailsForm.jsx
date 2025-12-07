@@ -1,9 +1,11 @@
-import { Form, Input } from "antd";
+import { Col, Form, Input, Row } from "antd";
 
 export default function UserDetailsForm() {
   return (
     <>
-      <Form.Item
+     <Row gutter={24}>
+        <Col >
+         <Form.Item
         name="userName"
         label="User Name"
         rules={[
@@ -13,6 +15,8 @@ export default function UserDetailsForm() {
       >
         <Input placeholder="Enter user name" />
       </Form.Item>
+        </Col>
+     </Row>
 
       <Form.Item
         name="userEmail"
