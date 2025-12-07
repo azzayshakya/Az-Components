@@ -2,6 +2,7 @@ import { Button, Col, Form, Input, Row } from "antd";
 import ModeCard from "../components/ModeCard";
 import CrudTable from "../components/CrudTable";
 import { useState } from "react";
+import { userMessagesData } from "../components/DummyData";
 
 export default function HomeWithAntdTableAndForm() {
   const [refreshCounter, setRefreshCounter] = useState(0);
@@ -88,6 +89,39 @@ export default function HomeWithAntdTableAndForm() {
       ),
     },
   ];
+   const userMessageColumns = [
+  {
+    title: "Name",
+    dataIndex: "name",
+    key: "name",
+    width: 180,
+  },
+  {
+    title: "Email",
+    dataIndex: "email",
+    key: "email",
+    width: 220,
+  },
+  {
+    title: "Phone",
+    dataIndex: "phone",
+    key: "phone",
+    width: 150,
+  },
+  {
+    title: "Message",
+    dataIndex: "message",
+    key: "message",
+    width: 350,
+    ellipsis: true,
+  },
+  {
+    title: "Date",
+    dataIndex: "date",
+    key: "date",
+    width: 140,
+  },
+];
 
   const handleDelete = (id) => {
     console.log("Delete record:", id);
@@ -127,8 +161,8 @@ export default function HomeWithAntdTableAndForm() {
       <br />
 
       <CrudTable
-        tableData={tableData}
-        columns={columns}
+        tableData={userMessagesData}
+        columns={userMessageColumns}
         paramObj={paramObj}
         setParamObj={setParamObj}
         setRefreshCounter={setRefreshCounter}
