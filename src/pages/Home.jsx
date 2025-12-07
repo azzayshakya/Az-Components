@@ -1,10 +1,10 @@
-import StudentRegistration from "./TableForm/pages/StudentRegistration";
+import HomeWithAntdTableAndForm from "./antdFormTable/pages/Home";
 
 
 export default function Home() {
   return (
     <div>
-    <StudentRegistration/>
+      <HomeWithAntdTableAndForm/>
     </div>
   )
 }
