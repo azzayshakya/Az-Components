@@ -1,0 +1,329 @@
+/**
+ * ============================================================================
+ * MODE FIELDSET ALTERNATIVE - CONSISTENT BORDER POSITIONING
+ * ============================================================================
+ * This version uses div-based approach instead of fieldset/legend
+ * to ensure consistent border positioning regardless of title length
+ * ============================================================================
+ */
+
+/* ============================================================================
+   1. BASE CONTAINER STYLES
+   ============================================================================ */
+
+.mode-fieldset-alt {
+  position: relative;
+  border-radius: 6px;
+  padding: 28px 24px 20px 24px;
+  margin: 16px 0;
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
+  transition: all 0.3s ease;
+}
+
+/* ============================================================================
+   2. LEGEND/TITLE STYLES - CONSISTENT POSITIONING
+   ============================================================================ */
+
+.mode-fieldset-alt-legend {
+  position: absolute;
+  top: -10px; /* Always positioned consistently at top */
+  left: 24px; /* Slight offset from left edge */
+  background: #ffffff;
+  padding: 0 8px;
+  z-index: 2;
+}
+
+.mode-fieldset-alt-legend-text {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #262626;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+/* Required asterisk */
+.mode-fieldset-alt-required {
+  color: #ff4d4f;
+  margin-left: 4px;
+  font-weight: 700;
+}
+
+/* ============================================================================
+   3. CONTENT AREA
+   ============================================================================ */
+
+.mode-fieldset-alt-content {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+/* ============================================================================
+   4. SIZE VARIANTS
+   ============================================================================ */
+
+/* Small size */
+.mode-fieldset-alt-small {
+  padding: 20px 16px 12px 16px;
+}
+
+.mode-fieldset-alt-small .mode-fieldset-alt-legend {
+  left: 16px;
+  top: -9px;
+}
+
+.mode-fieldset-alt-small .mode-fieldset-alt-legend-text {
+  font-size: 12px;
+  padding: 0 6px;
+}
+
+/* Medium size (default) */
+.mode-fieldset-alt-medium {
+  padding: 28px 24px 20px 24px;
+}
+
+.mode-fieldset-alt-medium .mode-fieldset-alt-legend {
+  left: 24px;
+  top: -10px;
+}
+
+.mode-fieldset-alt-medium .mode-fieldset-alt-legend-text {
+  font-size: 14px;
+  padding: 0 8px;
+}
+
+/* Large size */
+.mode-fieldset-alt-large {
+  padding: 36px 32px 28px 32px;
+}
+
+.mode-fieldset-alt-large .mode-fieldset-alt-legend {
+  left: 32px;
+  top: -11px;
+}
+
+.mode-fieldset-alt-large .mode-fieldset-alt-legend-text {
+  font-size: 16px;
+  font-weight: 700;
+  padding: 0 10px;
+}
+
+/* ============================================================================
+   5. HOVER & FOCUS EFFECTS
+   ============================================================================ */
+
+.mode-fieldset-alt:hover {
+  border-color: #40a9ff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.mode-fieldset-alt:hover .mode-fieldset-alt-legend-text {
+  color: #1890ff;
+}
+
+.mode-fieldset-alt:focus-within {
+  border-color: #1890ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+}
+
+.mode-fieldset-alt:focus-within .mode-fieldset-alt-legend-text {
+  color: #1890ff;
+}
+
+/* ============================================================================
+   6. COLOR VARIANTS
+   ============================================================================ */
+
+/* Primary variant */
+.mode-fieldset-alt.fieldset-primary {
+  border-color: #1890ff;
+}
+
+.mode-fieldset-alt.fieldset-primary .mode-fieldset-alt-legend-text {
+  color: #1890ff;
+}
+
+/* Success variant */
+.mode-fieldset-alt.fieldset-success {
+  border-color: #52c41a;
+}
+
+.mode-fieldset-alt.fieldset-success .mode-fieldset-alt-legend-text {
+  color: #52c41a;
+}
+
+/* Warning variant */
+.mode-fieldset-alt.fieldset-warning {
+  border-color: #faad14;
+}
+
+.mode-fieldset-alt.fieldset-warning .mode-fieldset-alt-legend-text {
+  color: #faad14;
+}
+
+/* Danger variant */
+.mode-fieldset-alt.fieldset-danger {
+  border-color: #ff4d4f;
+}
+
+.mode-fieldset-alt.fieldset-danger .mode-fieldset-alt-legend-text {
+  color: #ff4d4f;
+}
+
+/* Info variant */
+.mode-fieldset-alt.fieldset-info {
+  border-color: #1890ff;
+  background: #e6f7ff;
+}
+
+.mode-fieldset-alt.fieldset-info .mode-fieldset-alt-legend-text {
+  color: #0050b3;
+  background: #e6f7ff;
+}
+
+/* ============================================================================
+   7. STYLE VARIANTS
+   ============================================================================ */
+
+/* Dashed border */
+.mode-fieldset-alt.fieldset-dashed {
+  border-style: dashed;
+}
+
+/* Dotted border */
+.mode-fieldset-alt.fieldset-dotted {
+  border-style: dotted;
+}
+
+/* Bold border */
+.mode-fieldset-alt.fieldset-bold {
+  border-width: 2px;
+}
+
+.mode-fieldset-alt.fieldset-bold .mode-fieldset-alt-legend {
+  top: -11px;
+}
+
+/* No hover effect */
+.mode-fieldset-alt.fieldset-no-hover:hover {
+  border-color: inherit;
+  box-shadow: none;
+}
+
+.mode-fieldset-alt.fieldset-no-hover:hover .mode-fieldset-alt-legend-text {
+  color: inherit;
+}
+
+/* Elevated (with shadow) */
+.mode-fieldset-alt.fieldset-elevated {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-color: #e8e8e8;
+}
+
+.mode-fieldset-alt.fieldset-elevated:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Flat (no border) */
+.mode-fieldset-alt.fieldset-flat {
+  border: none;
+  background: #fafafa;
+  border-left: 4px solid #1890ff;
+  padding-left: 28px;
+}
+
+.mode-fieldset-alt.fieldset-flat .mode-fieldset-alt-legend {
+  background: #fafafa;
+}
+
+/* ============================================================================
+   8. DISABLED STATE
+   ============================================================================ */
+
+.mode-fieldset-alt[disabled],
+.mode-fieldset-alt.fieldset-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #f5f5f5;
+  pointer-events: none;
+}
+
+.mode-fieldset-alt[disabled] .mode-fieldset-alt-legend-text,
+.mode-fieldset-alt.fieldset-disabled .mode-fieldset-alt-legend-text {
+  color: #8c8c8c;
+}
+
+/* ============================================================================
+   9. RESPONSIVE DESIGN
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  .mode-fieldset-alt {
+    padding: 24px 20px 16px 20px;
+  }
+
+  .mode-fieldset-alt-legend {
+    left: 20px;
+  }
+
+  .mode-fieldset-alt-legend-text {
+    font-size: 13px;
+  }
+
+  .mode-fieldset-alt-large {
+    padding: 28px 24px 20px 24px;
+  }
+
+  .mode-fieldset-alt-large .mode-fieldset-alt-legend-text {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mode-fieldset-alt {
+    padding: 20px 16px 12px 16px;
+    margin: 12px 0;
+  }
+
+  .mode-fieldset-alt-legend {
+    left: 16px;
+  }
+
+  .mode-fieldset-alt-legend-text {
+    font-size: 12px;
+  }
+}
+
+/* ============================================================================
+   10. NESTED FIELDSETS
+   ============================================================================ */
+
+.mode-fieldset-alt .mode-fieldset-alt {
+  margin: 12px 0;
+  background: #fafafa;
+  border-color: #e0e0e0;
+}
+
+.mode-fieldset-alt .mode-fieldset-alt .mode-fieldset-alt-legend-text {
+  font-size: 13px;
+  font-weight: 500;
+  background: #fafafa;
+}
+
+/* ============================================================================
+   11. LEGEND POSITION VARIANTS
+   ============================================================================ */
+
+/* Legend centered */
+.mode-fieldset-alt.legend-center .mode-fieldset-alt-legend {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Legend right aligned */
+.mode-fieldset-alt.legend-right .mode-fieldset-alt-legend {
+  left: auto;
+  right: 24px;
+}
