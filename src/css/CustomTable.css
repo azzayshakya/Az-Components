@@ -270,3 +270,8 @@
 .custom-antd-table .ant-table-cell-ellipsis.ant-table-cell-fix-left {
   overflow: visible !important;
 }
+
+/* form */
+
+/* Fix Select height to match Input */
+

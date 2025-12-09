@@ -2,6 +2,8 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import '../src/css/CustomTable.css'
 import '../src/css/FieldSet.css'
+import '../src/css/AntForm.css'
+
 
 import App from "./App.jsx";
 
