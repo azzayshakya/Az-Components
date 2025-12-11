@@ -1,0 +1,15 @@
+.ant-form-item-label > label::after{
+  margin: 0px 0px 0px 0px !important;
+  padding: 0px 5px 0px 5px !important;
+}
+
+.ant-select-content {
+  padding: 0 11px !important;
+  display: flex !important;
+  align-items: center !important;
+  height: 36px !important;
+}
+
+.ant-select-content::before{
+  padding: 0px  !important; 
+}

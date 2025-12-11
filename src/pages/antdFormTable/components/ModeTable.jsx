@@ -14,7 +14,6 @@ export default function ModeTable({
     ...styles,
   };
 
-  // Merge custom className with default professional styling
   const tableClassName = `custom-antd-table ${className}`.trim();
 
   return (

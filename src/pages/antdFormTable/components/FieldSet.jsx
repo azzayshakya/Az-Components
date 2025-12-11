@@ -1,12 +1,5 @@
 import PropTypes from "prop-types";
 
-
-/**
- * ModeFieldSet Alternative Component
- * Uses div-based approach for consistent border positioning
- * This version ensures the border break is always consistently positioned
- * regardless of title length
- */
 export default function ModeFieldSet({
   title = "",
   children,

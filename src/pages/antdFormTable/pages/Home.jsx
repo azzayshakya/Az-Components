@@ -110,51 +110,38 @@ console.log(refreshCounter)
         }}
       >
         <Row gutter={[16, 16]}>
-  <Col span={24}>
+        <Col span={24}>
         
-        <Form layout="horizontal" wrapperCol={{span:16}} labelCol={{span:8}}  >
+        <Form layout="horizontal"  wrapperCol={{span:16}} labelCol={{span:8}}  >
           <ModeFieldSet title="Personal Information" >
            <Row gutter={24}>
 
-          {/* First Name */}
           <Col span={12}>
             <Form.Item
               label="First Name"
-              // name="firstName"
-              // labelCol={{ span: 8 }}
-              // wrapperCol={{ span: 16 }}
-              // rules={[{ required: true, message: "First name is required" }]}
             >
               <Input placeholder="Enter first name" />
             </Form.Item>
           </Col>
 
-          {/* Last Name */}
           <Col span={12}>
             <Form.Item
               label="Last Name"
               name="lastName"
-              // labelCol={{ span: 8 }}
-              // wrapperCol={{ span: 16 }}
-              // rules={[{ required: true, message: "Last name is required" }]}
             >
               <Input placeholder="Enter last name" />
             </Form.Item>
           </Col>
 
-          {/* Date of Birth */}
           <Col span={12}>
             <Form.Item
               label="Date of Birth"
               name="dob"
-              // labelCol={{ span: 8 }}
-              // wrapperCol={{ span: 16 }}
             >
               <DatePicker style={{ width: "100%" }} />
             </Form.Item>
           </Col>
 
-          {/* Gender */}
           <Col span={12}>
             <Form.Item
               label="Gender"
@@ -176,7 +163,6 @@ console.log(refreshCounter)
          </Col>
           </Row>
       </ModeCard>
-      {/* Statistics Section with Multiple FieldSets */}
       <ModeCard title="Dashboard Statistics">
         <Row gutter={16}>
           <Col span={8}>
