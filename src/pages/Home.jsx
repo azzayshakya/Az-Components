@@ -1,10 +1,13 @@
-import HomeWithAntdTableAndForm from "./antdFormTable/pages/Home";
+// import HomeWithAntdTableAndForm from "./antdFormTable/pages/Home";
+
+import AdminMain from "@/admin";
 
 
 export default function Home() {
   return (
     <div>
-      <HomeWithAntdTableAndForm/>
+      {/* <HomeWithAntdTableAndForm/> */}
+      <AdminMain/>
     </div>
   )
 }

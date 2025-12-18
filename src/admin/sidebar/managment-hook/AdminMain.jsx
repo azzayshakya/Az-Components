@@ -1,0 +1,164 @@
+import { useState, useMemo } from "react";
+import { Layout, Menu, theme, Typography } from "antd";
+import {
+  UserOutlined,
+  LogoutOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
+
+import { useMenu } from "../hooks/useMenu";
+import { buildMenuItems } from "../utilities/MenuBuilder";
+import { buildBreadcrumbs } from "../utilities/breadCrumbBuilder";
+import { USER_ROLES } from "../constants/Permission";
+import MENU_CONFIG from "../control/MenuConfig";
+import AdminFooterComponent from "@/admin/components/Footer";
+import AdminHeaderComponent from "@/admin/components/AdminHeaderComponent";
+import AdminContentComponent from "@/admin/components/AdminContentComponent";
+
+const {  Sider } = Layout;
+const { Text } = Typography;
+
+const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
+  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
+
+  const { selectedKeys, openKeys, handleMenuClick, handleOpenChange } = useMenu(
+    {
+      defaultSelectedKey: "dashboard",
+      persistState: true,
+    },
+  );
+
+  const menuItems = useMemo(() => {
+    return buildMenuItems(MENU_CONFIG, userRole);
+  }, [userRole]);
+
+  const breadcrumbItems = useMemo(() => {
+    return buildBreadcrumbs(selectedKeys[0]);
+  }, [selectedKeys]);
+
+  // User dropdown menu items
+  const userMenuItems = [
+    {
+      key: "profile",
+      icon: <UserOutlined />,
+      label: "Profile",
+    },
+    {
+      key: "settings",
+      icon: <SettingOutlined />,
+      label: "Settings",
+    },
+    {
+      type: "divider",
+    },
+    {
+      key: "logout",
+      icon: <LogoutOutlined />,
+      label: "Logout",
+      danger: true,
+    },
+  ];
+
+  const handleUserMenuClick = ({ key }) => {
+    switch (key) {
+      case "profile":
+        console.log("Navigate to profile");
+        break;
+      case "settings":
+        console.log("Navigate to settings");
+        break;
+      case "logout":
+        console.log("Logout user");
+        break;
+      default:
+        break;
+    }
+  };
+
+  return (
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={setCollapsed}
+        width={250}
+        style={{
+          overflow: "auto",
+          height: "100vh",
+          position: "fixed",
+          left: 0,
+          top: 0,
+          bottom: 0,
+        }}
+      >
+        {/* Logo Area */}
+        <div
+          style={{
+            height: 64,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(255, 255, 255, 0.1)",
+            margin: "16px",
+            borderRadius: "8px",
+          }}
+        >
+          <Text
+            strong
+            style={{
+              color: "white",
+              fontSize: collapsed ? "16px" : "20px",
+              transition: "font-size 0.3s",
+            }}
+          >
+            {collapsed ? "A" : "Admin Panel"}
+          </Text>
+        </div>
+
+        {/* Menu */}
+        <Menu
+          theme="dark"
+          mode="inline"
+          selectedKeys={selectedKeys}
+          openKeys={openKeys}
+          items={menuItems}
+          onClick={handleMenuClick}
+          onOpenChange={handleOpenChange}
+        />
+      </Sider>
+
+      {/* Main Layout */}
+      <Layout
+        style={{
+          marginLeft: collapsed ? 80 : 250,
+          transition: "margin-left 0.2s",
+          border:"2px red solid"
+        }}
+      >
+        {/* Header */}
+        <AdminHeaderComponent
+          colorBgContainer={colorBgContainer}
+          setCollapsed={setCollapsed}
+          collapsed={collapsed}
+          userMenuItems={userMenuItems}
+          userData={userData}
+          handleUserMenuClick={handleUserMenuClick}
+        />
+        <AdminContentComponent
+          breadcrumbItems={breadcrumbItems}
+          colorBgContainer={colorBgContainer}
+          borderRadiusLG={borderRadiusLG}
+          userRole={userRole}
+          selectedKeys={selectedKeys}
+        />
+
+        <AdminFooterComponent color={colorBgContainer} />
+      </Layout>
+    </Layout>
+  );
+};
+
+export default AdminMain;
