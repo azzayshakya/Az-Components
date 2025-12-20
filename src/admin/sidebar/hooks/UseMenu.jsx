@@ -10,7 +10,7 @@ export const useMenu = ({ defaultSelectedKey = 'dashboard', persistState = true 
   const navigate = useNavigate();
   const location = useLocation();
 
-  // State for selected keys
+  // State for selected keys , it will be used to store the previously selected  tab ,Keeps menu selection after refresh
   const [selectedKeys, setSelectedKeys] = useState(() => {
     if (persistState) {
       const saved = localStorage.getItem('selectedMenuKey');
@@ -23,6 +23,8 @@ export const useMenu = ({ defaultSelectedKey = 'dashboard', persistState = true 
   const [openKeys, setOpenKeys] = useState(() => {
     if (persistState) {
       const saved = localStorage.getItem('openMenuKeys');
+      console.log("azopen ",   saved ? JSON.parse(saved) : [])
+
       return saved ? JSON.parse(saved) : [];
     }
     return [];
@@ -60,16 +62,14 @@ export const useMenu = ({ defaultSelectedKey = 'dashboard', persistState = true 
     [persistState]
   );
 
-  // Sync menu with route changes
+  // get the current path from the route 
   useEffect(() => {
-    // Find menu key that matches current route
     const currentPath = location.pathname;
     console.log(currentPath)
-    // You can implement route-to-key mapping here
-    // For now, we'll keep the current selected key
+    
   }, [location.pathname]);
 
-  // Auto-open parent menus for selected item
+  // Auto-open parent menus for selected item in case if it's closed 
   useEffect(() => {
     if (selectedKeys.length > 0) {
       const parents = getParentKeys(MENU_CONFIG, selectedKeys[0]);

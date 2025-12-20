@@ -15,11 +15,12 @@ import AdminFooterComponent from "@/admin/components/Footer";
 import AdminHeaderComponent from "@/admin/components/AdminHeaderComponent";
 import AdminContentComponent from "@/admin/components/AdminContentComponent";
 
-const {  Sider } = Layout;
+const { Sider } = Layout;
 const { Text } = Typography;
 
 const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
   const [collapsed, setCollapsed] = useState(false);
+
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
@@ -34,12 +35,14 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
   const menuItems = useMemo(() => {
     return buildMenuItems(MENU_CONFIG, userRole);
   }, [userRole]);
+  console.log("azz menu items", { menuItems });
 
   const breadcrumbItems = useMemo(() => {
     return buildBreadcrumbs(selectedKeys[0]);
   }, [selectedKeys]);
 
-  // User dropdown menu items
+  console.log("azz bread Crumb Items", { breadcrumbItems });
+
   const userMenuItems = [
     {
       key: "profile",
@@ -94,7 +97,6 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
           bottom: 0,
         }}
       >
-        {/* Logo Area */}
         <div
           style={{
             height: 64,
@@ -118,7 +120,6 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
           </Text>
         </div>
 
-        {/* Menu */}
         <Menu
           theme="dark"
           mode="inline"
@@ -130,15 +131,12 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
         />
       </Sider>
 
-      {/* Main Layout */}
       <Layout
         style={{
           marginLeft: collapsed ? 80 : 250,
           transition: "margin-left 0.2s",
-          border:"2px red solid"
         }}
       >
-        {/* Header */}
         <AdminHeaderComponent
           colorBgContainer={colorBgContainer}
           setCollapsed={setCollapsed}
@@ -147,6 +145,7 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
           userData={userData}
           handleUserMenuClick={handleUserMenuClick}
         />
+
         <AdminContentComponent
           breadcrumbItems={breadcrumbItems}
           colorBgContainer={colorBgContainer}

@@ -52,12 +52,11 @@ const filterMenuByPermissions = (menuItems, userRole) => {
     .filter(Boolean); // Remove null items
 };
 
-/**
- * Build menu items from configuration
- * @param {Array} menuConfig - Menu configuration array
- * @param {string} userRole - User's role for permission filtering
- * @returns {Array} Ant Design menu items
- */
+ /**
+   * Builds sidebar menu items based on:
+   * - MENU_CONFIG (structure)
+   * - userRole (permissions)
+   */
 export const buildMenuItems = (menuConfig, userRole = null) => {
   // Filter by permissions if userRole is provided
   const filteredConfig = userRole

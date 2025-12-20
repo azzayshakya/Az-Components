@@ -6,12 +6,7 @@
 import MENU_CONFIG from '../control/MenuConfig';
 import { findMenuItemByKey, getParentKeys } from './MenuBuilder';
 
-/**
- * Build breadcrumb items for current menu selection
- * @param {string} currentKey - Current menu key
- * @param {Array} menuConfig - Menu configuration
- * @returns {Array} Breadcrumb items
- */
+// header navigation ui 
 export const buildBreadcrumbs = (currentKey, menuConfig = MENU_CONFIG) => {
   if (!currentKey) return [];
 

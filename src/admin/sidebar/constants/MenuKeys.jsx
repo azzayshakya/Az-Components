@@ -18,6 +18,7 @@ export const MENU_KEYS = {
   NOTIFICATIONS: 'notifications',
   FILES: 'files',
   REPORTS: 'reports',
+  
 };
 
 export default MENU_KEYS;
