@@ -1,5 +1,5 @@
 
-export default function index() {
+export default function Dashboard() {
   return (
     <div>Dashboard</div>
   )

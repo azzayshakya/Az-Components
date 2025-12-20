@@ -4,6 +4,10 @@ import { ErrorPage } from "../pages/common/ErrorPage";
 import { NotFoundPage } from "../pages/common/NotFoundPage";
 import RedirectPage from "../pages/common/RedirectPage";
 import HomeUILayout from "../layout/Home/HomeLayout";
+import AddEmployee from "@/admin/pages/EmployeeManagment/AddEmployee";
+import AllEmployee from "@/admin/pages/EmployeeManagment/AllEmployee";
+import SalaryManagemnt from "@/admin/pages/SalaryManagement";
+import Dashboard from "@/admin/Dashboard";
 
 const router = createBrowserRouter(
   [
@@ -20,6 +24,23 @@ const router = createBrowserRouter(
           path: "/home",
           element: <Home />,
         },
+        {
+          path: "/employees/add",
+          element: <AddEmployee/>,
+        },
+        {
+          path: "/employees/all",
+          element: <AllEmployee/>,
+        },
+        {
+          path: "/salary",
+          element: <SalaryManagemnt/>,
+        },
+        {
+          path: "/dashboard",
+          element: <Dashboard/>,
+        },
+
        
         {
           path: "*",

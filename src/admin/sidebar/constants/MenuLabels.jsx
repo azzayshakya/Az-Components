@@ -1,31 +1,24 @@
-/**
- * Menu item labels configuration
- * Supports internationalization and centralized label management
- */
-
 export const MENU_LABELS = {
+  // Dashboard
   dashboard: 'Dashboard',
-  analytics: 'Analytics',
-  users: 'Users',
-  userList: 'User List',
-  userRoles: 'Roles & Permissions',
-  userPermissions: 'Permission Management',
-  teams: 'Teams',
-  teamManagement: 'Team Management',
-  teamAnalytics: 'Team Analytics',
-  projects: 'Projects',
-  projectList: 'All Projects',
-  projectCreate: 'Create New',
-  projectArchive: 'Archived',
-  settings: 'Settings',
-  generalSettings: 'General',
-  security: 'Security',
-  notifications: 'Notifications',
-  files: 'Files',
-  reports: 'Reports',
+  
+  // Employee Management
+  employeeManagement: 'Employee Management',
+  addEmployee: 'Add Employee',
+  allEmployees: 'All Employees',
+  
+  // Salary Management
+  salaryManagement: 'Salary Management',
+  // processSalary: 'Process Salary',
+  // salaryHistory: 'Salary History',
+  // salaryReports: 'Salary Reports',
 };
 
-
+/**
+ * Get label by key
+ * @param {string} key - Menu key
+ * @returns {string} Label text
+ */
 export const getMenuLabel = (key) => {
   return MENU_LABELS[key] || key;
 };
