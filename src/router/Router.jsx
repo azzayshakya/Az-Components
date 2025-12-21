@@ -13,6 +13,7 @@ import AddProject from "@/admin/pages/ProjectManagement/AddProject";
 import AllProject from "@/admin/pages/ProjectManagement/AllProject";
 import UserManagement from "@/admin/pages/userManagement";
 import MyProfile from "@/admin/pages/myProfile";
+import Dashboard from "@/admin/Dashboard";
 
 const router = createBrowserRouter(
   [
@@ -28,6 +29,10 @@ const router = createBrowserRouter(
         {
           path: "/home",
           element: <Home />,
+        },
+        {
+          path: "/dashboard",
+          element: <Dashboard />,
         },
         {
           path: "/employees/add",

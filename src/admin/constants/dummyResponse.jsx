@@ -230,3 +230,187 @@ export const salaryManagementResponse = {
     currency: "INR",
   },
 };
+
+export const queryListResponse = {
+  data: [
+    {
+      id: "QRY-001",
+      userId: "USR-101",
+      userName: "Ajay Shakya",
+      email: "ajay@example.com",
+      subject: "Login issue",
+      description: "Unable to login after password reset",
+      priority: "high", 
+      status: "pending", 
+      createdAt: "2024-12-01",
+    },
+    {
+      id: "QRY-002",
+      userId: "USR-102",
+      userName: "Rohit Mehra",
+      email: "rohit@example.com",
+      subject: "Salary slip not generated",
+      description: "Salary slip for November is missing",
+      priority: "medium",
+      status: "resolved",
+      createdAt: "2024-12-03",
+    },
+    {
+      id: "QRY-003",
+      userId: "USR-103",
+      userName: "Amit Verma",
+      email: "amit@example.com",
+      subject: "Project access",
+      description: "Unable to access assigned project",
+      priority: "high",
+      status: "pending",
+      createdAt: "2024-12-05",
+    },
+    {
+      id: "QRY-004",
+      userId: "USR-104",
+      userName: "Neha Sharma",
+      email: "neha@example.com",
+      subject: "Profile update issue",
+      description: "Changes not saving in profile",
+      priority: "low",
+      status: "resolved",
+      createdAt: "2024-12-06",
+    },
+    {
+      id: "QRY-005",
+      userId: "USR-105",
+      userName: "Sandeep Singh",
+      email: "sandeep@example.com",
+      subject: "Site allocation",
+      description: "Site location not updated",
+      priority: "medium",
+      status: "pending",
+      createdAt: "2024-12-08",
+    },
+  ],
+  meta: {
+    total: 5,
+    openQueries: 3,
+    resolvedQueries: 2,
+  },
+};
+
+export const commentListResponse = {
+  data: [
+    {
+      id: "CMT-001",
+      userId: "USR-101",
+      userName: "Ajay Shakya",
+      comment: "The new dashboard UI looks very clean and modern.",
+      rating: 5,
+      isApproved: true,
+      createdAt: "2024-12-02",
+    },
+    {
+      id: "CMT-002",
+      userId: "USR-102",
+      userName: "Rohit Mehra",
+      comment: "Salary management feature is very helpful.",
+      rating: 4,
+      isApproved: true,
+      createdAt: "2024-12-04",
+    },
+    {
+      id: "CMT-003",
+      userId: "USR-103",
+      userName: "Amit Verma",
+      comment: "Employee filter could be faster.",
+      rating: 3,
+      isApproved: false,
+      createdAt: "2024-12-05",
+    },
+    {
+      id: "CMT-004",
+      userId: "USR-104",
+      userName: "Neha Sharma",
+      comment: "Project module is very easy to use.",
+      rating: 5,
+      isApproved: true,
+      createdAt: "2024-12-07",
+    },
+    {
+      id: "CMT-005",
+      userId: "USR-105",
+      userName: "Sandeep Singh",
+      comment: "Need dark mode support.",
+      rating: 4,
+      isApproved: false,
+      createdAt: "2024-12-09",
+    },
+  ],
+  meta: {
+    total: 5,
+    approved: 3,
+    pending: 2,
+  },
+};
+
+export const allUsersResponse = {
+  data: [
+    {
+      id: 1,
+      employeeId: "EMP-001",
+      name: "Ajay Shakya",
+      role: "Admin",
+      department: "IT",
+      status: "active",
+    },
+    {
+      id: 2,
+      employeeId: "EMP-002",
+      name: "Rohit Mehra",
+      role: "Employee",
+      department: "Civil",
+      status: "active",
+    },
+    {
+      id: 3,
+      employeeId: "EMP-003",
+      name: "Amit Verma",
+      role: "Employee",
+      department: "Electrical",
+      status: "inactive",
+    },
+  ],
+  meta: {
+    total: 3,
+  },
+};
+
+export const allProjectsResponse = {
+  data: [
+    {
+      id: 1,
+      projectCode: "PRJ-001",
+      projectName: "IT Park Electrical Work",
+      department: "Electrical",
+      clientName: "TCS",
+      status: "active",
+    },
+    {
+      id: 2,
+      projectCode: "PRJ-002",
+      projectName: "Hospital Fire System",
+      department: "Fire Fighting",
+      clientName: "Apollo Hospitals",
+      status: "completed",
+    },
+    {
+      id: 3,
+      projectCode: "PRJ-003",
+      projectName: "Residential Tower Construction",
+      department: "Civil",
+      clientName: "DLF",
+      status: "active",
+    },
+  ],
+  meta: {
+    total: 3,
+  },
+};
