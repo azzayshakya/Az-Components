@@ -13,3 +13,14 @@
 .ant-select-content::before{
   padding: 0px  !important; 
 }
+
+.ant-menu-sub::after{
+  padding: 0px  !important; 
+}
+/* side bar fix */
+.ant-menu::before{
+  padding: 0px  !important; 
+}
+.ant-menu-submenu-arrow{
+  display: none;
+}
