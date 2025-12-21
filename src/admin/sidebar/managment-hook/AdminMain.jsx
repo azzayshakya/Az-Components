@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react";
 import { Layout, Menu, theme, Typography } from "antd";
 
-
 import { useMenu } from "../hooks/useMenu";
 
 import { buildMenuItems } from "../utilities/MenuBuilder";
@@ -13,6 +12,7 @@ import MENU_CONFIG from "../control/MenuConfig";
 import AdminFooterComponent from "@/admin/components/Footer";
 import AdminHeaderComponent from "@/admin/components/AdminHeaderComponent";
 import AdminContentComponent from "@/admin/components/AdminContentComponent";
+import { Outlet } from "react-router-dom";
 
 const { Sider } = Layout;
 const { Text } = Typography;
@@ -33,14 +33,11 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
   const menuItems = useMemo(() => {
     return buildMenuItems(MENU_CONFIG, userRole);
   }, [userRole]);
-  console.log(menuItems)
+  console.log(menuItems);
 
   const breadcrumbItems = useMemo(() => {
     return buildBreadcrumbs(selectedKeys[0]);
   }, [selectedKeys]);
-
-
-
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -105,13 +102,17 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
           userData={userData}
         />
 
-        <AdminContentComponent
-          breadcrumbItems={breadcrumbItems}
-          colorBgContainer={colorBgContainer}
-          borderRadiusLG={borderRadiusLG}
-          userRole={userRole}
-          selectedKeys={selectedKeys}
-        />
+        <div
+          style={{
+            padding: 24,
+            minHeight: "calc(100vh - 64px)",
+            background: colorBgContainer,
+            borderRadius: borderRadiusLG,
+            margin: 16,
+          }}
+        >
+          <Outlet />
+        </div>
 
         <AdminFooterComponent color={colorBgContainer} />
       </Layout>
