@@ -6,7 +6,7 @@ import ModeFieldSet from "../components/FieldSet";
 
 export default function HomeWithAntdTableAndForm() {
   const [refreshCounter, setRefreshCounter] = useState(0);
-console.log(refreshCounter)
+  console.log(refreshCounter);
   const [paramObj, setParamObj] = useState({
     limit: 10,
     offset: 0,
@@ -90,8 +90,6 @@ console.log(refreshCounter)
     },
   ];
 
-
-
   const handleDelete = (id) => {
     console.log("Delete record:", id);
   };
@@ -99,125 +97,112 @@ console.log(refreshCounter)
   return (
     <div style={{ padding: "" }}>
       <ModeCard
-        title={"Student Form"}
+        title="Student Form"
         extra={<Button type="primary">Close</Button>}
-        styles={{
-          header: {
-         
-          },
-          body: {
-          },
-        }}
       >
-        <Row gutter={[16, 16]}>
-        <Col span={24}>
-        
-        <Form layout="horizontal"  wrapperCol={{span:16}} labelCol={{span:8}}  >
-          <ModeFieldSet title="Personal Information" >
-           <Row gutter={24}>
+        <Form
+          layout="horizontal"
+          labelCol={{ xs: 24, sm: 8 }}
+          wrapperCol={{ xs: 24, sm: 16 }}
+        >
+          <ModeFieldSet title="Personal Information">
+            <Row gutter={[24, 16]}>
+              <Col xs={24} md={12}>
+                <Form.Item label="First Name" name="firstName">
+                  <Input placeholder="Enter first name" />
+                </Form.Item>
+              </Col>
 
-          <Col span={12}>
-            <Form.Item
-              label="First Name"
-            >
-              <Input placeholder="Enter first name" />
-            </Form.Item>
-          </Col>
+              <Col xs={24} md={12}>
+                <Form.Item label="Last Name" name="lastName">
+                  <Input placeholder="Enter last name" />
+                </Form.Item>
+              </Col>
 
-          <Col span={12}>
-            <Form.Item
-              label="Last Name"
-              name="lastName"
-            >
-              <Input placeholder="Enter last name" />
-            </Form.Item>
-          </Col>
+              <Col xs={24} md={12}>
+                <Form.Item label="Date of Birth" name="dob">
+                  <DatePicker style={{ width: "100%" }} />
+                </Form.Item>
+              </Col>
 
-          <Col span={12}>
-            <Form.Item
-              label="Date of Birth"
-              name="dob"
-            >
-              <DatePicker style={{ width: "100%" }} />
-            </Form.Item>
-          </Col>
-
-          <Col span={12}>
-            <Form.Item
-              label="Gender"
-              name="gender"
-              labelCol={{ span: 8 }}
-              wrapperCol={{ span: 16 }}
-            >
-              <Select placeholder="Select gender">
-                <Select.Option value="male">Male</Select.Option>
-                <Select.Option value="female">Female</Select.Option>
-                <Select.Option value="other">Other</Select.Option>
-              </Select>
-            </Form.Item>
-          </Col>
-
-        </Row>
+              <Col xs={24} md={12}>
+                <Form.Item label="Gender" name="gender">
+                  <Select placeholder="Select gender">
+                    <Select.Option value="male">Male</Select.Option>
+                    <Select.Option value="female">Female</Select.Option>
+                    <Select.Option value="other">Other</Select.Option>
+                  </Select>
+                </Form.Item>
+              </Col>
+            </Row>
           </ModeFieldSet>
         </Form>
-         </Col>
-          </Row>
       </ModeCard>
+
       <ModeCard title="Dashboard Statistics">
         <Row gutter={16}>
           <Col span={8}>
-            <ModeFieldSet 
-              title="Total Users" 
-              size="small" 
+            <ModeFieldSet
+              title="Total Users"
+              size="small"
               className="fieldset-primary"
             >
               <div style={{ textAlign: "center", padding: "20px 0" }}>
-                <h2 style={{ margin: 0, fontSize: "32px", color: "#1890ff" }}>1,248</h2>
-                <p style={{ margin: "8px 0 0", color: "#8c8c8c" }}>Active Users</p>
+                <h2 style={{ margin: 0, fontSize: "32px", color: "#1890ff" }}>
+                  1,248
+                </h2>
+                <p style={{ margin: "8px 0 0", color: "#8c8c8c" }}>
+                  Active Users
+                </p>
               </div>
             </ModeFieldSet>
           </Col>
           <Col span={8}>
-            <ModeFieldSet 
-              title="Messages" 
-              size="small" 
+            <ModeFieldSet
+              title="Messages"
+              size="small"
               className="fieldset-success"
             >
               <div style={{ textAlign: "center", padding: "20px 0" }}>
-                <h2 style={{ margin: 0, fontSize: "32px", color: "#52c41a" }}>3,456</h2>
-                <p style={{ margin: "8px 0 0", color: "#8c8c8c" }}>Total Messages</p>
+                <h2 style={{ margin: 0, fontSize: "32px", color: "#52c41a" }}>
+                  3,456
+                </h2>
+                <p style={{ margin: "8px 0 0", color: "#8c8c8c" }}>
+                  Total Messages
+                </p>
               </div>
             </ModeFieldSet>
           </Col>
           <Col span={8}>
-            <ModeFieldSet 
-              title="Organizations" 
-              size="small" 
+            <ModeFieldSet
+              title="Organizations"
+              size="small"
               className="fieldset-warning"
             >
               <div style={{ textAlign: "center", padding: "20px 0" }}>
-                <h2 style={{ margin: 0, fontSize: "32px", color: "#faad14" }}>89</h2>
-                <p style={{ margin: "8px 0 0", color: "#8c8c8c" }}>Registered Orgs</p>
+                <h2 style={{ margin: 0, fontSize: "32px", color: "#faad14" }}>
+                  89
+                </h2>
+                <p style={{ margin: "8px 0 0", color: "#8c8c8c" }}>
+                  Registered Orgs
+                </p>
               </div>
             </ModeFieldSet>
-            
           </Col>
         </Row>
-         <CrudTable
-            tableData={tableData}
-            columns={columns}
-            paramObj={paramObj}
-            setParamObj={setParamObj}
-            setRefreshCounter={setRefreshCounter}
-            tableClassName="table-bordered table-striped"
-            headerStyle={{
-              background: "#52c41a",
-              color: "#ffffff",
-            }}
-          />
+        <CrudTable
+          tableData={tableData}
+          columns={columns}
+          paramObj={paramObj}
+          setParamObj={setParamObj}
+          setRefreshCounter={setRefreshCounter}
+          tableClassName="table-bordered table-striped"
+          headerStyle={{
+            background: "#52c41a",
+            color: "#ffffff",
+          }}
+        />
       </ModeCard>
-
-    
     </div>
   );
 }

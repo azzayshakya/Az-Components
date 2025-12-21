@@ -1,4 +1,4 @@
-import {Avatar, Dropdown, Layout, Space, Typography } from 'antd';
+import { Breadcrumb,  Layout,  } from 'antd';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons';
 const { Header } = Layout;
 
-export default function AdminHeaderComponent({ colorBgContainer,setCollapsed,collapsed,userData}) {
+export default function AdminHeaderComponent({ colorBgContainer,setCollapsed,collapsed,breadcrumbItems,}) {
   return (
     <div><Header
           style={{
@@ -30,6 +30,13 @@ export default function AdminHeaderComponent({ colorBgContainer,setCollapsed,col
           >
             {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           </div>
+          <>
+          {breadcrumbItems.length > 0 && (
+            <Breadcrumb
+              style={{ margin: '0 0 16px 0' }}
+              items={breadcrumbItems}
+            />
+          )}</>
 
          
         </Header></div>

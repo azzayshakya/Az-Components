@@ -11,7 +11,6 @@ import MENU_CONFIG from "../control/MenuConfig";
 
 import AdminFooterComponent from "@/admin/components/Footer";
 import AdminHeaderComponent from "@/admin/components/AdminHeaderComponent";
-import AdminContentComponent from "@/admin/components/AdminContentComponent";
 import { Outlet } from "react-router-dom";
 
 const { Sider } = Layout;
@@ -40,7 +39,7 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
   }, [selectedKeys]);
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout style={{ minHeight: "100vh", border:" 3px blue  solid" }}>
       <Sider
         collapsible
         collapsed={collapsed}
@@ -53,6 +52,7 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
           left: 0,
           top: 0,
           bottom: 0,
+          border:" 3px green  solid" 
         }}
       >
         <div
@@ -93,6 +93,7 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
         style={{
           marginLeft: collapsed ? 80 : 250,
           transition: "margin-left 0.2s",
+          border:" 3px green  solid" 
         }}
       >
         <AdminHeaderComponent
@@ -100,15 +101,15 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
           setCollapsed={setCollapsed}
           collapsed={collapsed}
           userData={userData}
+          breadcrumbItems={breadcrumbItems}
         />
 
         <div
           style={{
-            padding: 24,
-            minHeight: "calc(100vh - 64px)",
+            // minHeight: "calc(100vh - 64px)",
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
-            margin: 16,
+            
           }}
         >
           <Outlet />
