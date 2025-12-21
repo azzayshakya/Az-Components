@@ -2,13 +2,11 @@ import {Avatar, Dropdown, Layout, Space, Typography } from 'antd';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UserOutlined,
 
 } from '@ant-design/icons';
 const { Header } = Layout;
-const { Text } = Typography;
 
-export default function AdminHeaderComponent({ colorBgContainer,setCollapsed,collapsed, userMenuItems,userData,handleUserMenuClick}) {
+export default function AdminHeaderComponent({ colorBgContainer,setCollapsed,collapsed,userData}) {
   return (
     <div><Header
           style={{
@@ -33,21 +31,7 @@ export default function AdminHeaderComponent({ colorBgContainer,setCollapsed,col
             {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           </div>
 
-          {/* User Menu */}
-          <Dropdown
-            menu={{
-              items: userMenuItems,
-              onClick: handleUserMenuClick,
-            }}
-            placement="bottomRight"
-          >
-            <Space style={{ cursor: 'pointer' }}>
-              <Avatar icon={<UserOutlined />} />
-              {!collapsed && (
-                <Text strong>{userData?.name || 'Admin User'}</Text>
-              )}
-            </Space>
-          </Dropdown>
+         
         </Header></div>
   )
 }

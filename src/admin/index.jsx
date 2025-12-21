@@ -70,7 +70,7 @@ export default function index() {
   return (
     <div>
       <AdminMain
-      userRole="user"
+      userRole="admin"
       userData={{ name: 'Ajay' }}
     />
     

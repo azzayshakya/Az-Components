@@ -1,10 +1,6 @@
 import { useState, useMemo } from "react";
 import { Layout, Menu, theme, Typography } from "antd";
-import {
-  UserOutlined,
-  LogoutOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+
 
 import { useMenu } from "../hooks/useMenu";
 
@@ -27,7 +23,6 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
   const { selectedKeys, openKeys, handleMenuClick, handleOpenChange } = useMenu(
     {
       defaultSelectedKey: "dashboard",
@@ -38,51 +33,14 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
   const menuItems = useMemo(() => {
     return buildMenuItems(MENU_CONFIG, userRole);
   }, [userRole]);
-  console.log("azz menu items", { menuItems });
+  console.log(menuItems)
 
   const breadcrumbItems = useMemo(() => {
     return buildBreadcrumbs(selectedKeys[0]);
   }, [selectedKeys]);
 
-  console.log("azz bread Crumb Items", { breadcrumbItems });
 
-  const userMenuItems = [
-    {
-      key: "profile",
-      icon: <UserOutlined />,
-      label: "Profile",
-    },
-    {
-      key: "settings",
-      icon: <SettingOutlined />,
-      label: "Settings",
-    },
-    {
-      type: "divider",
-    },
-    {
-      key: "logout",
-      icon: <LogoutOutlined />,
-      label: "Logout",
-      danger: true,
-    },
-  ];
 
-  const handleUserMenuClick = ({ key }) => {
-    switch (key) {
-      case "profile":
-        console.log("Navigate to profile");
-        break;
-      case "settings":
-        console.log("Navigate to settings");
-        break;
-      case "logout":
-        console.log("Logout user");
-        break;
-      default:
-        break;
-    }
-  };
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -144,9 +102,7 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
           colorBgContainer={colorBgContainer}
           setCollapsed={setCollapsed}
           collapsed={collapsed}
-          userMenuItems={userMenuItems}
           userData={userData}
-          handleUserMenuClick={handleUserMenuClick}
         />
 
         <AdminContentComponent

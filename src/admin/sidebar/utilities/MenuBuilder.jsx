@@ -47,6 +47,7 @@ const filterMenuByPermissions = (menuItems, userRole) => {
           ? { ...item, children: filteredChildren }
           : null;
       }
+      console.log("azb filter memu by permission ", item)
       return item;
     })
     .filter(Boolean); // Remove null items
@@ -59,6 +60,7 @@ const filterMenuByPermissions = (menuItems, userRole) => {
    */
 export const buildMenuItems = (menuConfig, userRole = null) => {
   // Filter by permissions if userRole is provided
+  console.log("aza menu config" , menuConfig)
   const filteredConfig = userRole
     ? filterMenuByPermissions(menuConfig, userRole)
     : menuConfig;
@@ -69,6 +71,7 @@ export const buildMenuItems = (menuConfig, userRole = null) => {
 console.log(divider)
       // Recursively build children if they exist
       const childItems = children && children.length > 0 ? buildItems(children) : undefined;
+      console.log("azb buildMenuItems  ",createMenuItem(label, key, icon, childItems, rest) )
 
       return createMenuItem(label, key, icon, childItems, rest);
     });
