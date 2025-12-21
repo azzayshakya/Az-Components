@@ -7,7 +7,12 @@ import HomeUILayout from "../layout/Home/HomeLayout";
 import AddEmployee from "@/admin/pages/EmployeeManagment/AddEmployee";
 import AllEmployee from "@/admin/pages/EmployeeManagment/AllEmployee";
 import SalaryManagemnt from "@/admin/pages/SalaryManagement";
-import Dashboard from "@/admin/Dashboard";
+import CommentsManagement from "@/admin/pages/CommentsManagement";
+import QueriesManagement from "@/admin/pages/QueriesManagement";
+import AddProject from "@/admin/pages/ProjectManagement/AddProject";
+import AllProject from "@/admin/pages/ProjectManagement/AllProject";
+import UserManagement from "@/admin/pages/userManagement";
+import MyProfile from "@/admin/pages/myProfile";
 
 const router = createBrowserRouter(
   [
@@ -26,22 +31,40 @@ const router = createBrowserRouter(
         },
         {
           path: "/employees/add",
-          element: <AddEmployee/>,
+          element: <AddEmployee />,
         },
         {
           path: "/employees/all",
-          element: <AllEmployee/>,
+          element: <AllEmployee />,
         },
         {
           path: "/salary",
-          element: <SalaryManagemnt/>,
+          element: <SalaryManagemnt />,
         },
         {
-          path: "/dashboard",
-          element: <Dashboard/>,
+          path: "/comments",
+          element: <CommentsManagement />,
         },
-
-       
+        {
+          path: "/queries",
+          element: <QueriesManagement />,
+        },
+        {
+          path: "/projects/add",
+          element: <AddProject />,
+        },
+        {
+          path: "/projects/all",
+          element: <AllProject />,
+        },
+        {
+          path: "/users",
+          element: <UserManagement />,
+        },
+        {
+          path: "/profile",
+          element: <MyProfile />,
+        },
         {
           path: "*",
           element: <NotFoundPage />,
