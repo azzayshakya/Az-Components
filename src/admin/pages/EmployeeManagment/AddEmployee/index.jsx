@@ -6,7 +6,6 @@ export default function AddEmployee() {
   return (
     <div>
       <ModeCard
-      style={{border:"2px red solid"}}
         title="Add Employee"
         extra={<Button type="primary">Close</Button>}
       >
