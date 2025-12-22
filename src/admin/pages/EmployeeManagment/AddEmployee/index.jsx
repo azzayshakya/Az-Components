@@ -6,11 +6,13 @@ export default function AddEmployee() {
   return (
     <div>
       <ModeCard
+      style={{border:"2px red solid"}}
         title="Add Employee"
         extra={<Button type="primary">Close</Button>}
       >
         <Form
           layout="horizontal"
+          size="middle"
           labelCol={{ xs: 24, sm: 8 }}
           wrapperCol={{ xs: 24, sm: 16 }}
         >
@@ -223,7 +225,7 @@ export default function AddEmployee() {
           </ModeFieldSet>
 
           <ModeFieldSet title="Document Uploads">
-            <Row gutter={[24, 16]}>
+            <Row gutter={[24, 16]} >
               <Col xs={24} md={12}>
                 <Form.Item label="Employee Photo" name="photo">
                   <Upload>
@@ -240,7 +242,7 @@ export default function AddEmployee() {
                 </Form.Item>
               </Col>
 
-              <Col xs={24} md={12}>
+              <Col span={12}>
                 <Form.Item label="PAN Card" name="panDoc">
                   <Upload>
                     <Button>Upload PAN</Button>
@@ -255,6 +257,39 @@ export default function AddEmployee() {
                   </Upload>
                 </Form.Item>
               </Col>
+            </Row>
+          </ModeFieldSet>
+          <ModeFieldSet title="Document Uploads">
+            <Row gutter={[24]} >
+              <Col span={12}>
+                <Form.Item label="Employee Photo" name="photo">
+                 <Input placeholder="Relation / Name" />
+                </Form.Item>
+              </Col>
+
+              <Col span={12}>
+                <Form.Item label="Aadhar Card" name="aadharDoc">
+                  <Upload>
+                    <Button>Upload Aadhar</Button>
+                  </Upload>
+                </Form.Item>
+              </Col>
+
+              {/* <Col span={12}>
+                <Form.Item label="PAN Card" name="panDoc">
+                  <Upload>
+                    <Button>Upload PAN</Button>
+                  </Upload>
+                </Form.Item>
+              </Col>
+
+              <Col xs={24} md={12}>
+                <Form.Item label="Other Documents" name="otherDocs">
+                  <Upload>
+                    <Button>Upload Documents</Button>
+                  </Upload>
+                </Form.Item>
+              </Col> */}
             </Row>
           </ModeFieldSet>
         </Form>

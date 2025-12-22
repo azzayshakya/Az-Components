@@ -30,3 +30,11 @@
 .ant-menu .ant-menu-submenu-arrow::before{
   background-color: rgb(22, 119, 255);
 }
+
+.ant-upload-list::after{
+  display: none;
+}
+
+.ant-upload-list::before{
+  display: none;
+}
