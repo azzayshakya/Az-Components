@@ -12,7 +12,7 @@ export default function AddEmployee() {
       >
         <Form
           layout="horizontal"
-          size="middle"
+          size="large"
           labelCol={{ xs: 24, sm: 8 }}
           wrapperCol={{ xs: 24, sm: 16 }}
         >
@@ -224,13 +224,11 @@ export default function AddEmployee() {
             </Row>
           </ModeFieldSet>
 
-          <ModeFieldSet title="Document Uploads">
+          {/* <ModeFieldSet title="Document Uploads"> */}
             <Row gutter={[24, 16]} >
               <Col xs={24} md={12}>
                 <Form.Item label="Employee Photo" name="photo">
-                  <Upload>
-                    <Button>Upload Photo</Button>
-                  </Upload>
+                  <Upload >Upload</Upload>
                 </Form.Item>
               </Col>
 
@@ -258,7 +256,7 @@ export default function AddEmployee() {
                 </Form.Item>
               </Col>
             </Row>
-          </ModeFieldSet>
+          {/* </ModeFieldSet> */}
           <ModeFieldSet title="Document Uploads">
             <Row gutter={[24]} >
               <Col span={12}>
