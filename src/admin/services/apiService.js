@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { storage } from '../utils/storage'
-import { errorHandler } from '../utils/errorHandler'
+import { storage } from './utils/storage'
+import { errorHandler } from './utils/errorHandler'
+
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
