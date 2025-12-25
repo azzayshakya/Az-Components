@@ -9,47 +9,52 @@ export const USER_UI_SCHEMA = {
   createdAt: { type: 'date', showOnUI: false },
 };
 export const EMPLOYEE_UI_SCHEMA = {
+  empId:{type :"string"},
   // Personal Information
-  firstName: { type: 'string', showOnUI: true },
-  lastName: { type: 'string', showOnUI: true },
-  fatherName: { type: 'string', showOnUI: false },
-  dob: { type: 'date', showOnUI: false },
-  gender: { type: 'string', showOnUI: true },
-  mobile: { type: 'string', showOnUI: true },
-  email: { type: 'string', showOnUI: true },
-  aadharNumber: { type: 'string', showOnUI: false },
+  firstName: { type: 'string'  },
+  lastName: { type: 'string'  },
+  fatherName: { type: 'string' },
+  dob: { type: 'date' },
+  gender: { type: 'string'  },
+  mobile: { type: 'string'  },
+  email: { type: 'string'  },
+  aadharNumber: { type: 'string' },
 
   // Employment Details
-  employeeId: { type: 'string', showOnUI: true },
-  joiningDate: { type: 'date', showOnUI: true },
-  workingStatus: { type: 'string', showOnUI: true },
-  lastWorkingDate: { type: 'date', showOnUI: false },
-  department: { type: 'string', showOnUI: true },
-  designation: { type: 'string', showOnUI: true },
-  workLocation: { type: 'string', showOnUI: true },
+  employeeId: { type: 'string',  },
+  joiningDate: { type: 'date' },
+  workingStatus: { type: 'string' },
+  lastWorkingDate: { type: 'date' },
+  department: { type: 'string' },
+  designation: { type: 'string' },
+  workLocation: { type: 'string' },
 
   // Address
-  tempAddress: { type: 'string', showOnUI: false },
-  permanentAddress: { type: 'string', showOnUI: false },
+  tempAddress: { type: 'string' },
+  permanentAddress: { type: 'string' },
 
   // Bank & Salary
-  bankName: { type: 'string', showOnUI: false },
-  accountNumber: { type: 'string', showOnUI: false },
-  ifscCode: { type: 'string', showOnUI: false },
-  salary: { type: 'number', showOnUI: true },
+  bankName: { type: 'string' },
+  accountNumber: { type: 'string' },
+  ifscCode: { type: 'string' },
+  salary: { type: 'number' },
 
   // Emergency
-  emergencyContact: { type: 'string', showOnUI: false },
-  emergencyDetails: { type: 'string', showOnUI: false },
+  emergencyContact: { type: 'string' },
+  emergencyDetails: { type: 'string' },
 
   // Documents
-  photo: { type: 'string', showOnUI: false },
-  aadharDoc: { type: 'string', showOnUI: false },
-  panDoc: { type: 'string', showOnUI: false },
-  otherDocs: { type: 'array', showOnUI: false },
+  document :[ type = "array", data=" string with array of photos "
+    ,aadharDoc=" string with array of photos ",
+    panDoc=" string with array of photos ",
+    otherDocs=" string with array of photos "  ],
+  // photo: { type: 'string' },
+  // aadharDoc: { type: 'string' },
+  // panDoc: { type: 'string' },
+  // otherDocs: { type: 'array' },
 };
 export const QUERY_UI_SCHEMA = {
-  id: { type: 'string', showOnUI: true },
+  queryId: { type: 'string', showOnUI: true }, // it will be set from uuid in backend not handled from the ui  Ex. PRJ-2025-0012
   userId: { type: 'string', showOnUI: false },
   userName: { type: 'string', showOnUI: true },
   subject: { type: 'string', showOnUI: true },
@@ -60,7 +65,7 @@ export const QUERY_UI_SCHEMA = {
   resolvedAt: { type: 'date', showOnUI: false },
 };
 export const PROJECT_UI_SCHEMA = {
-  id: { type: 'string', showOnUI: true },
+  id: { type: 'string', showOnUI: true },// it will be set from uuid in backend not handled from the ui   Ex. PRJ-2025-0012
   projectName: { type: 'string', showOnUI: true },
   clientName: { type: 'string', showOnUI: true },
   projectType: { type: 'string', showOnUI: true },
@@ -72,7 +77,21 @@ export const PROJECT_UI_SCHEMA = {
   teamMembers: { type: 'array', showOnUI: false },
   description: { type: 'string', showOnUI: false },
 
-  // Special flag
-  isCurrentlyShowingOnUI: { type: 'boolean', showOnUI: true },
+};
+
+
+export const COMMENTS_UI_SCHEMA = {
+  id: { type: 'string', showOnUI: true },// it will be set from uuid in backend not handled from the ui   Ex. PRJ-2025-0012
+  projectName: { type: 'string', showOnUI: true },
+  clientName: { type: 'string', showOnUI: true },
+  projectType: { type: 'string', showOnUI: true },
+  status: { type: 'string', showOnUI: true },
+  startDate: { type: 'date', showOnUI: true },
+  endDate: { type: 'date', showOnUI: false },
+  budget: { type: 'number', showOnUI: true },
+  projectManager: { type: 'string', showOnUI: true },
+  teamMembers: { type: 'array', showOnUI: false },
+  description: { type: 'string', showOnUI: false },
+
 };
 
