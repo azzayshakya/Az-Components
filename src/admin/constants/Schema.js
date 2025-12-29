@@ -13,6 +13,7 @@ export const EMPLOYEE_UI_SCHEMA = {
   // Personal Information
   firstName: { type: 'string'  },
   lastName: { type: 'string'  },
+  fullName:{type:'string '}, // genrate from backend 
   fatherName: { type: 'string' },
   dob: { type: 'date' },
   gender: { type: 'string'  },
@@ -38,6 +39,12 @@ export const EMPLOYEE_UI_SCHEMA = {
   accountNumber: { type: 'string' },
   ifscCode: { type: 'string' },
   salary: { type: 'number' },
+  // backen self creation used on update the user details of history
+  salaryHistory: [
+        { from: "2023-01", to: "2023-06", salary: 45000 },
+        { from: "2023-07", to: "2024-02", salary: 55000 },
+        { from: "2024-03", to: "Present", salary: 65000, isActive: true },
+      ],
 
   // Emergency
   emergencyContact: { type: 'string' },

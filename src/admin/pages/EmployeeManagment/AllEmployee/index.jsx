@@ -4,6 +4,7 @@ import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import { Button, Col, Input, Row, Select } from "antd";
 import { useState } from "react";
+import { DEPARTMENT, WORK_STATUS } from "../../constants/enum";
 
 export default function AllEmployee() {
   const [refreshCounter, setRefreshCounter] = useState(0);
@@ -18,21 +19,21 @@ export default function AllEmployee() {
   });
 
   const tableData = employeeListResponse.data.filter((emp) => {
-    return (
+    return (    
       (!paramObj.department || emp.department === paramObj.department) &&
       (!paramObj.workingStatus ||
         emp.workingStatus === paramObj.workingStatus) &&
       (!paramObj.search ||
-        emp.name.toLowerCase().includes(paramObj.search.toLowerCase()) ||
+        emp.fullName.toLowerCase().includes(paramObj.search.toLowerCase()) ||
         emp.email.toLowerCase().includes(paramObj.search.toLowerCase()))
     );
   });
 
   const columns = [
     { title: "Emp ID", dataIndex: "employeeId", key: "employeeId", width: 120 },
-    { title: "Name", dataIndex: "name", key: "name", sorter: true },
+    { title: "Name", dataIndex: "fullName", key: "fullName", sorter: true },
     { title: "Email", dataIndex: "email", key: "email", width: 220 },
-    { title: "Phone", dataIndex: "phone", key: "phone", width: 150 },
+    { title: "Phone", dataIndex: "mobile", key: "mobile", width: 150 },
     { title: "Department", dataIndex: "department", key: "department" },
     { title: "Designation", dataIndex: "designation", key: "designation" },
     { title: "Status", dataIndex: "workingStatus", key: "workingStatus" },
@@ -53,33 +54,30 @@ export default function AllEmployee() {
     <ModeCard title="All Employees">
       <ModeFieldSet title="Filters">
         <Row gutter={[16, 16]}>
-          <Col xs={24} md={6}>
+          <Col xs={24} md={8}>
             <Select
               allowClear
               placeholder="Department"
+              options={DEPARTMENT}
               style={{ width: "100%" }}
               onChange={(val) => setParamObj({ ...paramObj, department: val })}
             >
-              <Select.Option value="Civil">Civil</Select.Option>
-              <Select.Option value="Electrical">Electrical</Select.Option>
-              <Select.Option value="Mechanical">Mechanical</Select.Option>
-              <Select.Option value="Fire Fighting">Fire Fighting</Select.Option>
-              <Select.Option value="IT">IT</Select.Option>
             </Select>
           </Col>
 
-          <Col xs={24} md={6}>
+          <Col xs={24} md={8}>
             <Select
               allowClear
               placeholder="Working Status"
               style={{ width: "100%" }}
+              options={WORK_STATUS}
               onChange={(val) =>
                 setParamObj({ ...paramObj, workingStatus: val })
               }
             >
-              <Select.Option value="working">Working</Select.Option>
+              {/* <Select.Option value="working">Working</Select.Option>
               <Select.Option value="resigned">Resigned</Select.Option>
-              <Select.Option value="terminated">Terminated</Select.Option>
+              <Select.Option value="terminated">Terminated</Select.Option> */}
             </Select>
           </Col>
 
@@ -93,7 +91,7 @@ export default function AllEmployee() {
             />
           </Col>
 
-          <Col xs={24} md={4}>
+          {/* <Col xs={24} md={4}>
             <Button
               type="primary"
               block
@@ -101,7 +99,7 @@ export default function AllEmployee() {
             >
               Apply
             </Button>
-          </Col>
+          </Col> */}
         </Row>
       </ModeFieldSet>
 
