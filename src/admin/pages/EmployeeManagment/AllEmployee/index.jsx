@@ -3,12 +3,18 @@ import CrudTable from "@/pages/antdFormTable/components/CrudTable";
 import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import { Button, Col, Input, Row, Select } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DEPARTMENT, WORK_STATUS } from "../../constants/enum";
+import { DeleteOutlined, EditOutlined, EyeOutlined, MoreOutlined } from "@ant-design/icons";
+import {  Space, Tooltip, Dropdown } from "antd";
+
 
 export default function AllEmployee() {
   const [refreshCounter, setRefreshCounter] = useState(0);
+  const [,setData]=useState([]);
+  const [initialData,setInitialData]=useState({})
   console.log(refreshCounter);
+  console.log("initial",initialData)
   const [paramObj, setParamObj] = useState({
     limit: 10,
     offset: 0,
@@ -19,7 +25,7 @@ export default function AllEmployee() {
   });
 
   const tableData = employeeListResponse.data.filter((emp) => {
-    return (    
+    return (
       (!paramObj.department || emp.department === paramObj.department) &&
       (!paramObj.workingStatus ||
         emp.workingStatus === paramObj.workingStatus) &&
@@ -37,20 +43,52 @@ export default function AllEmployee() {
     { title: "Department", dataIndex: "department", key: "department" },
     { title: "Designation", dataIndex: "designation", key: "designation" },
     { title: "Status", dataIndex: "workingStatus", key: "workingStatus" },
-    {
-      title: "Action",
-      key: "action",
-      fixed: "right",
-      width: 120,
-      render: () => (
-        <Button danger size="small">
-          Delete
-        </Button>
-      ),
-    },
-  ];
+   {
+  title: "Action",
+  key: "action",
+  fixed: "right",
+  width: 120,
+  render: (_, record) => (
+    <>
+     <Space size="small">
+          <Tooltip title="View">
+            <Button
+              type="text"
+              icon={<EyeOutlined />}
+              onClick={() => setInitialData(record)}
+              className="table-action-btn-view"
+            />
+          </Tooltip>
+          
+          <Tooltip title="Edit">
+            <Button
+              type="text"
+              icon={<EditOutlined />}
+              onClick={() => setInitialData(record)}
+              className="table-action-btn-edit"
+            />
+          </Tooltip>
+          
+          <Tooltip title="Delete">
+            <Button
+              type="text"
+              danger
+              icon={<DeleteOutlined />}
+              onClick={() =>setInitialData(record)}
+              className="table-action-btn-delete"
+            />
+          </Tooltip>
+        </Space>
+    </>
+  ),
+}
 
+  ];
+useEffect(()=>{
+  setData(employeeListResponse.data)
+},[])
   return (
+    
     <ModeCard title="All Employees">
       <ModeFieldSet title="Filters">
         <Row gutter={[16, 16]}>
@@ -75,9 +113,6 @@ export default function AllEmployee() {
                 setParamObj({ ...paramObj, workingStatus: val })
               }
             >
-              {/* <Select.Option value="working">Working</Select.Option>
-              <Select.Option value="resigned">Resigned</Select.Option>
-              <Select.Option value="terminated">Terminated</Select.Option> */}
             </Select>
           </Col>
 
@@ -90,16 +125,6 @@ export default function AllEmployee() {
               }
             />
           </Col>
-
-          {/* <Col xs={24} md={4}>
-            <Button
-              type="primary"
-              block
-              onClick={() => setRefreshCounter((p) => p + 1)}
-            >
-              Apply
-            </Button>
-          </Col> */}
         </Row>
       </ModeFieldSet>
 
