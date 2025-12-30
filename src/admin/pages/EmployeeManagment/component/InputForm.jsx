@@ -26,7 +26,7 @@ export default function InputForm({ type, initialData, setShowInputForm, setType
 
     const isView = type === "VIEW";
     const isEdit = type === "EDIT";
-    const isAdd = type === "ADD";
+    // const isAdd = type === "ADD";
     useEffect(() => {
         if ((isView || isEdit) && initialData) {
             form.setFieldsValue(initialData);
