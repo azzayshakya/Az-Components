@@ -17,7 +17,7 @@
 // export default HomeUILayout;
 
 
-import AdminMain from "@/admin/sidebar/managment-hook/AdminMain";
+import AdminMain from "@/admin/AdminMain";
 
 const HomeUILayout = () => {
   return (

@@ -2,16 +2,16 @@ import { useState, useMemo } from "react";
 import { Layout, Menu, theme, Typography } from "antd";
 
 
-import { buildMenuItems } from "../utilities/MenuBuilder";
-import { buildBreadcrumbs } from "../utilities/breadCrumbBuilder";
+import { buildMenuItems } from "./sidebar/utilities/MenuBuilder";
+import { buildBreadcrumbs } from "./sidebar/utilities/breadCrumbBuilder";
 
-import { USER_ROLES } from "../constants/Permission";
-import MENU_CONFIG from "../control/MenuConfig";
+import { USER_ROLES } from "./sidebar/constants/Permission";
+import MENU_CONFIG from "./sidebar/control/MenuConfig";
 
 import AdminFooterComponent from "@/admin/components/Footer";
 import AdminHeaderComponent from "@/admin/components/AdminHeaderComponent";
 import { Outlet } from "react-router-dom";
-import useMenu from "../hooks/useMenu";
+import useMenu from "./sidebar/hooks/useMenu";
 
 const { Sider } = Layout;
 const { Text } = Typography;
