@@ -5,7 +5,7 @@ import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import { Button, Col, Input, Row, Select } from "antd";
 import { useEffect, useState } from "react";
 import { DEPARTMENT, WORK_STATUS } from "../../constants/enum";
-import { DeleteOutlined, EditOutlined, EyeOutlined, MoreOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { Space, Tooltip } from "antd";
 import InputForm from "../component/InputForm";
 

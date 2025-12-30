@@ -1,7 +1,6 @@
 import { useState, useMemo } from "react";
 import { Layout, Menu, theme, Typography } from "antd";
 
-import { useMenu } from "../hooks/useMenu";
 
 import { buildMenuItems } from "../utilities/MenuBuilder";
 import { buildBreadcrumbs } from "../utilities/breadCrumbBuilder";
@@ -12,6 +11,7 @@ import MENU_CONFIG from "../control/MenuConfig";
 import AdminFooterComponent from "@/admin/components/Footer";
 import AdminHeaderComponent from "@/admin/components/AdminHeaderComponent";
 import { Outlet } from "react-router-dom";
+import useMenu from "../hooks/useMenu";
 
 const { Sider } = Layout;
 const { Text } = Typography;
