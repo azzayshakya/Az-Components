@@ -11,7 +11,7 @@ import MENU_CONFIG from "./sidebar/control/MenuConfig";
 import AdminFooterComponent from "@/admin/components/Footer";
 import AdminHeaderComponent from "@/admin/components/AdminHeaderComponent";
 import { Outlet } from "react-router-dom";
-import useMenu from "./sidebar/hooks/useMenu";
+import useMenu from "@/admin/sidebar/hooks/useMenu";
 
 const { Sider } = Layout;
 const { Text } = Typography;
