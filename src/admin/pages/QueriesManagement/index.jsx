@@ -2,8 +2,10 @@ import { queryListResponse } from "@/admin/constants/dummyResponse";
 import CrudTable from "@/pages/antdFormTable/components/CrudTable";
 import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
-import { Button, Col, Input, Row, Select, Tag } from "antd";
+import { Button, Col, Input, Row, Select, Space, Tag, Tooltip } from "antd";
 import { useState } from "react";
+import DynamicAntdStatusTag from "../constants/DynamicAntdStatusTag";
+import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 
 export default function QueriesManagement() {
   const [refreshCounter, setRefreshCounter] = useState(0);
@@ -35,30 +37,66 @@ export default function QueriesManagement() {
       title: "Priority",
       dataIndex: "priority",
       key: "priority",
-      render: (val) => (
-        <Tag
-          color={val === "high" ? "red" : val === "medium" ? "orange" : "blue"}
-        >
-          {val.toUpperCase()}
-        </Tag>
-      ),
+      render: (status) => DynamicAntdStatusTag({
+        status,
+        size: "large",
+      }),
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (val) => (
-        <Tag color={val === "resolved" ? "green" : "gold"}>
-          {val.toUpperCase()}
-        </Tag>
-      ),
+      render: (status) => DynamicAntdStatusTag({
+        status,
+        size: "large",
+      }),
     },
     { title: "Created At", dataIndex: "createdAt", key: "createdAt" },
     {
       title: "Action",
       key: "action",
       width: 120,
-      render: () => <Button size="small">View</Button>,
+       render: (_, record) => (
+        <>
+          <Space size="small">
+            <Tooltip title="View">
+              <Button
+                type="text"
+                icon={<EyeOutlined />}
+                onClick={() => {
+                  // setShowInputForm(true);
+                  // setInitialData(record);
+                  // setType("VIEW")
+                }}
+                className="table-action-btn-view"
+              />
+            </Tooltip>
+
+            <Tooltip title="Edit">
+              <Button
+                type="text"
+                icon={<EditOutlined />}
+                onClick={() => {
+                  // setShowInputForm(true);
+                  // setInitialData(record);
+                  // setType("EDIT")
+                }}
+                className="table-action-btn-edit"
+              />
+            </Tooltip>
+
+            <Tooltip title="Delete">
+              <Button
+                type="text"
+                danger
+                icon={<DeleteOutlined />}
+                // onClick={() => setInitialData(record)}
+                className="table-action-btn-delete"
+              />
+            </Tooltip>
+          </Space>
+        </>
+      ),
     },
   ];
 

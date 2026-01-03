@@ -1,6 +1,7 @@
 import { Table, Tag, Input, Select, Row, Col, Button } from "antd";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import { allUsersResponse } from "@/admin/constants/dummyResponse";
+import DynamicAntdStatusTag from "../constants/DynamicAntdStatusTag";
 
 const { Option } = Select;
 
@@ -13,11 +14,10 @@ export default function UserManagement() {
     {
       title: "Status",
       dataIndex: "status",
-      render: (status) => (
-        <Tag color={status === "active" ? "green" : "red"}>
-          {status.toUpperCase()}
-        </Tag>
-      ),
+      render: (status) => DynamicAntdStatusTag({
+        status,
+        size: "medium",
+      }),
     },
   ];
 

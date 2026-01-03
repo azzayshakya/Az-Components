@@ -4,7 +4,7 @@ import { Button, Col, Form, Input, Row, Select, DatePicker } from "antd";
 
 export default function AddProject() {
   return (
-    <ModeCard title="Add Project" extra={<Button type="primary">Close</Button>}>
+    <ModeCard title="Add Project" extra={<Button type="primary">Submit</Button>}>
       <Form layout="horizontal" labelCol={{ sm: 8 }} wrapperCol={{ sm: 16 }}>
         <ModeFieldSet title="Project Information">
           <Row gutter={[24, 16]}>

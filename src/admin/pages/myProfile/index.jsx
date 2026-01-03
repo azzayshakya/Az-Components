@@ -39,7 +39,7 @@ export default function MyProfile() {
   return (
     <ModeCard
       title="My Profile"
-      extra={<Button disabled type="primary">Edit</Button>}
+      // extra={<Button disabled type="primary">Edit</Button>}
     >
       <Form
         form={form}

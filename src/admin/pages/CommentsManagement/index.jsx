@@ -2,8 +2,9 @@ import { commentListResponse } from "@/admin/constants/dummyResponse";
 import CrudTable from "@/pages/antdFormTable/components/CrudTable";
 import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
-import { Button, Col, Input, Row, Select, Rate, Tag } from "antd";
+import { Button, Col, Input, Row, Select, Rate, Tag, Space, Tooltip } from "antd";
 import { useState } from "react";
+import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 
 export default function CommentsManagement() {
   const [refreshCounter, setRefreshCounter] = useState(0);
@@ -52,14 +53,45 @@ export default function CommentsManagement() {
       title: "Action",
       key: "action",
       width: 150,
-      render: () => (
+      render: (_, record) => (
         <>
-          <Button size="small" type="link">
-            Approve
-          </Button>
-          <Button size="small" danger type="link">
-            Delete
-          </Button>
+          <Space size="small">
+            <Tooltip title="View">
+              <Button
+                type="text"
+                icon={<EyeOutlined />}
+                onClick={() => {
+                  // setShowInputForm(true);
+                  // setInitialData(record);
+                  // setType("VIEW")
+                }}
+                className="table-action-btn-view"
+              />
+            </Tooltip>
+
+            <Tooltip title="Edit">
+              <Button
+                type="text"
+                icon={<EditOutlined />}
+                onClick={() => {
+                  // setShowInputForm(true);
+                  // setInitialData(record);
+                  // setType("EDIT")
+                }}
+                className="table-action-btn-edit"
+              />
+            </Tooltip>
+
+            <Tooltip title="Delete">
+              <Button
+                type="text"
+                danger
+                icon={<DeleteOutlined />}
+                // onClick={() => setInitialData(record)}
+                className="table-action-btn-delete"
+              />
+            </Tooltip>
+          </Space>
         </>
       ),
     },
