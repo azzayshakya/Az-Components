@@ -6,7 +6,13 @@ import '../src/css/AntForm.css'
 
 
 import App from "./App.jsx";
+import AuthGate from "./admin/authContext/AdminGate";
+import { AdminAuthProvider } from "./admin/authContext/auth";
 
 createRoot(document.getElementById("root")).render(
-    <App />
+     <AdminAuthProvider>
+    <AuthGate>
+      <App />
+    </AuthGate>
+  </AdminAuthProvider>
 );
