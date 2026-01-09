@@ -1,3 +1,5 @@
+import Password from "antd/es/input/Password";
+
 export const USER_UI_SCHEMA = {
   id: { type: 'string', showOnUI: true },
   name: { type: 'string', showOnUI: true },
@@ -9,6 +11,7 @@ export const USER_UI_SCHEMA = {
   createdAt: { type: 'date', showOnUI: false },
 };
 export const EMPLOYEE_UI_SCHEMA = {
+  image:{type:"string"},
   empId:{type :"string"},
   // Personal Information
   firstName: { type: 'string'  },
@@ -20,9 +23,9 @@ export const EMPLOYEE_UI_SCHEMA = {
   mobile: { type: 'string'  },
   email: { type: 'string'  },
   aadharNumber: { type: 'string' },
-
+Password:{},
   // Employment Details
-  employeeId: { type: 'string',  },
+ 
   joiningDate: { type: 'date' },
   workingStatus: { type: 'string' },
   lastWorkingDate: { type: 'date' },
@@ -59,20 +62,29 @@ export const EMPLOYEE_UI_SCHEMA = {
   // aadharDoc: { type: 'string' },
   // panDoc: { type: 'string' },
   // otherDocs: { type: 'array' },
+  terms:{},
+  userRole:{}
 };
 export const QUERY_UI_SCHEMA = {
-  queryId: { type: 'string', showOnUI: true }, // it will be set from uuid in backend not handled from the ui  Ex. PRJ-2025-0012
-  userId: { type: 'string', showOnUI: false },
-  userName: { type: 'string', showOnUI: true },
-  subject: { type: 'string', showOnUI: true },
-  message: { type: 'string', showOnUI: true },
-  status: { type: 'string', showOnUI: true }, 
-  priority: { type: 'string', showOnUI: true },
-  createdAt: { type: 'date', showOnUI: true },
-  resolvedAt: { type: 'date', showOnUI: false },
+  queryId: { type: "string" },
+
+  fullName: { type: "string" },
+  email: { type: "string" },
+  mobile: { type: "string" },
+  location: { type: "string" },
+
+  subject: { type: "string" },
+  message: { type: "string" },
+
+  status: { type: "string" },
+
+  showOnUI: { type: "boolean", default: false },
+
+  createdAt: { type: "date" },
 };
+
 export const PROJECT_UI_SCHEMA = {
-  id: { type: 'string', showOnUI: true },// it will be set from uuid in backend not handled from the ui   Ex. PRJ-2025-0012
+  id: { type: 'string' },// it will be set from uuid in backend not handled from the ui   Ex. PRJ-2025-0012
   projectName: { type: 'string', showOnUI: true },
   clientName: { type: 'string', showOnUI: true },
   projectType: { type: 'string', showOnUI: true },
@@ -88,17 +100,8 @@ export const PROJECT_UI_SCHEMA = {
 
 
 export const COMMENTS_UI_SCHEMA = {
-  id: { type: 'string', showOnUI: true },// it will be set from uuid in backend not handled from the ui   Ex. PRJ-2025-0012
-  projectName: { type: 'string', showOnUI: true },
-  clientName: { type: 'string', showOnUI: true },
-  projectType: { type: 'string', showOnUI: true },
-  status: { type: 'string', showOnUI: true },
-  startDate: { type: 'date', showOnUI: true },
-  endDate: { type: 'date', showOnUI: false },
-  budget: { type: 'number', showOnUI: true },
-  projectManager: { type: 'string', showOnUI: true },
-  teamMembers: { type: 'array', showOnUI: false },
-  description: { type: 'string', showOnUI: false },
+  commentid: { type: 'string', showOnUI: true },// it will be set from uuid in backend not handled from the ui   Ex. PRJ-2025-0012
+ 
 
 };
 

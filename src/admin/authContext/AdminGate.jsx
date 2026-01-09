@@ -6,8 +6,8 @@ export default function AuthGate({ children }) {
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
-    if (!loading) {
-      const timer = setTimeout(() => setShowContent(true), 100);
+          if (!loading) {
+          const timer = setTimeout(() => setShowContent(true), 100);
       return () => clearTimeout(timer);
     }
   }, [loading]);

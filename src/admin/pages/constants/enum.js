@@ -2,24 +2,110 @@ export const GENDER = [
   { label: 'Male', value: 'male' },
   { label: 'Female', value: 'female' },
   { label: 'Other', value: 'other' },
-]
-
-export const DEPARTMENT = [
-  { label: 'Civil Engineering', value: 'civil' },
-  { label: 'Electrical Engineering', value: 'electrical' },
-  { label: 'Mechanical Engineering', value: 'mechanical' },
-  { label: 'Fire Fighting', value: 'firefighting' },
-  { label: 'Site Engineer', value: 'site' },
+  { label: 'Prefer Not to Say', value: 'na' },
 ]
 
 export const WORK_STATUS = [
   { label: 'Currently Working', value: 'working' },
+  { label: 'On Notice Period', value: 'notice_period' },
   { label: 'Resigned', value: 'resigned' },
   { label: 'Terminated', value: 'terminated' },
+  { label: 'Retired', value: 'retired' },
+  { label: 'Contract Completed', value: 'contract_completed' },
+]
+
+export const EMPLOYMENT_TYPE = [
+  { label: 'Permanent', value: 'permanent' },
+  { label: 'Contract', value: 'contract' },
+  { label: 'Daily Wages', value: 'daily_wages' },
+  { label: 'Consultant', value: 'consultant' },
+  { label: 'Third-Party Vendor', value: 'vendor' },
+  { label: 'Intern / Trainee', value: 'intern' },
 ]
 
 export const WORK_LOCATION = [
   { label: 'Work From Office', value: 'wfo' },
   { label: 'Work From Home', value: 'wfh' },
+  { label: 'Hybrid', value: 'hybrid' },
   { label: 'Site Work', value: 'site' },
+  { label: 'Remote (Outstation)', value: 'remote' },
+]
+export const USER_ROLES = [
+  { label: 'Super Admin', value: 'super_admin' },
+  { label: 'Admin', value: 'admin' },
+  { label: 'CEO', value: 'ceo' },
+  { label: 'COO', value: 'coo' },
+  { label: 'CFO', value: 'cfo' },
+  { label: 'CTO', value: 'cto' },
+  { label: 'General Manager', value: 'gm' },
+  { label: 'Project Manager', value: 'project_manager' },
+  { label: 'Site Manager', value: 'site_manager' },
+  { label: 'HR Manager', value: 'hr_manager' },
+  { label: 'Finance Manager', value: 'finance_manager' },
+  { label: 'Team Lead', value: 'team_lead' },
+  { label: 'Engineer', value: 'engineer' },
+  { label: 'Supervisor', value: 'supervisor' },
+  { label: 'Accountant', value: 'accountant' },
+  { label: 'Employee', value: 'employee' },
+  { label: 'Intern', value: 'intern' },
+  { label: 'Vendor', value: 'vendor' },
+  { label: 'Guest / Viewer', value: 'viewer' },
+]
+// Department  → WHAT field
+// Designation → WHAT position in that field
+export const DEPARTMENT = [
+  { label: 'Civil Engineering', value: 'civil' },
+  { label: 'Electrical Engineering', value: 'electrical' },
+  { label: 'Mechanical Engineering', value: 'mechanical' },
+  { label: 'Fire Fighting', value: 'firefighting' },
+  { label: 'Site Engineering', value: 'site' },
+  { label: 'Project Management', value: 'project' },
+  { label: 'Procurement', value: 'procurement' },
+  { label: 'Quality & Safety', value: 'quality_safety' },
+  { label: 'Operations', value: 'operations' },
+  { label: 'Finance & Accounts', value: 'finance' },
+  { label: 'Human Resources', value: 'hr' },
+  { label: 'IT & Software', value: 'it' },
+  { label: 'Administration', value: 'admin' },
+]
+export const DESIGNATION = [
+  // Leadership
+  { label: 'Chief Executive Officer (CEO)', value: 'ceo' },
+  { label: 'Chief Operating Officer (COO)', value: 'coo' },
+  { label: 'Chief Financial Officer (CFO)', value: 'cfo' },
+  { label: 'Chief Technology Officer (CTO)', value: 'cto' },
+
+  // Management
+  { label: 'General Manager', value: 'general_manager' },
+  { label: 'Project Manager', value: 'project_manager' },
+  { label: 'Deputy Project Manager', value: 'deputy_pm' },
+  { label: 'Site Manager', value: 'site_manager' },
+  { label: 'HR Manager', value: 'hr_manager' },
+  { label: 'Finance Manager', value: 'finance_manager' },
+
+  // Engineering
+  { label: 'Senior Civil Engineer', value: 'senior_civil_engineer' },
+  { label: 'Civil Engineer', value: 'civil_engineer' },
+  { label: 'Senior Electrical Engineer', value: 'senior_electrical_engineer' },
+  { label: 'Electrical Engineer', value: 'electrical_engineer' },
+  { label: 'Mechanical Engineer', value: 'mechanical_engineer' },
+  { label: 'Fire Fighting Engineer', value: 'firefighting_engineer' },
+  { label: 'Site Engineer', value: 'site_engineer' },
+
+  // Support
+  { label: 'Safety Officer', value: 'safety_officer' },
+  { label: 'Quality Engineer', value: 'quality_engineer' },
+  { label: 'Store Incharge', value: 'store_incharge' },
+  { label: 'Procurement Officer', value: 'procurement_officer' },
+
+  // Finance & HR
+  { label: 'Accountant', value: 'accountant' },
+  { label: 'Accounts Executive', value: 'accounts_executive' },
+  { label: 'HR Executive', value: 'hr_executive' },
+
+  // Others
+  { label: 'Supervisor', value: 'supervisor' },
+  { label: 'Technician', value: 'technician' },
+  { label: 'Office Assistant', value: 'office_assistant' },
+  { label: 'Intern / Trainee', value: 'intern' },
 ]
