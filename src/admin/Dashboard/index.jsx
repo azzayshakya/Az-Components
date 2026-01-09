@@ -120,7 +120,7 @@ export default function Dashboard() {
     <div className="dashboard-container" style={{ padding: 24, minHeight: "85vh" }}>
       {/* Welcome Card with Enhanced Design */}
       <Card
-        className={`welcome-card ${mounted ? "fade-in" : ""}`}
+        className={`welcome-card ${mounted ? "" : ""}`}
         style={{
           marginBottom: 24,
           borderRadius: 16,
