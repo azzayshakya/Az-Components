@@ -1,19 +1,43 @@
-import { Table, Tag, Input, Select, Row, Col, Button } from "antd";
+import { Input, Select, Row, Col, Button } from "antd";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import { allUsersResponse } from "@/admin/constants/dummyResponse";
 import DynamicAntdStatusTag from "../constants/DynamicAntdStatusTag";
-
-const { Option } = Select;
+import { useState } from "react";
+import CrudTable from "@/pages/antdFormTable/components/CrudTable";
+import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
+import { DEPARTMENT_ENUM, USER_ROLES_ENUM } from "../constants/enum";
 
 export default function UserManagement() {
+ const [refreshCounter, setRefreshCounter] = useState(0);
+console.log(refreshCounter)
+  const [paramObj, setParamObj] = useState({
+    limit: 10,
+    offset: 0,
+    total: allUsersResponse.meta.total,
+    role: "",
+    department: "",
+    name: "",
+  });
+
+  const handleClear = () => {
+    setParamObj({
+      ...paramObj,
+      role: "",
+      department: "",
+      name: "",
+    });
+    setRefreshCounter((p) => p + 1);
+  };
+  const tableData = allUsersResponse.data.filter((q) => { return ( (!paramObj.department || q.department === paramObj.department) && (!paramObj.role || q.role === paramObj.role) && (!paramObj.search || q.name.toLowerCase().includes(paramObj.search.toLowerCase())) ); });
   const columns = [
-    { title: "Employee ID", dataIndex: "employeeId" },
-    { title: "Name", dataIndex: "name" },
-    { title: "Role", dataIndex: "role" },
-    { title: "Department", dataIndex: "department" },
+    { title: "Employee ID", dataIndex: "employeeId",align:"center"  },
+    { title: "Name", dataIndex: "name",align:"center" },
+    { title: "Role", dataIndex: "role",align:"center" },
+    { title: "Department", dataIndex: "department",align:"center" },
     {
       title: "Status",
       dataIndex: "status",
+      align:"center",
       render: (status) => DynamicAntdStatusTag({
         status,
         size: "medium",
@@ -21,39 +45,71 @@ export default function UserManagement() {
     },
   ];
 
-  return (
+   return (
     <ModeCard title="All Users">
-      {/* Filters */}
-      <Row gutter={[16, 16]}>
-        <Col md={6}>
-          <Input placeholder="Search by name" />
-        </Col>
-        <Col md={6}>
-          <Select placeholder="Role" style={{ width: "100%" }}>
-            <Option value="admin">Admin</Option>
-            <Option value="employee">Employee</Option>
-          </Select>
-        </Col>
-        <Col md={6}>
-          <Select placeholder="Department" style={{ width: "100%" }}>
-            <Option value="IT">IT</Option>
-            <Option value="Civil">Civil</Option>
-            <Option value="Electrical">Electrical</Option>
-          </Select>
-        </Col>
-        <Col md={6}>
-          <Button type="primary" block>
-            Apply Filter
-          </Button>
-        </Col>
-      </Row>
+      <ModeFieldSet title="Filters">
+        <Row gutter={[12, 12]} align="middle">
+          <Col xs={24} sm={12} md={5}>
+            <Select
+              allowClear
+              placeholder="Role"
+              value={paramObj.role || undefined}
+              style={{ width: "100%" }}
+              options={USER_ROLES_ENUM}
+              onChange={(val) =>
+                setParamObj((p) => ({ ...p, role: val }))
+              }
+            />
+          </Col>
 
-      <Table
-        style={{ marginTop: 20 }}
+          <Col xs={24} sm={12} md={5}>
+            <Select
+              allowClear
+              placeholder="Department"
+              value={paramObj.department || undefined}
+              style={{ width: "100%" }}
+              options={DEPARTMENT_ENUM}
+              onChange={(val) =>
+                setParamObj((p) => ({ ...p, department: val }))
+              }
+            />
+          </Col>
+
+          <Col xs={24} md={8}>
+            <Input
+              allowClear
+              placeholder="Search by name"
+              value={paramObj.name}
+              onChange={(e) =>
+                setParamObj((p) => ({ ...p, name: e.target.value }))
+              }
+            />
+          </Col>
+
+          <Col xs={12} md={3}>
+            <Button
+              type="primary"
+              block
+              onClick={() => setRefreshCounter((p) => p + 1)}
+            >
+              Apply
+            </Button>
+          </Col>
+
+          <Col xs={12} md={3}>
+            <Button block onClick={handleClear}>
+              Clear
+            </Button>
+          </Col>
+        </Row>
+      </ModeFieldSet>
+
+      <CrudTable
+        tableData={tableData}
         columns={columns}
-        dataSource={allUsersResponse.data}
-        rowKey="id"
-        tableClassName="table-bordered table-striped"
+        paramObj={paramObj}
+        setParamObj={setParamObj}
+        setRefreshCounter={setRefreshCounter}
       />
     </ModeCard>
   );

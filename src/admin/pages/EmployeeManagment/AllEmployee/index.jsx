@@ -4,7 +4,7 @@ import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import { Button, Col, Input, Row, Select } from "antd";
 import { useEffect, useState } from "react";
-import { DEPARTMENT, WORK_STATUS } from "../../constants/enum";
+import { DEPARTMENT_ENUM, WORK_STATUS } from "../../constants/enum";
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { Space, Tooltip } from "antd";
 import InputForm from "../component/InputForm";
@@ -103,43 +103,78 @@ export default function AllEmployee() {
   return (
 
     <ModeCard title="All Employees">
-      <ModeFieldSet title="Filters">
-        <Row gutter={[16, 16]}>
-          <Col xs={24} md={8}>
-            <Select
-              allowClear
-              placeholder="Department"
-              options={DEPARTMENT}
-              style={{ width: "100%" }}
-              onChange={(val) => setParamObj({ ...paramObj, department: val })}
-            >
-            </Select>
-          </Col>
+      <ModeFieldSet
+      title="Filters"
+     
+    >
+      <Row gutter={[16, 16]} align="middle">
+        <Col xs={24} md={6}>
+          <Select
+            allowClear
+            placeholder="Department"
+            options={DEPARTMENT_ENUM}
+            style={{ width: "100%" }}
+            value={paramObj.department || undefined}
+            onChange={(val) =>
+              setParamObj((p) => ({ ...p, department: val }))
+            }
+          />
+        </Col>
 
-          <Col xs={24} md={8}>
-            <Select
-              allowClear
-              placeholder="Working Status"
-              style={{ width: "100%" }}
-              options={WORK_STATUS}
-              onChange={(val) =>
-                setParamObj({ ...paramObj, workingStatus: val })
-              }
-            >
-            </Select>
-          </Col>
+        <Col xs={24} md={6}>
+          <Select
+            allowClear
+            placeholder="Working Status"
+            style={{ width: "100%" }}
+            options={WORK_STATUS}
+            value={paramObj.workingStatus || undefined}
+            onChange={(val) =>
+              setParamObj((p) => ({ ...p, workingStatus: val }))
+            }
+          />
+        </Col>
 
-          <Col xs={24} md={8}>
-            <Input
-              placeholder="Search by name or email"
-              allowClear
-              onChange={(e) =>
-                setParamObj({ ...paramObj, search: e.target.value })
-              }
-            />
-          </Col>
-        </Row>
-      </ModeFieldSet>
+        <Col xs={24} md={6}>
+          <Input
+            placeholder="Search by name or email"
+            allowClear
+            value={paramObj.search}
+            onChange={(e) =>
+              setParamObj((p) => ({ ...p, search: e.target.value }))
+            }
+          />
+        </Col>
+
+        {/* Actions */}
+        <Col xs={12} md={3}>
+          <Button
+            type="primary"
+            block
+            onClick={() => setRefreshCounter((p) => p + 1)}
+          >
+            Apply
+          </Button>
+        </Col>
+
+        <Col xs={12} md={3}>
+          <Button
+            block
+            onClick={() => {
+              setParamObj({
+                ...paramObj,
+                department: "",
+                workingStatus: "",
+                search: "",
+              });
+              setRefreshCounter((p) => p + 1);
+            }}
+          >
+            Clear
+          </Button>
+        </Col>
+      </Row>
+    </ModeFieldSet>
+  
       {showInputForm ? <>
         <InputForm type={type} initialData={initialData} setInitialData={setInitialData} setShowInputForm={setShowInputForm} setType={setType} />
       </> :

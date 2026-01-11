@@ -95,7 +95,6 @@ export const PROJECT_UI_SCHEMA = {
   projectManager: { type: 'string', showOnUI: true },
   teamMembers: { type: 'array', showOnUI: false },
   description: { type: 'string', showOnUI: false },
-
 };
 
 

@@ -18,7 +18,7 @@ import {
     safeAddressRule,
     digitsWithLengthValidator,
 } from "@/admin/pages/constants/FormValidators";
-import { DEPARTMENT, WORK_LOCATION, WORK_STATUS } from "../../constants/enum";
+import { DEPARTMENT_ENUM, WORK_LOCATION, WORK_STATUS } from "../../constants/enum";
 import { useEffect } from "react";
 
 export default function InputForm({ type, initialData, setShowInputForm, setType }) {
@@ -190,7 +190,7 @@ export default function InputForm({ type, initialData, setShowInputForm, setType
 
                             <Col xs={24} md={12}>
                                 <Form.Item label="Department" name="department">
-                                    <Select placeholder="Select department" options={DEPARTMENT} />
+                                    <Select placeholder="Select department" options={DEPARTMENT_ENUM} />
                                 </Form.Item>
                             </Col>
 

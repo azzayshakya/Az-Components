@@ -104,6 +104,30 @@ const queryService = {
     return handleApiCall(() => api.delete(`/queries/${queryId}`));
   },
 };
+// projectService.js (inside same file for now)
+
+const projectService = {
+  getAllProjects: async (params = {}) => {
+    return handleApiCall(() => api.get("/projects", { params }));
+  },
+
+  addProject: async (data) => {
+    return handleApiCall(() => api.post("/projects", data));
+  },
+
+  updateProjectData: async (projectId, data) => {
+    return handleApiCall(() =>
+      api.put(`/projects/${projectId}`, data)
+    );
+  },
+
+  deleteProject: async (projectId) => {
+    return handleApiCall(() =>
+      api.delete(`/projects/${projectId}`)
+    );
+  },
+};
+
 
 const apiService = {
   
@@ -131,6 +155,11 @@ const apiService = {
   getQueryById: queryService.getQueryById,
   updateQueryStatus: queryService.updateQueryStatus,
   deleteQuery: queryService.deleteQuery,
+
+    getAllProjects: projectService.getAllProjects,
+  addProject: projectService.addProject,
+  updateProjectData: projectService.updateProjectData,
+  deleteProject: projectService.deleteProject,
 };
 
 export default apiService;

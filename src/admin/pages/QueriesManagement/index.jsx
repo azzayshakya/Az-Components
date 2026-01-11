@@ -2,7 +2,7 @@ import { queryListResponse } from "@/admin/constants/dummyResponse";
 import CrudTable from "@/pages/antdFormTable/components/CrudTable";
 import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
-import { Button, Col, Input, Row, Select, Space, Tag, Tooltip } from "antd";
+import { Button, Col, Input, Row, Select, Space, Tooltip } from "antd";
 import { useState } from "react";
 import DynamicAntdStatusTag from "../constants/DynamicAntdStatusTag";
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
@@ -30,9 +30,9 @@ export default function QueriesManagement() {
   });
 
   const columns = [
-    { title: "Query ID", dataIndex: "id", key: "id", width: 120 },
-    { title: "User Name", dataIndex: "userName", key: "userName" },
-    { title: "Subject", dataIndex: "subject", key: "subject" },
+    { title: "Query ID", dataIndex: "id", key: "id", align:"center" },
+    { title: "User Name", dataIndex: "userName", key: "userName" ,align:"center"},
+    { title: "Subject", dataIndex: "subject", key: "subject", align:"center" },
     {
       title: "Priority",
       dataIndex: "priority",
@@ -41,6 +41,7 @@ export default function QueriesManagement() {
         status,
         size: "large",
       }),
+      align:"center"
     },
     {
       title: "Status",
@@ -50,12 +51,14 @@ export default function QueriesManagement() {
         status,
         size: "large",
       }),
+      align:"center"
     },
-    { title: "Created At", dataIndex: "createdAt", key: "createdAt" },
+    { title: "Created At", dataIndex: "createdAt", key: "createdAt" ,align:"center"},
     {
       title: "Action",
       key: "action",
       width: 120,
+      align:"center",
        render: (_, record) => (
         <>
           <Space size="small">
@@ -139,7 +142,7 @@ export default function QueriesManagement() {
             />
           </Col>
 
-          <Col xs={24} md={4}>
+          <Col xs={24} md={2}>
             <Button
               type="primary"
               block
@@ -147,6 +150,17 @@ export default function QueriesManagement() {
             >
               Apply
             </Button>
+            
+          </Col>
+          <Col xs={24} md={2}>
+            <Button
+              type="default"
+              block
+              onClick={() => setRefreshCounter((p) => p + 1)}
+            >
+              Close
+            </Button>
+            
           </Col>
         </Row>
       </ModeFieldSet>

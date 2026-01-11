@@ -1,25 +1,37 @@
 import { salaryManagementResponse } from "@/admin/constants/dummyResponse";
 import { Button, Col, Input, Row, Select, Typography } from "antd";
 import { useState } from "react";
+
 import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import CrudTable from "@/pages/antdFormTable/components/CrudTable";
 import SalaryHistoryPopover from "../constants";
+import { DEPARTMENT_ENUM, DESIGNATION } from "../constants/enum";
+
+
 
 const { Text } = Typography;
 
 export default function SalaryManagement() {
   const [refreshCounter, setRefreshCounter] = useState(0);
-  console.log(refreshCounter);
-  const [paramObj, setParamObj] = useState({
-    limit: 10,
-    offset: 0,
-    // total: salaryManagementResponse.meta.total,
+console.log(refreshCounter)
+  // Local filter state (before apply)
+  const [filters, setFilters] = useState({
     department: "",
     designation: "",
     search: "",
   });
 
+  // Applied params (used by table / API)
+  const [paramObj, setParamObj] = useState({
+    limit: 10,
+    offset: 0,
+    department: "",
+    designation: "",
+    search: "",
+  });
+
+  // Filter data (mock)
   const tableData = salaryManagementResponse.data.filter((emp) => {
     return (
       (!paramObj.department || emp.department === paramObj.department) &&
@@ -29,7 +41,6 @@ export default function SalaryManagement() {
         emp.employeeId.toLowerCase().includes(paramObj.search.toLowerCase()))
     );
   });
-  console.log("azz", tableData);
 
   const columns = [
     { title: "Emp ID", dataIndex: "employeeId", key: "employeeId" },
@@ -57,63 +68,96 @@ export default function SalaryManagement() {
 
   return (
     <ModeCard title="Salary Management">
+      {/* Filters */}
       <ModeFieldSet title="Filters">
         <Row gutter={[16, 16]}>
+          {/* Department */}
           <Col xs={24} md={6}>
             <Select
               allowClear
               placeholder="Department"
               style={{ width: "100%" }}
-              onChange={(val) => setParamObj({ ...paramObj, department: val })}
-            >
-              <Select.Option value="IT">IT</Select.Option>
-              <Select.Option value="Civil">Civil</Select.Option>
-              <Select.Option value="Electrical">Electrical</Select.Option>
-              <Select.Option value="Fire Fighting">Fire Fighting</Select.Option>
-            </Select>
+              value={filters.department || undefined}
+              options={DEPARTMENT_ENUM}
+              onChange={(val) =>
+                setFilters((p) => ({ ...p, department: val }))
+              }
+            />
           </Col>
 
+          {/* Designation */}
           <Col xs={24} md={6}>
             <Select
               allowClear
               placeholder="Designation"
               style={{ width: "100%" }}
-              onChange={(val) => setParamObj({ ...paramObj, designation: val })}
-            >
-              <Select.Option value="Software Engineer">
-                Software Engineer
-              </Select.Option>
-              <Select.Option value="Civil Engineer">
-                Civil Engineer
-              </Select.Option>
-              <Select.Option value="Electrical Engineer">
-                Electrical Engineer
-              </Select.Option>
-            </Select>
-          </Col>
-
-          <Col xs={24} md={8}>
-            <Input
-              allowClear
-              placeholder="Search by name or emp id"
-              onChange={(e) =>
-                setParamObj({ ...paramObj, search: e.target.value })
+              value={filters.designation || undefined}
+              options={DESIGNATION}
+              onChange={(val) =>
+                setFilters((p) => ({ ...p, designation: val }))
               }
             />
           </Col>
 
-          <Col xs={24} md={4}>
+          {/* Search */}
+          <Col xs={24} md={8}>
+            <Input
+              allowClear
+              placeholder="Search by name or emp id"
+              value={filters.search}
+              onChange={(e) =>
+                setFilters((p) => ({ ...p, search: e.target.value }))
+              }
+            />
+          </Col>
+
+          {/* Apply */}
+          <Col xs={24} md={2}>
             <Button
               type="primary"
               block
-              onClick={() => setRefreshCounter((p) => p + 1)}
+              onClick={() => {
+                setParamObj((p) => ({
+                  ...p,
+                  ...filters,
+                  offset: 0,
+                }));
+                setRefreshCounter((p) => p + 1);
+              }}
             >
               Apply
+            </Button>
+          </Col>
+
+          {/* Close / Reset */}
+          <Col xs={24} md={2}>
+            <Button
+              block
+              onClick={() => {
+                setFilters({
+                  department: "",
+                  designation: "",
+                  search: "",
+                });
+
+                setParamObj((p) => ({
+                  ...p,
+                  department: "",
+                  designation: "",
+                  search: "",
+                  offset: 0,
+                }));
+
+                setRefreshCounter((p) => p + 1);
+              }}
+            >
+              Close
             </Button>
           </Col>
         </Row>
       </ModeFieldSet>
 
+      {/* Table */}
       <CrudTable
         tableData={tableData}
         columns={columns}

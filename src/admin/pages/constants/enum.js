@@ -30,7 +30,7 @@ export const WORK_LOCATION = [
   { label: 'Site Work', value: 'site' },
   { label: 'Remote (Outstation)', value: 'remote' },
 ]
-export const USER_ROLES = [
+export const USER_ROLES_ENUM = [
   { label: 'Super Admin', value: 'super_admin' },
   { label: 'Admin', value: 'admin' },
   { label: 'CEO', value: 'ceo' },
@@ -53,7 +53,7 @@ export const USER_ROLES = [
 ]
 // Department  → WHAT field
 // Designation → WHAT position in that field
-export const DEPARTMENT = [
+export const DEPARTMENT_ENUM = [
   { label: 'Civil Engineering', value: 'civil' },
   { label: 'Electrical Engineering', value: 'electrical' },
   { label: 'Mechanical Engineering', value: 'mechanical' },
@@ -109,3 +109,23 @@ export const DESIGNATION = [
   { label: 'Office Assistant', value: 'office_assistant' },
   { label: 'Intern / Trainee', value: 'intern' },
 ]
+export const ALL_EMPLOYEE_ENUM = [
+  { label: "Ajay Shakya", value: "Ajay Shakya", empId: "EMP001", empRole: "Manager" },
+  { label: "Rohit Verma", value: "Rohit Verma", empId: "EMP002", empRole: "Engineer" },
+  { label: "Neha Singh", value: "Neha Singh", empId: "EMP003", empRole: "Team Lead" },
+];
+export const PROJECT_SERVICES_ENUM = [
+  { label: "Electrical Works", value: "electrical" },
+  { label: "Fire Fighting", value: "fire_fighting" },
+  { label: "Plumbing", value: "plumbing" },
+  { label: "HVAC", value: "hvac" },
+  { label: "Civil Construction", value: "civil" },
+];
+
+export const PROJECT_STATUS_ENUM = [
+  { label: "Planned", value: "planned" },
+  { label: "Ongoing", value: "ongoing" },
+  { label: "On Hold", value: "on_hold" },
+  { label: "Completed", value: "completed" },
+  { label: "Cancelled", value: "cancelled" },
+];

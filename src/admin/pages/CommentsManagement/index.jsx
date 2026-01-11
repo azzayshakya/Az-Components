@@ -2,30 +2,64 @@ import { commentListResponse } from "@/admin/constants/dummyResponse";
 import CrudTable from "@/pages/antdFormTable/components/CrudTable";
 import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
-import { Button, Col, Input, Row, Select, Rate, Tag, Space, Tooltip } from "antd";
+import {
+  Button,
+  Col,
+  Input,
+  Row,
+  Select,
+  Rate,
+  Tag,
+  Space,
+  Tooltip,
+  DatePicker,
+} from "antd";
 import { useState } from "react";
-import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import dayjs from "dayjs";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
+
+const { RangePicker } = DatePicker;
 
 export default function CommentsManagement() {
   const [refreshCounter, setRefreshCounter] = useState(0);
-  console.log(refreshCounter);
+  const [showFilters, setShowFilters] = useState(true);
+
   const [paramObj, setParamObj] = useState({
     limit: 10,
     offset: 0,
     total: commentListResponse.meta.total,
     approved: "",
     search: "",
+    dateRange: [],
   });
 
+  /* ---------------- FILTER LOGIC ---------------- */
   const tableData = commentListResponse.data.filter((c) => {
-    return (
-      (paramObj.approved === "" || c.isApproved === paramObj.approved) &&
-      (!paramObj.search ||
-        c.userName.toLowerCase().includes(paramObj.search.toLowerCase()) ||
-        c.comment.toLowerCase().includes(paramObj.search.toLowerCase()))
-    );
+    const matchesStatus =
+      paramObj.approved === "" || c.isApproved === paramObj.approved;
+
+    const matchesSearch =
+      !paramObj.search ||
+      c.userName.toLowerCase().includes(paramObj.search.toLowerCase()) ||
+      c.comment.toLowerCase().includes(paramObj.search.toLowerCase());
+
+    const matchesDate =
+      !paramObj.dateRange.length ||
+      dayjs(c.createdAt).isBetween(
+        paramObj.dateRange[0],
+        paramObj.dateRange[1],
+        "day",
+        "[]"
+      );
+
+    return matchesStatus && matchesSearch && matchesDate;
   });
 
+  /* ---------------- TABLE COLUMNS ---------------- */
   const columns = [
     { title: "User Name", dataIndex: "userName", key: "userName" },
     {
@@ -45,95 +79,100 @@ export default function CommentsManagement() {
       dataIndex: "isApproved",
       key: "isApproved",
       render: (val) => (
-        <Tag color={val ? "green" : "red"}>{val ? "Approved" : "Pending"}</Tag>
+        <Tag color={val ? "green" : "red"}>
+          {val ? "Approved" : "Pending"}
+        </Tag>
       ),
     },
     { title: "Created At", dataIndex: "createdAt", key: "createdAt" },
     {
       title: "Action",
       key: "action",
-      width: 150,
-      render: (_, record) => (
-        <>
-          <Space size="small">
-            <Tooltip title="View">
-              <Button
-                type="text"
-                icon={<EyeOutlined />}
-                onClick={() => {
-                  // setShowInputForm(true);
-                  // setInitialData(record);
-                  // setType("VIEW")
-                }}
-                className="table-action-btn-view"
-              />
-            </Tooltip>
-
-            <Tooltip title="Edit">
-              <Button
-                type="text"
-                icon={<EditOutlined />}
-                onClick={() => {
-                  // setShowInputForm(true);
-                  // setInitialData(record);
-                  // setType("EDIT")
-                }}
-                className="table-action-btn-edit"
-              />
-            </Tooltip>
-
-            <Tooltip title="Delete">
-              <Button
-                type="text"
-                danger
-                icon={<DeleteOutlined />}
-                // onClick={() => setInitialData(record)}
-                className="table-action-btn-delete"
-              />
-            </Tooltip>
-          </Space>
-        </>
+      width: 140,
+      render: () => (
+        <Space size="small">
+          <Tooltip title="View">
+            <Button type="text" icon={<EyeOutlined />} />
+          </Tooltip>
+          <Tooltip title="Edit">
+            <Button type="text" icon={<EditOutlined />} />
+          </Tooltip>
+          <Tooltip title="Delete">
+            <Button type="text" danger icon={<DeleteOutlined />} />
+          </Tooltip>
+        </Space>
       ),
     },
   ];
 
   return (
     <ModeCard title="All Comments">
-      <ModeFieldSet title="Filters">
-        <Row gutter={[16, 16]}>
-          <Col xs={24} md={6}>
-            <Select
-              allowClear
-              placeholder="Approval Status"
-              style={{ width: "100%" }}
-              onChange={(val) => setParamObj({ ...paramObj, approved: val })}
-            >
-              <Select.Option value={true}>Approved</Select.Option>
-              <Select.Option value={false}>Pending</Select.Option>
-            </Select>
-          </Col>
-
-          <Col xs={24} md={10}>
-            <Input
-              allowClear
-              placeholder="Search by user or comment"
-              onChange={(e) =>
-                setParamObj({ ...paramObj, search: e.target.value })
-              }
-            />
-          </Col>
-
-          <Col xs={24} md={4}>
+      {showFilters && (
+        <ModeFieldSet
+          title="Filters"
+          extra={
             <Button
-              type="primary"
-              block
-              onClick={() => setRefreshCounter((p) => p + 1)}
+              size="small"
+              type="text"
+              onClick={() => setShowFilters(false)}
             >
-              Apply
+              Close
             </Button>
-          </Col>
-        </Row>
-      </ModeFieldSet>
+          }
+        >
+          <Row gutter={[16, 16]} align="middle">
+            
+
+            <Col xs={24} md={7}>
+              <Input
+                allowClear
+                placeholder="Search by name or email"
+                value={paramObj.search}
+                onChange={(e) =>
+                  setParamObj((p) => ({ ...p, search: e.target.value }))
+                }
+              />
+            </Col>
+
+            <Col xs={24} md={7}>
+              <RangePicker
+                style={{ width: "100%" }}
+                value={paramObj.dateRange}
+                onChange={(dates) =>
+                  setParamObj((p) => ({ ...p, dateRange: dates || [] }))
+                }
+              />
+            </Col>
+
+            <Col xs={24} md={5}>
+              <Button
+                type="primary"
+                block
+                onClick={() => setRefreshCounter((p) => p + 1)}
+              >
+                Apply
+              </Button>
+            </Col>
+
+            <Col xs={24} md={5}>
+              <Button
+                block
+                onClick={() => {
+                  setParamObj({
+                    ...paramObj,
+                    approved: "",
+                    search: "",
+                    dateRange: [],
+                  });
+                  setRefreshCounter((p) => p + 1);
+                }}
+              >
+                Clear
+              </Button>
+            </Col>
+          </Row>
+        </ModeFieldSet>
+      )}
 
       <CrudTable
         tableData={tableData}

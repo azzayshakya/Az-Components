@@ -23,7 +23,7 @@ import {
   digitsWithLengthValidator,
 } from "@/admin/pages/constants/FormValidators";
 import { addEmployee } from "@/admin/services/employeeService";
-import { DEPARTMENT, WORK_LOCATION, WORK_STATUS } from "../../constants/enum";
+import { DEPARTMENT_ENUM, WORK_LOCATION, WORK_STATUS } from "../../constants/enum";
 
 const toStringPayload = (values) => {
   const payload = {};
@@ -73,7 +73,7 @@ export default function AddEmployee() {
         <Form
           form={form}
           layout="horizontal"
-          size="large"
+          // size="large"
           labelCol={{ xs: 24, sm: 8 }}
           wrapperCol={{ xs: 24, sm: 16 }}
         >
@@ -203,7 +203,7 @@ export default function AddEmployee() {
 
               <Col xs={24} md={12}>
                 <Form.Item label="Department" name="department">
-                  <Select placeholder="Select department" options={DEPARTMENT} />
+                  <Select placeholder="Select department" options={DEPARTMENT_ENUM} />
                 </Form.Item>
               </Col>
 
