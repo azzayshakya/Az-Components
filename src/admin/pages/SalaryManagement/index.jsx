@@ -1,5 +1,5 @@
 import { salaryManagementResponse } from "@/admin/constants/dummyResponse";
-import { Button, Col, Input, Row, Select, Typography } from "antd";
+import { Button, Col, Input, Row, Select, Typography, message } from "antd";
 import { useState } from "react";
 
 import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
@@ -7,22 +7,21 @@ import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import CrudTable from "@/pages/antdFormTable/components/CrudTable";
 import SalaryHistoryPopover from "../constants";
 import { DEPARTMENT_ENUM, DESIGNATION } from "../constants/enum";
-
-
+import SalaryUpdateForm from "./form";
 
 const { Text } = Typography;
 
 export default function SalaryManagement() {
   const [refreshCounter, setRefreshCounter] = useState(0);
-console.log(refreshCounter)
-  // Local filter state (before apply)
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [isFormVisible, setIsFormVisible] = useState(false);
+
   const [filters, setFilters] = useState({
     department: "",
     designation: "",
     search: "",
   });
 
-  // Applied params (used by table / API)
   const [paramObj, setParamObj] = useState({
     limit: 10,
     offset: 0,
@@ -31,7 +30,6 @@ console.log(refreshCounter)
     search: "",
   });
 
-  // Filter data (mock)
   const tableData = salaryManagementResponse.data.filter((emp) => {
     return (
       (!paramObj.department || emp.department === paramObj.department) &&
@@ -41,6 +39,32 @@ console.log(refreshCounter)
         emp.employeeId.toLowerCase().includes(paramObj.search.toLowerCase()))
     );
   });
+
+  const handleUpdateClick = (employee) => {
+    setSelectedEmployee(employee);
+    setIsFormVisible(true);
+  };
+
+  const handleFormClose = () => {
+    setIsFormVisible(false);
+    setSelectedEmployee(null);
+  };
+
+  const handleFormSubmit = async (payload) => {
+    try {
+      // Call the API to update salary
+      // const response = await updateEmployeeSalary(payload);
+      
+      // console.log("Salary update response:", response);
+      
+      message.success("Salary updated successfully!");
+      
+      setRefreshCounter((p) => p + 1);
+    } catch (error) {
+      console.error("Error updating salary:", error);
+      message.error(error.message || "Failed to update salary. Please try again.");
+    }
+  };
 
   const columns = [
     { title: "Emp ID", dataIndex: "employeeId", key: "employeeId" },
@@ -62,16 +86,18 @@ console.log(refreshCounter)
     {
       title: "Action",
       key: "action",
-      render: () => <Button size="small">Update</Button>,
+      render: (_, record) => (
+        <Button size="small" onClick={() => handleUpdateClick(record)}>
+          Update
+        </Button>
+      ),
     },
   ];
 
   return (
     <ModeCard title="Salary Management">
-      {/* Filters */}
       <ModeFieldSet title="Filters">
         <Row gutter={[16, 16]}>
-          {/* Department */}
           <Col xs={24} md={6}>
             <Select
               allowClear
@@ -85,7 +111,6 @@ console.log(refreshCounter)
             />
           </Col>
 
-          {/* Designation */}
           <Col xs={24} md={6}>
             <Select
               allowClear
@@ -99,7 +124,6 @@ console.log(refreshCounter)
             />
           </Col>
 
-          {/* Search */}
           <Col xs={24} md={8}>
             <Input
               allowClear
@@ -111,7 +135,6 @@ console.log(refreshCounter)
             />
           </Col>
 
-          {/* Apply */}
           <Col xs={24} md={2}>
             <Button
               type="primary"
@@ -129,7 +152,6 @@ console.log(refreshCounter)
             </Button>
           </Col>
 
-          {/* Close / Reset */}
           <Col xs={24} md={2}>
             <Button
               block
@@ -157,13 +179,19 @@ console.log(refreshCounter)
         </Row>
       </ModeFieldSet>
 
-      {/* Table */}
       <CrudTable
         tableData={tableData}
         columns={columns}
         paramObj={paramObj}
         setParamObj={setParamObj}
         setRefreshCounter={setRefreshCounter}
+      />
+
+      <SalaryUpdateForm
+        visible={isFormVisible}
+        employee={selectedEmployee}
+        onClose={handleFormClose}
+        onSubmit={handleFormSubmit}
       />
     </ModeCard>
   );
