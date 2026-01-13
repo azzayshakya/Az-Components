@@ -7,6 +7,10 @@ const handleApiCall = async (apiCall) => {
 };
 
 const authService = {
+  verifyAdminDashboardUser: async (data) => {
+    return handleApiCall(() => api.post('/auth/verifyAdminDashboardUser', data));
+  },
+
   createAccount: async (data) => {
     return handleApiCall(() => api.post('/auth/signup', data));
   },
@@ -130,7 +134,7 @@ const projectService = {
 
 
 const apiService = {
-  
+  verifyAdminDashboardUser:authService.verifyAdminDashboardUser,
   createAccount: authService.createAccount,
   login: authService.login,
   logout: authService.logout,

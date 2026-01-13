@@ -3,7 +3,7 @@ export const isProduction = import.meta.env.MODE === 'production';
 
 export const API_CONFIG = {
   development: {
-    baseURL: import.meta.env.REACT_APP_DEV_API_URL || 'http://localhost:5000/api',
+    baseURL: import.meta.env.REACT_APP_DEV_API_URL || 'http://localhost:6000/api',
     timeout: 30000,
   },
   production: {
