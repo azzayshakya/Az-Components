@@ -2,23 +2,24 @@ import { employeeListResponse } from "@/admin/constants/dummyResponse";
 import CrudTable from "@/pages/antdFormTable/components/CrudTable";
 import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
-import { Button, Col, Input, Row, Select } from "antd";
+import { Button, Col, Input, Row } from "antd";
 import { useEffect, useState } from "react";
-import { DEPARTMENT_ENUM, WORK_STATUS } from "../../constants/enum";
-import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
-import { Space, Tooltip } from "antd";
+import { CheckCircleOutlined } from "@ant-design/icons";
 import InputForm from "../component/InputForm";
+import EmployeeActivationModal from "./EmployeeActivationModal";
 
-
-export default function ActivateEmployee() {
+export default function UpdateEmployeeDetails() {
   const [refreshCounter, setRefreshCounter] = useState(0);
   const [, setData] = useState([]);
-  const [type, setType] = useState()
+  const [type, setType] = useState();
 
-  const [initialData, setInitialData] = useState({})
-  const [showInputForm, setShowInputForm] = useState(false)
-  console.log(refreshCounter);
-  console.log("initial", initialData)
+  const [initialData, setInitialData] = useState({});
+  const [showInputForm, setShowInputForm] = useState(false);
+  
+  // Activation Modal State
+  const [showActivationModal, setShowActivationModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
   const [paramObj, setParamObj] = useState({
     limit: 10,
     offset: 0,
@@ -27,8 +28,21 @@ export default function ActivateEmployee() {
     workingStatus: "",
     search: "",
   });
-  console.log("az intial data 1", initialData)
-  console.log("az show form state", showInputForm)
+
+  const handleOpenActivationModal = (record) => {
+    setSelectedUser(record);
+    setShowActivationModal(true);
+  };
+
+  const handleCloseActivationModal = () => {
+    setShowActivationModal(false);
+    setSelectedUser(null);
+  };
+
+  const handleActivationSuccess = () => {
+    setRefreshCounter((p) => p + 1);
+  };
+
   const tableData = employeeListResponse.data.filter((emp) => {
     return (
       (!paramObj.department || emp.department === paramObj.department) &&
@@ -52,85 +66,105 @@ export default function ActivateEmployee() {
       title: "Action",
       key: "action",
       fixed: "right",
-      width: 120,
+      width: 140,
       render: (_, record) => (
-        <>
-         
-        </>
-      ),
-    }
-
-  ];
-  useEffect(() => {
-    setData(employeeListResponse.data)
-  }, [])
-  return (
-
-    <ModeCard title="Employee Activation">
-      <ModeFieldSet
-      title="Filters"
-     
-    >
-      <Row gutter={[16, 16]} align="middle">
-       
-
-        <Col xs={24} md={18}>
-          <Input
-            placeholder="Search by name or email"
-            allowClear
-            value={paramObj.search}
-            onChange={(e) =>
-              setParamObj((p) => ({ ...p, search: e.target.value }))
-            }
-          />
-        </Col>
-
-        {/* Actions */}
-        <Col xs={12} md={3}>
-          <Button
-            type="primary"
-            block
-            onClick={() => setRefreshCounter((p) => p + 1)}
-          >
-            Apply
-          </Button>
-        </Col>
-
-        <Col xs={12} md={3}>
-          <Button
-            block
-            onClick={() => {
-              setParamObj({
-                ...paramObj,
-                department: "",
-                workingStatus: "",
-                search: "",
-              });
-              setRefreshCounter((p) => p + 1);
-            }}
-          >
-            Clear
-          </Button>
-        </Col>
-      </Row>
-    </ModeFieldSet>
-  
-      {showInputForm ? <>
-        <InputForm type={type} initialData={initialData} setInitialData={setInitialData} setShowInputForm={setShowInputForm} setType={setType} />
-      </> :
-        <CrudTable
-          tableData={tableData}
-          columns={columns}
-          paramObj={paramObj}
-          setParamObj={setParamObj}
-          setRefreshCounter={setRefreshCounter}
-          tableClassName="table-bordered table-striped"
-          headerStyle={{
-            background: "#1677ff",
-            color: "#ffffff",
+        <Button
+          type="primary"
+          size="small"
+          icon={<CheckCircleOutlined />}
+          onClick={() => handleOpenActivationModal(record)}
+          style={{
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            border: 'none',
+            fontWeight: '500',
           }}
-        />
-      }
-    </ModeCard>
+        >
+          Activate
+        </Button>
+      ),
+    },
+  ];
+
+  useEffect(() => {
+    setData(employeeListResponse.data);
+  }, []);
+
+  return (
+    <>
+      <ModeCard title="Employee Activation">
+        <ModeFieldSet title="Filters">
+          <Row gutter={[16, 16]} align="middle">
+            <Col xs={24} md={18}>
+              <Input
+                placeholder="Search by name or email"
+                allowClear
+                value={paramObj.search}
+                onChange={(e) =>
+                  setParamObj((p) => ({ ...p, search: e.target.value }))
+                }
+              />
+            </Col>
+
+            <Col xs={12} md={3}>
+              <Button
+                type="primary"
+                block
+                onClick={() => setRefreshCounter((p) => p + 1)}
+              >
+                Apply
+              </Button>
+            </Col>
+
+            <Col xs={12} md={3}>
+              <Button
+                block
+                onClick={() => {
+                  setParamObj({
+                    ...paramObj,
+                    department: "",
+                    workingStatus: "",
+                    search: "",
+                  });
+                  setRefreshCounter((p) => p + 1);
+                }}
+              >
+                Clear
+              </Button>
+            </Col>
+          </Row>
+        </ModeFieldSet>
+
+        {showInputForm ? (
+          <InputForm
+            type={type}
+            initialData={initialData}
+            setInitialData={setInitialData}
+            setShowInputForm={setShowInputForm}
+            setType={setType}
+          />
+        ) : (
+          <CrudTable
+            tableData={tableData}
+            columns={columns}
+            paramObj={paramObj}
+            setParamObj={setParamObj}
+            setRefreshCounter={setRefreshCounter}
+            tableClassName="table-bordered table-striped"
+            headerStyle={{
+              background: "#1677ff",
+              color: "#ffffff",
+            }}
+          />
+        )}
+      </ModeCard>
+
+      {/* Employee Activation Modal */}
+      <EmployeeActivationModal
+        visible={showActivationModal}
+        onClose={handleCloseActivationModal}
+        userData={selectedUser}
+        onSuccess={handleActivationSuccess}
+      />
+    </>
   );
 }

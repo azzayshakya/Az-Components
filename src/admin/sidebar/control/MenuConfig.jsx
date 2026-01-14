@@ -65,12 +65,7 @@ export const MENU_CONFIG = [
     label: MENU_LABELS.employeeManagement,
     icon: TeamOutlined,
     children: [
-      {
-        key: MENU_KEYS.EMPLOYEE_ACTIVATION,
-        label: MENU_LABELS.employeeActivation,
-        icon: UserAddOutlined,
-      },
-      {
+       {
         key: MENU_KEYS.ALL_EMPLOYEES,
         label: MENU_LABELS.allEmployees,
         icon: UsergroupAddOutlined,
@@ -80,6 +75,11 @@ export const MENU_CONFIG = [
         label: MENU_LABELS.roleManagement,
         icon: UsergroupAddOutlined,
       },
+      {
+        key: MENU_KEYS.EMPLOYEE_ACTIVATION,
+        label: MENU_LABELS.employeeActivation,
+        icon: UserAddOutlined,
+      },      
       {
         key: MENU_KEYS.ADD_EMPLOYEE_DETAILS,
         label: MENU_LABELS.addEmployeeDetails,

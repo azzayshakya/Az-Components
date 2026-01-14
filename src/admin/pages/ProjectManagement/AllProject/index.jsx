@@ -1,4 +1,4 @@
-import { Input, Select, Row, Col, Button } from "antd";
+import { Input, Select, Row, Col, Button, Space, Tooltip } from "antd";
 import { useState } from "react";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import CrudTable from "@/pages/antdFormTable/components/CrudTable";
@@ -6,10 +6,15 @@ import { allProjectsResponse } from "@/admin/constants/dummyResponse";
 import DynamicAntdStatusTag from "../../constants/DynamicAntdStatusTag";
 import { PROJECT_STATUS_ENUM, DEPARTMENT_ENUM } from "../../constants/enum";
 import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
-
+// import InputForm from "../component/InputForm";
+import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import InputForm from "./InputForm";
 export default function AllProject() {
   const [refreshCounter, setRefreshCounter] = useState(0);
   console.log(refreshCounter)
+   const [type, setType] = useState()
+  const [initialData, setInitialData] = useState({})
+  const [showInputForm, setShowInputForm] = useState(false)
   const [paramObj, setParamObj] = useState({
     limit: 10,
     offset: 0,
@@ -41,19 +46,70 @@ export default function AllProject() {
   });
 
   const columns = [
-    { title: "Project Code", dataIndex: "projectCode" ,align:"center" },
+    { title: "Project Id", dataIndex: "projectId" ,align:"center" },
     { title: "Project Name", dataIndex: "projectName" ,align:"center"  },
-    { title: "Department", dataIndex: "department" ,align:"center" },
+    { title: "Project Lead Name", dataIndex: "projectLeadName" ,align:"center" },
+    { title: "budget", dataIndex: "budget" ,align:"center" },
+
+    { title: "startDate", dataIndex: "startDate" ,align:"center" },
+
     { title: "Client", dataIndex: "clientName",align:"center"  },
     {
       title: "Status",
-      dataIndex: "status",
+      dataIndex: "projectStatus",
       render: (status) =>
         DynamicAntdStatusTag({
           status,
           size: "large",
         }),
     },
+     {
+      title: "Action",
+      key: "action",
+      fixed: "right",
+      width: 120,
+      render: (_, record) => (
+        <>
+          <Space size="small">
+            <Tooltip title="View">
+              <Button
+                type="text"
+                icon={<EyeOutlined />}
+                onClick={() => {
+                  setShowInputForm(true);
+                  setInitialData(record);
+                  setType("VIEW")
+                }}
+                className="table-action-btn-view"
+              />
+            </Tooltip>
+
+            <Tooltip title="Edit">
+              <Button
+                type="text"
+                icon={<EditOutlined />}
+                onClick={() => {
+                  setShowInputForm(true);
+                  setInitialData(record);
+                  setType("EDIT")
+                }}
+                className="table-action-btn-edit"
+              />
+            </Tooltip>
+
+            <Tooltip title="Delete">
+              <Button
+                type="text"
+                danger
+                icon={<DeleteOutlined />}
+                onClick={() => setInitialData(record)}
+                className="table-action-btn-delete"
+              />
+            </Tooltip>
+          </Space>
+        </>
+      ),
+    }
   ];
 
   return (
@@ -115,13 +171,24 @@ export default function AllProject() {
       </Row>
 </ModeFieldSet>
       {/* Crud Table */}
-      <CrudTable
+       {showInputForm ? <>
+              <InputForm type={type} initialData={initialData} setInitialData={setInitialData} setShowInputForm={setShowInputForm} setType={setType} />
+            </> :
+             <CrudTable
         tableData={tableData}
         columns={columns}
         paramObj={paramObj}
         setParamObj={setParamObj}
         setRefreshCounter={setRefreshCounter}
       />
+            }
+      {/* <CrudTable
+        tableData={tableData}
+        columns={columns}
+        paramObj={paramObj}
+        setParamObj={setParamObj}
+        setRefreshCounter={setRefreshCounter}
+      /> */}
     </ModeCard>
   );
 }

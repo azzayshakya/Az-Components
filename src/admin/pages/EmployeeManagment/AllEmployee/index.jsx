@@ -68,29 +68,6 @@ export default function AllEmployee() {
                 className="table-action-btn-view"
               />
             </Tooltip>
-
-            <Tooltip title="Edit">
-              <Button
-                type="text"
-                icon={<EditOutlined />}
-                onClick={() => {
-                  setShowInputForm(true);
-                  setInitialData(record);
-                  setType("EDIT")
-                }}
-                className="table-action-btn-edit"
-              />
-            </Tooltip>
-
-            <Tooltip title="Delete">
-              <Button
-                type="text"
-                danger
-                icon={<DeleteOutlined />}
-                onClick={() => setInitialData(record)}
-                className="table-action-btn-delete"
-              />
-            </Tooltip>
           </Space>
         </>
       ),
