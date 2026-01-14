@@ -1,75 +1,9 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
-
-const API_CONFIG = {
-  BASE_URL: 'https://api.elmech.live', 
-  ENDPOINTS: {
-    VERIFY_ADMIN: '/admin/verify',     
-    REFRESH_TOKEN: '/admin/refresh',   
-    LOGOUT: '/admin/logout'             
-  },
-  TIMEOUT: 10000,
-  USE_DUMMY_DATA: true
-};
-
-const STORAGE_KEYS = {
-  ADMIN_USER: 'admin_user_data',
-  ADMIN_TOKEN: 'admin_token'
-};
-
-const REDIRECT_URL = 'https://www.elmech.live';
-
-
-
-const apiClient = axios.create({
-  baseURL: API_CONFIG.BASE_URL,
-  timeout: API_CONFIG.TIMEOUT,
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
-
-apiClient.interceptors.request.use(
-  (config) => {
-    console.log('📤 Outgoing API Request:', {
-      method: config.method?.toUpperCase(),
-      url: config.url,
-      baseURL: config.baseURL,
-      timestamp: new Date().toISOString()
-    });
-    return config;
-  },
-  (error) => {
-    console.error('❌ Request Interceptor Error:', error.message);
-    return Promise.reject(error);
-  }
-);
-
-apiClient.interceptors.response.use(
-  (response) => {
-    console.log('📥 Incoming API Response:', {
-      status: response.status,
-      statusText: response.statusText,
-      url: response.config.url,
-      timestamp: new Date().toISOString()
-    });
-    return response;
-  },
-  (error) => {
-    console.error('❌ Response Interceptor Error:', {
-      status: error.response?.status,
-      statusText: error.response?.statusText,
-      message: error.message,
-      url: error.config?.url,
-      timestamp: new Date().toISOString()
-    });
-    return Promise.reject(error);
-  }
-);
+import { createContext, useContext, useState, useEffect } from 'react'
+import {  getApiBaseUrl, STORAGE_KEYS } from '../advanceApi/apiConfig';
+import apiService from '../advanceApi/apiService';
 
 const AdminAuthContext = createContext(null);
-
+const useDummyData=false;
 export const AdminAuthProvider = ({ children }) => {
   const [adminUser, setAdminUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -125,11 +59,11 @@ export const AdminAuthProvider = ({ children }) => {
       // ============================================================
       // 🚧 API INTEGRATION POINT 🚧
       // ============================================================
-      if (API_CONFIG.USE_DUMMY_DATA) {
+      if (useDummyData) {
         // ────────────────────────────────────────────────────
         // DUMMY DATA MODE (Development)
         // ────────────────────────────────────────────────────
-        console.log('🔧 Using DUMMY DATA (API_CONFIG.USE_DUMMY_DATA = true)');
+        console.log('🔧 Using DUMMY DATA (useDummyData = true)');
         
         console.log('⏱️  Simulating network delay (2000ms)...');
         await delay(2000);
@@ -159,13 +93,10 @@ export const AdminAuthProvider = ({ children }) => {
       } else {
     
         console.log('🌐 Making REAL API call to verify admin...');
-        console.log('📡 Endpoint:', API_CONFIG.BASE_URL + API_CONFIG.ENDPOINTS.VERIFY_ADMIN);
+        console.log('📡 Endpoint:', getApiBaseUrl() + apiService.verifyAdminDashboardUser());
 
         try {
-          const response = await apiClient.post(API_CONFIG.ENDPOINTS.VERIFY_ADMIN, {
-            // Add any request payload if needed
-            timestamp: new Date().toISOString()
-          });
+          const response = apiService.verifyAdminDashboardUser()
 
           console.log('✅ API Response received');
           console.log('📊 Response status:', response.status);
@@ -181,7 +112,6 @@ export const AdminAuthProvider = ({ children }) => {
               email: user.email
             });
 
-            // Store tokens if provided
             if (accessToken) {
               console.log('🔑 New Access Token received and stored');
               localStorage.setItem(STORAGE_KEYS.ADMIN_TOKEN, accessToken);
@@ -199,6 +129,7 @@ export const AdminAuthProvider = ({ children }) => {
           }
 
         } catch (apiError) {
+        
           console.error('❌ API Call Failed');
           console.error('🔍 Error Details:', {
             message: apiError.message,
@@ -206,24 +137,10 @@ export const AdminAuthProvider = ({ children }) => {
             statusText: apiError.response?.statusText,
             data: apiError.response?.data
           });
-
-          // Handle specific HTTP error codes
-          if (apiError.response?.status === 401) {
-            console.error('🚫 401 Unauthorized: Invalid or expired credentials');
-            throw new Error('Session expired. Please login again.');
-          } else if (apiError.response?.status === 403) {
-            console.error('🚫 403 Forbidden: Insufficient permissions');
-            throw new Error('Access denied: You do not have admin permissions');
-          } else if (apiError.response?.status === 404) {
-            console.error('🚫 404 Not Found: API endpoint not found');
-            throw new Error('Authentication service not found');
-          } else if (apiError.response?.status >= 500) {
-            console.error('🚫 5xx Server Error: Backend is down');
-            throw new Error('Authentication service is temporarily unavailable');
-          } else {
-            throw new Error('Authentication failed: ' + apiError.message);
-          }
+          throw apiError;
+        
         }
+       
       }
       // ============================================================
 
@@ -304,45 +221,11 @@ export const AdminAuthProvider = ({ children }) => {
 
   const logout = async () => {
    
-    console.log('🚪 LOGOUT INITIATED');
-
-
-    try {
-      
-      if (API_CONFIG.USE_DUMMY_DATA) {
-        console.log('🔧 Dummy mode: Simulating logout API call...');
-        await delay(500);
-        console.log('✅ Logout API simulated (dummy mode)');
-      } else {
-        console.log('📡 Calling logout API...');
-        console.log('🔗 Endpoint:', API_CONFIG.BASE_URL + API_CONFIG.ENDPOINTS.LOGOUT);
-        
-        const response = await apiClient.post(API_CONFIG.ENDPOINTS.LOGOUT);
-        
-        console.log('✅ Server-side logout successful');
-        console.log('📊 Response status:', response.status);
-      }
-      // ============================================================
-
-    } catch (err) {
-      console.error('❌ Logout API error:', err.message);
-      console.log('⚠️  Continuing with client-side logout...');
-    } finally {
-      clearAdminData();
-      
-      console.log('🔄 Redirecting to marketing site...');
-      console.log('🔗 Redirect URL:', REDIRECT_URL);
-      console.log('👋 Goodbye!\n');
-
-      // Redirect to marketing site
-      window.location.href = REDIRECT_URL;
-    }
   };
 
 
   const isAuthorized = () => {
     const authorized = adminUser !== null && !error;
-    
     console.log('🔐 Authorization check:', {
       hasUser: adminUser !== null,
       hasError: error !== null,
@@ -351,21 +234,13 @@ export const AdminAuthProvider = ({ children }) => {
     
     return authorized;
   };
-  // const  = async () => {
-  //   console.log('🔄 Refresh requested: Re-verifying admin access...');
-  //   await verifyAdminAccess();
-  // };
-
-  // ──────────────────────────────────────────────────────────
-  // Context Value
-  // ──refreshAdminData────────────────────────────────────────────────────────
   const value = {
     adminUser,
     loading,
     error,
     isAuthorized,
     logout,
-    // refreshAdminData
+  
   };
 
   return (
@@ -375,16 +250,7 @@ export const AdminAuthProvider = ({ children }) => {
   );
 };
 
-/**
- * ============================================================
- * CUSTOM HOOK: useAdminAuth
- * ============================================================
- * 
- * Hook to access admin auth context from any component
- * 
- * Usage:
- * const { adminUser, loading, error, isAuthorized, logout } = useAdminAuth();
- */
+
 export const useAdminAuth = () => {
   const context = useContext(AdminAuthContext);
   
@@ -395,5 +261,3 @@ export const useAdminAuth = () => {
   return context;
 };
 
-
-export { API_CONFIG };
