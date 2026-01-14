@@ -5,8 +5,11 @@ export const ROUTES = {
 
   // Employees
   [MENU_KEYS.EMPLOYEE_MANAGEMENT]: '/employees',
-  [MENU_KEYS.ADD_EMPLOYEE]: '/employees/add',
+  [MENU_KEYS.EMPLOYEE_ACTIVATION]: '/employees/employee-activation',
   [MENU_KEYS.ALL_EMPLOYEES]: '/employees/all',
+  [MENU_KEYS.ADD_EMPLOYEE_DETAILS]: '/employees/update-employee-details',
+  [MENU_KEYS.ROLE_MANAGEMENT]: '/employees/role-management',
+
 
   // Salary
   [MENU_KEYS.SALARY_MANAGEMENT]: '/salary',

@@ -7,9 +7,6 @@ const handleApiCall = async (apiCall) => {
 };
 
 const authService = {
-  verifyAdminDashboardUser: async (data) => {
-    return handleApiCall(() => api.post('/auth/verifyAdminDashboardUser', data));
-  },
 
   createAccount: async (data) => {
     return handleApiCall(() => api.post('/auth/signup', data));
@@ -45,7 +42,19 @@ const authService = {
   verifyEmail: async (token) => {
     return handleApiCall(() => api.get(`/auth/verify-email/${token}`));
   },
+
+  verifyAdminDashboardUser: async (data) => {
+    return handleApiCall(() => api.post('/auth/verifyAdminDashboardUser', data));
+  },
+
+  updateUserRole: async (data) => {
+    return handleApiCall(() => api.post('/auth/updateUserRole', data));
+  },
+  activateEmployee: async (data) => {
+    return handleApiCall(() => api.post('/auth/activateEmployee', data));
+  },
 };
+
 
 const userService = {
   getProfile: async () => {
@@ -134,7 +143,6 @@ const projectService = {
 
 
 const apiService = {
-  verifyAdminDashboardUser:authService.verifyAdminDashboardUser,
   createAccount: authService.createAccount,
   login: authService.login,
   logout: authService.logout,
@@ -142,6 +150,10 @@ const apiService = {
   forgotPassword: authService.forgotPassword,
   resetPassword: authService.resetPassword,
   verifyEmail: authService.verifyEmail,
+  verifyAdminDashboardUser:authService.verifyAdminDashboardUser,
+  activateEmployee:authService.activateEmployee,
+  updateUserRole:authService.updateUserRole,
+
 
   getProfile: userService.getProfile,
   updateProfile: userService.updateProfile,

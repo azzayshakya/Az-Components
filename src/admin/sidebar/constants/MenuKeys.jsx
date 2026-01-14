@@ -5,8 +5,10 @@ export const MENU_KEYS = {
   ALL_USERS: 'all-users',
   
   // Employee Management
-  ADD_EMPLOYEE: 'add-employee',
+  EMPLOYEE_ACTIVATION: 'employee-activation',
   ALL_EMPLOYEES: 'all-employees',
+  ROLE_MANAGEMENT:'role-management',
+  ADD_EMPLOYEE_DETAILS:'add-employee-details',
 
   // Salary Management
   EMPLOYEE_MANAGEMENT: 'employee-management',

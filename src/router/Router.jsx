@@ -4,7 +4,7 @@ import { ErrorPage } from "../pages/common/ErrorPage";
 import { NotFoundPage } from "../pages/common/NotFoundPage";
 import RedirectPage from "../pages/common/RedirectPage";
 import HomeUILayout from "../layout/Home/HomeLayout";
-import AddEmployee from "@/admin/pages/EmployeeManagment/AddEmployee";
+import AddEmployee from "@/admin/pages/EmployeeManagment/ActivateEmployee";
 import AllEmployee from "@/admin/pages/EmployeeManagment/AllEmployee";
 import SalaryManagemnt from "@/admin/pages/SalaryManagement";
 import CommentsManagement from "@/admin/pages/CommentsManagement";
@@ -14,6 +14,9 @@ import AllProject from "@/admin/pages/ProjectManagement/AllProject";
 import UserManagement from "@/admin/pages/userManagement";
 import MyProfile from "@/admin/pages/myProfile";
 import Dashboard from "@/admin/Dashboard";
+import RoleManagement from "@/admin/pages/EmployeeManagment/RoleManagement";
+import UpdateEmployeeDetails from "@/admin/pages/EmployeeManagment/UpdateEmployeeDetails";
+import ActivateEmployee from "@/admin/pages/EmployeeManagment/ActivateEmployee";
 
 const router = createBrowserRouter(
   [
@@ -35,12 +38,20 @@ const router = createBrowserRouter(
           element: <Dashboard />,
         },
         {
-          path: "/employees/add",
-          element: <AddEmployee />,
+          path: "/employees/employee-activation",
+          element: <ActivateEmployee />,
         },
         {
           path: "/employees/all",
           element: <AllEmployee />,
+        },
+         {
+          path: "/employees/update-employee-details",
+          element: <UpdateEmployeeDetails />,
+        },
+         {
+          path: "/employees/role-management",
+          element: <RoleManagement />,
         },
         {
           path: "/salary",

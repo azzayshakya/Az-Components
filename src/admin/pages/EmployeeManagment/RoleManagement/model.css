@@ -1,0 +1,217 @@
+.role-update-modal .ant-modal-content {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.role-modal-content {
+  padding: 24px 8px;
+}
+
+/* User Avatar Section */
+.user-avatar-section {
+  text-align: center;
+  margin-bottom: 32px;
+  animation: fadeInDown 0.5s ease-out;
+}
+
+.user-avatar {
+  margin-bottom: 16px;
+  animation: scaleIn 0.6s ease-out;
+  transition: transform 0.3s ease;
+}
+
+.user-avatar:hover {
+  transform: scale(1.05);
+}
+
+.user-name {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: #1a1a1a;
+}
+
+.user-emp-id {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* User Details Card */
+.user-details-card {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  animation: fadeInUp 0.5s ease-out;
+  transition: all 0.3s ease;
+}
+
+.user-details-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.user-details-card .ant-descriptions-item-label {
+  padding-bottom: 12px;
+}
+
+.user-details-card .ant-descriptions-item-content {
+  padding-bottom: 12px;
+}
+
+/* Role Selection Section */
+.role-selection-section {
+  margin-bottom: 32px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.role-label {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+}
+
+.role-selection-section .ant-select {
+  animation: slideInRight 0.5s ease-out;
+}
+
+.role-selection-section .ant-select-selector {
+  border-radius: 8px;
+  border: 2px solid #d9d9d9;
+  transition: all 0.3s ease;
+}
+
+.role-selection-section .ant-select-focused .ant-select-selector {
+  border-color: #1677ff;
+  box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.1);
+}
+
+.role-change-notice {
+  margin-top: 12px;
+  padding: 12px;
+  background: #fff7e6;
+  border: 1px solid #ffd591;
+  border-radius: 8px;
+  animation: slideInUp 0.4s ease-out;
+}
+
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  animation: fadeIn 0.7s ease-out;
+}
+
+.update-btn {
+  min-width: 120px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.update-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.update-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.update-btn:active {
+  transform: scale(0.95);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .role-modal-content {
+    padding: 16px 4px;
+  }
+
+  .user-name {
+    font-size: 20px;
+  }
+
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+  }
+}

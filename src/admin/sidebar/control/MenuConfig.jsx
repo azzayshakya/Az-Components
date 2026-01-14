@@ -66,13 +66,23 @@ export const MENU_CONFIG = [
     icon: TeamOutlined,
     children: [
       {
-        key: MENU_KEYS.ADD_EMPLOYEE,
-        label: MENU_LABELS.addEmployee,
+        key: MENU_KEYS.EMPLOYEE_ACTIVATION,
+        label: MENU_LABELS.employeeActivation,
         icon: UserAddOutlined,
       },
       {
         key: MENU_KEYS.ALL_EMPLOYEES,
         label: MENU_LABELS.allEmployees,
+        icon: UsergroupAddOutlined,
+      },
+      {
+        key: MENU_KEYS.ROLE_MANAGEMENT,
+        label: MENU_LABELS.roleManagement,
+        icon: UsergroupAddOutlined,
+      },
+      {
+        key: MENU_KEYS.ADD_EMPLOYEE_DETAILS,
+        label: MENU_LABELS.addEmployeeDetails,
         icon: UsergroupAddOutlined,
       },
     ],

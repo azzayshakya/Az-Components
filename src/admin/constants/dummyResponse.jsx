@@ -23,7 +23,7 @@ export const employeeListResponse = {
 
       tempAddress: "Indore, Madhya Pradesh",
       permanentAddress: "Gwalior, Madhya Pradesh",
-
+role:'Admin',
       bankName: "State Bank of India",
       accountNumber: "123456789012",
       ifscCode: "SBIN0001234",
@@ -53,6 +53,7 @@ export const employeeListResponse = {
       mobile: "9123456789",
       email: "rohit@elmechindia.com",
       aadharNumber: "234523452345",
+role:'user',
 
       joiningDate: "2022-11-15",
       workingStatus: "working",
@@ -80,6 +81,8 @@ export const employeeListResponse = {
     },
 
     {
+role:'employee',
+
       empId: "UUID-003",
       employeeId: "EMP-003",
       firstName: "Amit",
@@ -134,7 +137,7 @@ export const employeeListResponse = {
       department: "HR",
       designation: "HR Executive",
       workLocation: "office",
-
+role:"employee",
       tempAddress: "Delhi",
       permanentAddress: "Jaipur, Rajasthan",
 
@@ -170,7 +173,7 @@ export const employeeListResponse = {
       department: "Site",
       designation: "Site Supervisor",
       workLocation: "site",
-
+role:"cfo",
       tempAddress: "Gurgaon, Haryana",
       permanentAddress: "Rewari, Haryana",
 
