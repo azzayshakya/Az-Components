@@ -131,7 +131,7 @@ export default function Dashboard() {
           position: "relative",
         }}
       >
-        {/* Decorative Background Elements */}
+         {/* Decorative Background Elements  */}
         <div className="welcome-card-decoration" />
         
         <Row align="middle" justify="space-between" style={{ position: "relative", zIndex: 1 }}>

@@ -4,7 +4,7 @@ import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import { Button, Col, Input, Row, Select } from "antd";
 import { useEffect, useState } from "react";
-import { DEPARTMENT_ENUM, WORK_STATUS } from "../../constants/enum";
+import { DEPARTMENT_ENUM, WORK_STATUS_ENUM } from "../../constants/enum";
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { Space, Tooltip } from "antd";
 import InputForm from "../component/InputForm";
@@ -107,8 +107,8 @@ export default function UpdateEmployeeDetails() {
       title="Filters"
      
     >
-      <Row gutter={[16, 16]} align="middle">
-        <Col xs={24} md={6}>
+      <Row gutter={[12, 12]} align="middle">
+         <Col xs={24} sm={12} md={5}>
           <Select
             allowClear
             placeholder="Department"
@@ -121,12 +121,12 @@ export default function UpdateEmployeeDetails() {
           />
         </Col>
 
-        <Col xs={24} md={6}>
+         <Col xs={24} sm={12} md={5}>
           <Select
             allowClear
             placeholder="Working Status"
             style={{ width: "100%" }}
-            options={WORK_STATUS}
+            options={WORK_STATUS_ENUM}
             value={paramObj.workingStatus || undefined}
             onChange={(val) =>
               setParamObj((p) => ({ ...p, workingStatus: val }))
@@ -134,7 +134,7 @@ export default function UpdateEmployeeDetails() {
           />
         </Col>
 
-        <Col xs={24} md={6}>
+       <Col xs={24} md={8}>
           <Input
             placeholder="Search by name or email"
             allowClear

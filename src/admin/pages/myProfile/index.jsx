@@ -1,11 +1,29 @@
+import apiService from "@/admin/advanceApi/apiService";
 import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import { Button, Col, Form, Input, Row, Select, DatePicker, Upload } from "antd";
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function MyProfile() {
   const [form] = Form.useForm();
+//   const [profileData,setProfileData]=useState();
+// const  getUserProfileData=async()=>{
+// try {
+//   const response = await apiService.getProfile()
+//   setProfileData(userProfile)
 
+// } catch (error) {
+//   // toast.error()
+//   setProfileData(userProfile);
+// }  
+
+
+// }
+// useEffect(()=>{
+// getUserProfileData()
+// },[])
   const userProfile = {
     firstName: "Ajay",
     lastName: "Shakya",

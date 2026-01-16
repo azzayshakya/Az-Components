@@ -107,6 +107,7 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
             // minHeight: "calc(100vh - 64px)",
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
+            flex:1
             
           }}
         >

@@ -6,7 +6,7 @@ import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import CrudTable from "@/pages/antdFormTable/components/CrudTable";
 import SalaryHistoryPopover from "../constants";
-import { DEPARTMENT_ENUM, DESIGNATION } from "../constants/enum";
+import { DEPARTMENT_ENUM, DESIGNATION_ENUM } from "../constants/enum";
 import SalaryUpdateForm from "./form";
 
 const { Text } = Typography;
@@ -97,8 +97,8 @@ export default function SalaryManagement() {
   return (
     <ModeCard title="Salary Management">
       <ModeFieldSet title="Filters">
-        <Row gutter={[16, 16]}>
-          <Col xs={24} md={6}>
+        <Row gutter={[12, 12]}>
+          <Col xs={24} sm={12} md={5}>
             <Select
               allowClear
               placeholder="Department"
@@ -111,13 +111,13 @@ export default function SalaryManagement() {
             />
           </Col>
 
-          <Col xs={24} md={6}>
+          <Col xs={24} sm={12} md={5}>
             <Select
               allowClear
               placeholder="Designation"
               style={{ width: "100%" }}
               value={filters.designation || undefined}
-              options={DESIGNATION}
+              options={DESIGNATION_ENUM}
               onChange={(val) =>
                 setFilters((p) => ({ ...p, designation: val }))
               }
@@ -135,7 +135,7 @@ export default function SalaryManagement() {
             />
           </Col>
 
-          <Col xs={24} md={2}>
+          <Col xs={12} md={3}>
             <Button
               type="primary"
               block
@@ -152,7 +152,7 @@ export default function SalaryManagement() {
             </Button>
           </Col>
 
-          <Col xs={24} md={2}>
+          <Col xs={12} md={3}>
             <Button
               block
               onClick={() => {

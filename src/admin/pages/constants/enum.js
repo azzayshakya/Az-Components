@@ -1,11 +1,11 @@
-export const GENDER = [
+export const GENDER_ENUM = [
   { label: 'Male', value: 'male' },
   { label: 'Female', value: 'female' },
   { label: 'Other', value: 'other' },
   { label: 'Prefer Not to Say', value: 'na' },
 ]
 
-export const WORK_STATUS = [
+export const WORK_STATUS_ENUM = [
   { label: 'Currently Working', value: 'working' },
   { label: 'On Notice Period', value: 'notice_period' },
   { label: 'Resigned', value: 'resigned' },
@@ -14,7 +14,7 @@ export const WORK_STATUS = [
   { label: 'Contract Completed', value: 'contract_completed' },
 ]
 
-export const EMPLOYMENT_TYPE = [
+export const EMPLOYMENT_TYPE_ENUM = [
   { label: 'Permanent', value: 'permanent' },
   { label: 'Contract', value: 'contract' },
   { label: 'Daily Wages', value: 'daily_wages' },
@@ -23,7 +23,7 @@ export const EMPLOYMENT_TYPE = [
   { label: 'Intern / Trainee', value: 'intern' },
 ]
 
-export const WORK_LOCATION = [
+export const WORK_LOCATION_ENUM = [
   { label: 'Work From Office', value: 'wfo' },
   { label: 'Work From Home', value: 'wfh' },
   { label: 'Hybrid', value: 'hybrid' },
@@ -68,7 +68,7 @@ export const DEPARTMENT_ENUM = [
   { label: 'IT & Software', value: 'it' },
   { label: 'Administration', value: 'admin' },
 ]
-export const DESIGNATION = [
+export const DESIGNATION_ENUM = [
   // Leadership
   { label: 'Chief Executive Officer (CEO)', value: 'ceo' },
   { label: 'Chief Operating Officer (COO)', value: 'coo' },
@@ -109,11 +109,7 @@ export const DESIGNATION = [
   { label: 'Office Assistant', value: 'office_assistant' },
   { label: 'Intern / Trainee', value: 'intern' },
 ]
-export const ALL_EMPLOYEE_ENUM = [
-  { label: "Ajay Shakya", value: "Ajay Shakya", empId: "EMP001", empRole: "Manager" },
-  { label: "Rohit Verma", value: "Rohit Verma", empId: "EMP002", empRole: "Engineer" },
-  { label: "Neha Singh", value: "Neha Singh", empId: "EMP003", empRole: "Team Lead" },
-];
+
 export const PROJECT_SERVICES_ENUM = [
   { label: "Electrical Works", value: "electrical" },
   { label: "Fire Fighting", value: "fire_fighting" },
@@ -128,4 +124,10 @@ export const PROJECT_STATUS_ENUM = [
   { label: "On Hold", value: "on_hold" },
   { label: "Completed", value: "completed" },
   { label: "Cancelled", value: "cancelled" },
+];
+// export 
+export const ALL_EMPLOYEE_ENUM = [
+  { label: "Ajay Shakya", value: "Ajay Shakya", empId: "EMP001", empRole: "Manager" },
+  { label: "Rohit Verma", value: "Rohit Verma", empId: "EMP002", empRole: "Engineer" },
+  { label: "Neha Singh", value: "Neha Singh", empId: "EMP003", empRole: "Team Lead" },
 ];

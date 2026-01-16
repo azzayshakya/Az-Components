@@ -1,11 +1,13 @@
 import { Input, Select, Row, Col, Button } from "antd";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import { allUsersResponse } from "@/admin/constants/dummyResponse";
-import DynamicAntdStatusTag from "../constants/DynamicAntdStatusTag";
+
 import { useState } from "react";
 import CrudTable from "@/pages/antdFormTable/components/CrudTable";
 import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import { DEPARTMENT_ENUM, USER_ROLES_ENUM } from "../constants/enum";
+import { DynamicStatusTag } from "../constants/DynamicAntdStatusTag";
+
 
 export default function UserManagement() {
  const [refreshCounter, setRefreshCounter] = useState(0);
@@ -38,10 +40,7 @@ console.log(refreshCounter)
       title: "Status",
       dataIndex: "status",
       align:"center",
-      render: (status) => DynamicAntdStatusTag({
-        status,
-        size: "medium",
-      }),
+      render: (status) =><DynamicStatusTag type={status}/>
     },
   ];
 

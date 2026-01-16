@@ -6,7 +6,10 @@ import {
   PROJECT_SERVICES_ENUM,
   PROJECT_STATUS_ENUM,
 } from "../../constants/enum";
-
+import PageInfoCard from "@/admin/components/PageInfoCard";
+import {
+  ProjectOutlined,
+} from "@ant-design/icons";
 export default function AddProject() {
   const [form] = Form.useForm();
 
@@ -35,6 +38,17 @@ console.log(payload)
             Submit
           </Button>
         }>
+          <PageInfoCard
+  title="About This Page"
+  icon={<ProjectOutlined />}
+  description="Create and manage a new project for Elmech India Engineers."
+  points={[
+    "Fill in basic project and client details.",
+    "Assign project lead and co-lead for responsibility tracking.",
+    "Select services, budget, and timeline accurately.",
+    "Project status helps monitor progress efficiently.",
+  ]}
+/>
       <Form
         form={form}
         layout="horizontal" 
@@ -124,13 +138,14 @@ console.log(payload)
               </Form.Item>
             </Col>
 
-            <Col md={24}>
+            <Col md={12}>
               <Form.Item label="Address" name="address">
-                <Input />
+                               <Input.TextArea rows={3} />
+
               </Form.Item>
             </Col>
 
-            <Col md={24}>
+            <Col md={12}>
               <Form.Item label="Description" name="description">
                 <Input.TextArea rows={3} />
               </Form.Item>

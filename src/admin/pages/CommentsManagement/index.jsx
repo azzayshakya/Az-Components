@@ -120,10 +120,36 @@ export default function CommentsManagement() {
             </Button>
           }
         >
-          <Row gutter={[16, 16]} align="middle">
+          <Row gutter={[12, 12]} align="middle">
             
 
-            <Col xs={24} md={7}>
+            
+                     <Col xs={24} sm={12} md={5}>
+            <Select
+              allowClear
+              placeholder="Types"
+              value={paramObj.type || undefined}
+              style={{ width: "100%" }}
+              // options={USER_ROLES_ENUM}
+              onChange={(val) =>
+                setParamObj((p) => ({ ...p, type: val }))
+              }
+            >
+              <Select.Option>True</Select.Option>
+              <Select.Option>False</Select.Option>
+
+              </Select>
+          </Col>
+                      <Col xs={24} sm={12} md={5}>
+              <RangePicker
+                style={{ width: "100%" }}
+                value={paramObj.dateRange}
+                onChange={(dates) =>
+                  setParamObj((p) => ({ ...p, dateRange: dates || [] }))
+                }
+              />
+            </Col>
+<Col xs={24} md={8}>
               <Input
                 allowClear
                 placeholder="Search by name or email"
@@ -133,18 +159,8 @@ export default function CommentsManagement() {
                 }
               />
             </Col>
-
-            <Col xs={24} md={7}>
-              <RangePicker
-                style={{ width: "100%" }}
-                value={paramObj.dateRange}
-                onChange={(dates) =>
-                  setParamObj((p) => ({ ...p, dateRange: dates || [] }))
-                }
-              />
-            </Col>
-
-            <Col xs={24} md={5}>
+           
+          <Col xs={12} md={3}>
               <Button
                 type="primary"
                 block
@@ -154,7 +170,8 @@ export default function CommentsManagement() {
               </Button>
             </Col>
 
-            <Col xs={24} md={5}>
+           
+          <Col xs={12} md={3}>
               <Button
                 block
                 onClick={() => {

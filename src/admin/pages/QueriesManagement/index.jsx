@@ -4,8 +4,8 @@ import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import { Button, Col, Input, Row, Select, Space, Tooltip } from "antd";
 import { useState } from "react";
-import DynamicAntdStatusTag from "../constants/DynamicAntdStatusTag";
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import { DynamicStatusTag } from "../constants/DynamicAntdStatusTag";
 
 export default function QueriesManagement() {
   const [refreshCounter, setRefreshCounter] = useState(0);
@@ -37,21 +37,16 @@ export default function QueriesManagement() {
       title: "Priority",
       dataIndex: "priority",
       key: "priority",
-      render: (status) => DynamicAntdStatusTag({
-        status,
-        size: "large",
-      }),
-      align:"center"
+      align:"center",
+
+      render: (status) =><DynamicStatusTag type={status}/>
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (status) => DynamicAntdStatusTag({
-        status,
-        size: "large",
-      }),
-      align:"center"
+      align:"center",
+       render: (status) =><DynamicStatusTag type={status}/>
     },
     { title: "Created At", dataIndex: "createdAt", key: "createdAt" ,align:"center"},
     {
@@ -106,8 +101,8 @@ export default function QueriesManagement() {
   return (
     <ModeCard title="All Queries">
       <ModeFieldSet title="Filters">
-        <Row gutter={[16, 16]}>
-          <Col xs={24} md={6}>
+        <Row gutter={[12, 12]}>
+         <Col xs={24} sm={12} md={5}>
             <Select
               allowClear
               placeholder="Status"
@@ -119,7 +114,7 @@ export default function QueriesManagement() {
             </Select>
           </Col>
 
-          <Col xs={24} md={6}>
+         <Col xs={24} sm={12} md={5}>
             <Select
               allowClear
               placeholder="Priority"
@@ -132,7 +127,7 @@ export default function QueriesManagement() {
             </Select>
           </Col>
 
-          <Col xs={24} md={8}>
+         <Col xs={24} md={8}>
             <Input
               allowClear
               placeholder="Search by user or subject"
@@ -142,7 +137,7 @@ export default function QueriesManagement() {
             />
           </Col>
 
-          <Col xs={24} md={2}>
+          <Col xs={12} md={3}>
             <Button
               type="primary"
               block
@@ -152,7 +147,7 @@ export default function QueriesManagement() {
             </Button>
             
           </Col>
-          <Col xs={24} md={2}>
+          <Col xs={12} md={3}>
             <Button
               type="default"
               block

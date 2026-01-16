@@ -93,7 +93,7 @@ export default function UpdateEmployeeDetails() {
     <>
       <ModeCard title="Employee Activation">
         <ModeFieldSet title="Filters">
-          <Row gutter={[16, 16]} align="middle">
+          <Row gutter={[12, 12]} align="middle">
             <Col xs={24} md={18}>
               <Input
                 placeholder="Search by name or email"

@@ -3,12 +3,12 @@ import { useState } from "react";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import CrudTable from "@/pages/antdFormTable/components/CrudTable";
 import { allProjectsResponse } from "@/admin/constants/dummyResponse";
-import DynamicAntdStatusTag from "../../constants/DynamicAntdStatusTag";
 import { PROJECT_STATUS_ENUM, DEPARTMENT_ENUM } from "../../constants/enum";
 import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 // import InputForm from "../component/InputForm";
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import InputForm from "./InputForm";
+import { DynamicStatusTag } from "../../constants/DynamicAntdStatusTag";
 export default function AllProject() {
   const [refreshCounter, setRefreshCounter] = useState(0);
   console.log(refreshCounter)
@@ -57,11 +57,7 @@ export default function AllProject() {
     {
       title: "Status",
       dataIndex: "projectStatus",
-      render: (status) =>
-        DynamicAntdStatusTag({
-          status,
-          size: "large",
-        }),
+      render: (status) =><DynamicStatusTag type={status}/>
     },
      {
       title: "Action",
@@ -116,18 +112,9 @@ export default function AllProject() {
     <ModeCard title="All Projects">
       <ModeFieldSet title="Filters">
       <Row gutter={[12, 12]} align="middle">
-        <Col xs={24} md={6}>
-          <Input
-            allowClear
-            placeholder="Search project"
-            value={paramObj.search}
-            onChange={(e) =>
-              setParamObj((p) => ({ ...p, search: e.target.value }))
-            }
-          />
-        </Col>
+       
 
-        <Col xs={24} md={6}>
+         <Col xs={24} sm={12} md={5}>
           <Select
             allowClear
             placeholder="Department"
@@ -140,7 +127,7 @@ export default function AllProject() {
           />
         </Col>
 
-        <Col xs={24} md={6}>
+         <Col xs={24} sm={12} md={5}>
           <Select
             allowClear
             placeholder="Status"
@@ -152,7 +139,16 @@ export default function AllProject() {
             }
           />
         </Col>
-
+ <Col xs={24} md={8}>
+          <Input
+            allowClear
+            placeholder="Search project"
+            value={paramObj.search}
+            onChange={(e) =>
+              setParamObj((p) => ({ ...p, search: e.target.value }))
+            }
+          />
+        </Col>
         <Col xs={12} md={3}>
           <Button
             type="primary"
