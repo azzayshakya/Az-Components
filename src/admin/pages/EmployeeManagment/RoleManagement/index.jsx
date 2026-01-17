@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { DEPARTMENT_ENUM, WORK_STATUS_ENUM } from "../../constants/enum";
 import InputForm from "../component/InputForm";
 import RoleUpdateModal from "./RoleUpdateModal";
+import { DynamicStatusTag } from "../../constants/DynamicAntdStatusTag";
 
 export default function RoleManagement() {
   const [, setRefreshCounter] = useState(0);
@@ -62,7 +63,9 @@ export default function RoleManagement() {
     { title: "Department", dataIndex: "department", key: "department" },
     { title: "Designation", dataIndex: "designation", key: "designation" },
     {
-      title: "Role", dataIndex: "role", key: "role"
+      title: "Current Role",
+       dataIndex: "role", key: "role",
+      render:(role)=>(<DynamicStatusTag type={role} size="large"/>)
     },
     {
       title: "Action",
@@ -70,8 +73,11 @@ export default function RoleManagement() {
       fixed: "right",
       render: (_, record) => (
         <Button
-          type="primary"
-          size="small"
+        style={{
+          padding:"",
+          background:"#1677ff",
+          color:"white",
+        }}
           onClick={() => handleOpenRoleModal(record)}
         >
           Update Role

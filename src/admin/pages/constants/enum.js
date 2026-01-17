@@ -11,7 +11,7 @@ export const WORK_STATUS_ENUM = [
   { label: 'Resigned', value: 'resigned' },
   { label: 'Terminated', value: 'terminated' },
   { label: 'Retired', value: 'retired' },
-  { label: 'Contract Completed', value: 'contract_completed' },
+  { label: 'Contr. Completed', value: 'contract_completed' },
 ]
 
 export const EMPLOYMENT_TYPE_ENUM = [
@@ -31,25 +31,14 @@ export const WORK_LOCATION_ENUM = [
   { label: 'Remote (Outstation)', value: 'remote' },
 ]
 export const USER_ROLES_ENUM = [
-  { label: 'Super Admin', value: 'super_admin' },
-  { label: 'Admin', value: 'admin' },
-  { label: 'CEO', value: 'ceo' },
-  { label: 'COO', value: 'coo' },
-  { label: 'CFO', value: 'cfo' },
-  { label: 'CTO', value: 'cto' },
-  { label: 'General Manager', value: 'gm' },
+  { label: 'Admin', value: 'admin' }, //me
+  { label: 'CEO', value: 'ceo' }, //wx. big brother
+  { label: 'CFO', value: 'cfo' }, 
+  { label: 'CTO', value: 'cto' },//ex. ankit bhaiya
   { label: 'Project Manager', value: 'project_manager' },
-  { label: 'Site Manager', value: 'site_manager' },
-  { label: 'HR Manager', value: 'hr_manager' },
   { label: 'Finance Manager', value: 'finance_manager' },
-  { label: 'Team Lead', value: 'team_lead' },
-  { label: 'Engineer', value: 'engineer' },
-  { label: 'Supervisor', value: 'supervisor' },
-  { label: 'Accountant', value: 'accountant' },
-  { label: 'Employee', value: 'employee' },
-  { label: 'Intern', value: 'intern' },
-  { label: 'Vendor', value: 'vendor' },
-  { label: 'Guest / Viewer', value: 'viewer' },
+  { label: 'Employee', value: 'employee' },  
+  { label: 'User', value: 'user' },
 ]
 // Department  → WHAT field
 // Designation → WHAT position in that field

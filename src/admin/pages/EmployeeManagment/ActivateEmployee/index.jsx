@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import InputForm from "../component/InputForm";
 import EmployeeActivationModal from "./EmployeeActivationModal";
+import { DynamicStatusTag } from "../../constants/DynamicAntdStatusTag";
 
 export default function UpdateEmployeeDetails() {
   const [refreshCounter, setRefreshCounter] = useState(0);
@@ -61,7 +62,7 @@ export default function UpdateEmployeeDetails() {
     { title: "Phone", dataIndex: "mobile", key: "mobile", width: 150 },
     { title: "Department", dataIndex: "department", key: "department" },
     { title: "Designation", dataIndex: "designation", key: "designation" },
-    { title: "Status", dataIndex: "workingStatus", key: "workingStatus" },
+    { title: "Status", dataIndex: "workingStatus", key: "workingStatus",render:(status)=>(<DynamicStatusTag type={status}/>) },
     {
       title: "Action",
       key: "action",
@@ -69,14 +70,16 @@ export default function UpdateEmployeeDetails() {
       width: 140,
       render: (_, record) => (
         <Button
-          type="primary"
-          size="small"
+          // type="primary"
+          // size="small"
+          
           icon={<CheckCircleOutlined />}
           onClick={() => handleOpenActivationModal(record)}
           style={{
             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
             border: 'none',
             fontWeight: '500',
+            color:"white",
           }}
         >
           Activate

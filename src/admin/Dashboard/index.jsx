@@ -295,7 +295,7 @@ export default function Dashboard() {
                     size="large"
                     block
                     style={{
-                      height: 80,
+                      height: 110,
                       borderRadius: 10,
                       border: `1px solid ${action.color}20`,
                       background: `${action.color}08`,

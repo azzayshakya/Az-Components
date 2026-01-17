@@ -8,23 +8,32 @@ import toast from "react-hot-toast";
 
 export default function MyProfile() {
   const [form] = Form.useForm();
-//   const [profileData,setProfileData]=useState();
-// const  getUserProfileData=async()=>{
-// try {
-//   const response = await apiService.getProfile()
-//   setProfileData(userProfile)
+  const [profileData,setProfileData]=useState();
+  const normalizeProfileData = (data) => ({
+    ...data,
+    dob: data.dob ? dayjs(data.dob) : null,
+    joiningDate: data.joiningDate ? dayjs(data.joiningDate) : null,
+    lastWorkingDate: data.lastWorkingDate
+      ? dayjs(data.lastWorkingDate)
+      : null,
+  });
 
-// } catch (error) {
-//   // toast.error()
-//   setProfileData(userProfile);
-// }  
-
-
-// }
-// useEffect(()=>{
-// getUserProfileData()
-// },[])
-  const userProfile = {
+  const getUserProfileData = async () => {
+    try {
+      const response = await apiService.getProfile();
+      const profile = response?.data;
+      form.setFieldsValue(normalizeProfileData(profile));
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to load profile, using Dummy data");
+      form.setFieldsValue(normalizeProfileData(dummyProfile));
+    }
+  };
+  
+  useEffect(() => {
+    getUserProfileData();
+  }, []);
+  const dummyProfile = {
     firstName: "Ajay",
     lastName: "Shakya",
     fatherName: "Rajendra Shakya",
@@ -64,14 +73,14 @@ export default function MyProfile() {
         layout="horizontal"
         labelCol={{ xs: 24, sm: 8 }}
         wrapperCol={{ xs: 24, sm: 16 }}
-        initialValues={{
-          ...userProfile,
-          dob: dayjs(userProfile.dob),
-          joiningDate: dayjs(userProfile.joiningDate),
-          lastWorkingDate: userProfile.lastWorkingDate
-            ? dayjs(userProfile.lastWorkingDate)
-            : null,
-        }}
+        // initialValues={{
+        //   ...profileData,
+        //   dob: dayjs(profileData.dob),
+        //   joiningDate: dayjs(profileData.joiningDate),
+        //   lastWorkingDate: profileData.lastWorkingDate
+        //     ? dayjs(profileData.lastWorkingDate)
+        //     : null,
+        // }}
       >
         <ModeFieldSet title="Personal Information">
           <Row gutter={[24, 16]}>

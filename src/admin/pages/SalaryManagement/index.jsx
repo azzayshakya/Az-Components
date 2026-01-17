@@ -87,7 +87,7 @@ export default function SalaryManagement() {
       title: "Action",
       key: "action",
       render: (_, record) => (
-        <Button size="small" onClick={() => handleUpdateClick(record)}>
+        <Button style={{background:"#1677ff",color:"white"}} onClick={() => handleUpdateClick(record)}>
           Update
         </Button>
       ),

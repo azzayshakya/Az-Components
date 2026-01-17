@@ -8,6 +8,7 @@ import { DEPARTMENT_ENUM, WORK_STATUS_ENUM } from "../../constants/enum";
 import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { Space, Tooltip } from "antd";
 import InputForm from "../component/InputForm";
+import { DynamicStatusTag } from "../../constants/DynamicAntdStatusTag";
 
 
 export default function AllEmployee() {
@@ -47,7 +48,7 @@ export default function AllEmployee() {
     { title: "Phone", dataIndex: "mobile", key: "mobile", width: 150 },
     { title: "Department", dataIndex: "department", key: "department" },
     { title: "Designation", dataIndex: "designation", key: "designation" },
-    { title: "Status", dataIndex: "workingStatus", key: "workingStatus" },
+    { title: "Status", dataIndex: "workingStatus", key: "workingStatus" , render:(status)=>(<DynamicStatusTag type={status} size=""/>)},
     {
       title: "Action",
       key: "action",

@@ -16,13 +16,14 @@ import {
   UserDeleteOutlined,
   UserSwitchOutlined,
 } from "@ant-design/icons";
-
+import './DynamicAntdStatusTag.css'
 export const DynamicStatusTag = ({
   type = "NA",
   returnType = "Tag",
   size = "medium",
   showIcon = true,
 }) => {
+  console.log("azazaz dynamic data tag recieve this data",type,returnType,size,showIcon)
   const statusKey = String(type).trim().toLowerCase();
 
   let color = "green";
@@ -47,7 +48,7 @@ export const DynamicStatusTag = ({
     statusText = statusKey.toUpperCase();
     icon = <CloseCircleOutlined />;
     break;
-
+//project status
   case "planned":
     color = "blue";
     statusText = "PLANNED";
@@ -78,7 +79,7 @@ export const DynamicStatusTag = ({
     statusText = "CANCELLED";
     icon = <StopOutlined />;
     break;
-
+//priority 
   case "high":
     color = "red";
     statusText = "HIGH";
@@ -96,7 +97,7 @@ export const DynamicStatusTag = ({
     statusText = "LOW";
     icon = <InfoCircleOutlined />;
     break;
-
+//status
   case "pending":
     color = "orange";
     statusText = "PENDING";
@@ -114,6 +115,8 @@ export const DynamicStatusTag = ({
     statusText = "REJECTED";
     icon = <CloseCircleOutlined />;
     break;
+
+    //working status
   case "working":
     color = "green";
     statusText = "WORKING";
@@ -150,6 +153,59 @@ export const DynamicStatusTag = ({
     color = "green";
     statusText = "CONTRACT COMPLETED";
     icon = <CheckCircleOutlined />;
+    break;
+
+
+    //user roles 
+
+  case "admin":
+    color = "magenta";
+    statusText = "ADMIN";
+    icon = <UserSwitchOutlined />;
+    break;
+
+  case "ceo":
+    color = "purple";
+    statusText = "CEO";
+    icon = <RiseOutlined />;
+    break;
+
+  case "cto":
+    color = "geekblue";
+    statusText = "CTO";
+    icon = <ProjectOutlined />;
+    break;
+
+  case "cfo":
+    color = "gold";
+    statusText = "CFO";
+    icon = <RiseOutlined />;
+    break;
+
+  case "project_manager":
+  case "project manager":
+    color = "blue";
+    statusText = "PROJECT MANAGER";
+    icon = <ProjectOutlined />;
+    break;
+
+  case "finance_manager":
+  case "finance manager":
+    color = "cyan";
+    statusText = "FINANCE MANAGER";
+    icon = <RiseOutlined />;
+    break;
+
+  case "employee":
+    color = "green";
+    statusText = "EMPLOYEE";
+    icon = <UserOutlined />;
+    break;
+
+  case "user":
+    color = "default";
+    statusText = "USER";
+    icon = <UserOutlined />;
     break;
 
   default:

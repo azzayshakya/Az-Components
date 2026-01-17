@@ -21,6 +21,7 @@ import {
   EditOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
+import { DynamicStatusTag } from "../constants/DynamicAntdStatusTag";
 
 const { RangePicker } = DatePicker;
 
@@ -32,7 +33,7 @@ export default function CommentsManagement() {
     limit: 10,
     offset: 0,
     total: commentListResponse.meta.total,
-    approved: "",
+    showOnUi: "",
     search: "",
     dateRange: [],
   });
@@ -40,7 +41,7 @@ export default function CommentsManagement() {
   /* ---------------- FILTER LOGIC ---------------- */
   const tableData = commentListResponse.data.filter((c) => {
     const matchesStatus =
-      paramObj.approved === "" || c.isApproved === paramObj.approved;
+      paramObj.showOnUi === "" || c.showOnUi === paramObj.showOnUi;
 
     const matchesSearch =
       !paramObj.search ||
@@ -59,7 +60,6 @@ export default function CommentsManagement() {
     return matchesStatus && matchesSearch && matchesDate;
   });
 
-  /* ---------------- TABLE COLUMNS ---------------- */
   const columns = [
     { title: "User Name", dataIndex: "userName", key: "userName" },
     {
@@ -75,13 +75,11 @@ export default function CommentsManagement() {
       render: (val) => <Rate disabled value={val} />,
     },
     {
-      title: "Status",
-      dataIndex: "isApproved",
-      key: "isApproved",
+      title: "Showing On UI",
+      dataIndex: "showOnUi",
+      key: "showOnUi",
       render: (val) => (
-        <Tag color={val ? "green" : "red"}>
-          {val ? "Approved" : "Pending"}
-        </Tag>
+     <DynamicStatusTag type={val}/>
       ),
     },
     { title: "Created At", dataIndex: "createdAt", key: "createdAt" },
@@ -132,7 +130,7 @@ export default function CommentsManagement() {
               style={{ width: "100%" }}
               // options={USER_ROLES_ENUM}
               onChange={(val) =>
-                setParamObj((p) => ({ ...p, type: val }))
+                setParamObj((p) => ({ ...p, showOnUi: val }))
               }
             >
               <Select.Option>True</Select.Option>
