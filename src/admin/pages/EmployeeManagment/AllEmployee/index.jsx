@@ -5,21 +5,20 @@ import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import { Button, Col, Input, Row, Select } from "antd";
 import { useEffect, useState } from "react";
 import { DEPARTMENT_ENUM, WORK_STATUS_ENUM } from "../../constants/enum";
-import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import { EyeOutlined } from "@ant-design/icons";
 import { Space, Tooltip } from "antd";
 import InputForm from "../component/InputForm";
 import { DynamicStatusTag } from "../../constants/DynamicAntdStatusTag";
-
+import toast from "react-hot-toast";
+import apiService from "@/admin/advanceApi/apiService";
 
 export default function AllEmployee() {
   const [refreshCounter, setRefreshCounter] = useState(0);
-  const [, setData] = useState([]);
-  const [type, setType] = useState()
+  const [employeeData, setEmployeeData] = useState([]);
+  const [type, setType] = useState();
+  const [initialData, setInitialData] = useState({});
+  const [showInputForm, setShowInputForm] = useState(false);
 
-  const [initialData, setInitialData] = useState({})
-  const [showInputForm, setShowInputForm] = useState(false)
-  console.log(refreshCounter);
-  console.log("initial", initialData)
   const [paramObj, setParamObj] = useState({
     limit: 10,
     offset: 0,
@@ -28,147 +27,166 @@ export default function AllEmployee() {
     workingStatus: "",
     search: "",
   });
-  console.log("az intial data 1", initialData)
-  console.log("az show form state", showInputForm)
-  const tableData = employeeListResponse.data.filter((emp) => {
+
+  const [appliedFilters, setAppliedFilters] = useState(paramObj);
+
+  const fetchEmployees = async () => {
+    try {
+      const res = await apiService.getAllProjects(); 
+      setEmployeeData(res.data);
+    } catch (err) {
+      toast.error("Employee fetching failed");
+      toast.success("Using dummy employee data");
+      setEmployeeData(employeeListResponse.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
+
+  const tableData = employeeData.filter((emp) => {
     return (
-      (!paramObj.department || emp.department === paramObj.department) &&
-      (!paramObj.workingStatus ||
-        emp.workingStatus === paramObj.workingStatus) &&
-      (!paramObj.search ||
-        emp.fullName.toLowerCase().includes(paramObj.search.toLowerCase()) ||
-        emp.email.toLowerCase().includes(paramObj.search.toLowerCase()))
+      (!appliedFilters.department ||
+        emp.department === appliedFilters.department) &&
+      (!appliedFilters.workingStatus ||
+        emp.workingStatus === appliedFilters.workingStatus) &&
+      (!appliedFilters.search ||
+        emp.fullName
+          .toLowerCase()
+          .includes(appliedFilters.search.toLowerCase()) ||
+        emp.email
+          .toLowerCase()
+          .includes(appliedFilters.search.toLowerCase()))
     );
   });
 
   const columns = [
-    { title: "Emp ID", dataIndex: "employeeId", key: "employeeId", width: 120 },
-    { title: "Name", dataIndex: "fullName", key: "fullName", sorter: true },
-    { title: "Email", dataIndex: "email", key: "email", width: 220 },
-    { title: "Phone", dataIndex: "mobile", key: "mobile", width: 150 },
-    { title: "Department", dataIndex: "department", key: "department" },
-    { title: "Designation", dataIndex: "designation", key: "designation" },
-    { title: "Status", dataIndex: "workingStatus", key: "workingStatus" , render:(status)=>(<DynamicStatusTag type={status} size=""/>)},
+    { title: "Emp ID", dataIndex: "employeeId", width: 120 },
+    { title: "Name", dataIndex: "fullName", sorter: true },
+    { title: "Email", dataIndex: "email", width: 220 },
+    { title: "Phone", dataIndex: "mobile", width: 150 },
+    { title: "Department", dataIndex: "department" },
+    { title: "Designation", dataIndex: "designation" },
+    {
+      title: "Status",
+      dataIndex: "workingStatus",
+      render: (status) => <DynamicStatusTag type={status} />,
+    },
     {
       title: "Action",
-      key: "action",
       fixed: "right",
       width: 120,
       render: (_, record) => (
-        <>
-          <Space size="small">
-            <Tooltip title="View">
-              <Button
-                type="text"
-                icon={<EyeOutlined />}
-                onClick={() => {
-                  setShowInputForm(true);
-                  setInitialData(record);
-                  setType("VIEW")
-                }}
-                className="table-action-btn-view"
-              />
-            </Tooltip>
-          </Space>
-        </>
+        <Space size="small">
+          <Tooltip title="View">
+            <Button
+              type="text"
+              icon={<EyeOutlined />}
+              onClick={() => {
+                setShowInputForm(true);
+                setInitialData(record);
+                setType("VIEW");
+              }}
+            />
+          </Tooltip>
+        </Space>
       ),
-    }
-
+    },
   ];
-  useEffect(() => {
-    setData(employeeListResponse.data)
-  }, [])
+
   return (
-
     <ModeCard title="All Employees">
-      <ModeFieldSet
-      title="Filters"
-     
-    >
-      <Row gutter={[12, 12]} align="middle">
-        <Col xs={24} sm={12} md={5}>
-          <Select
-            allowClear
-            placeholder="Department"
-            options={DEPARTMENT_ENUM}
-            style={{ width: "100%" }}
-            value={paramObj.department || undefined}
-            onChange={(val) =>
-              setParamObj((p) => ({ ...p, department: val }))
-            }
-          />
-        </Col>
+      <ModeFieldSet title="Filters">
+        <Row gutter={[12, 12]} align="middle">
+          <Col xs={24} sm={12} md={5}>
+            <Select
+              allowClear
+              placeholder="Department"
+              options={DEPARTMENT_ENUM}
+              style={{ width: "100%" }}
+              value={paramObj.department || undefined}
+              onChange={(val) =>
+                setParamObj((p) => ({ ...p, department: val }))
+              }
+            />
+          </Col>
 
-        <Col xs={24} sm={12} md={5}>
-          <Select
-            allowClear
-            placeholder="Working Status"
-            style={{ width: "100%" }}
-            options={WORK_STATUS_ENUM}
-            value={paramObj.workingStatus || undefined}
-            onChange={(val) =>
-              setParamObj((p) => ({ ...p, workingStatus: val }))
-            }
-          />
-        </Col>
+          <Col xs={24} sm={12} md={5}>
+            <Select
+              allowClear
+              placeholder="Working Status"
+              options={WORK_STATUS_ENUM}
+              style={{ width: "100%" }}
+              value={paramObj.workingStatus || undefined}
+              onChange={(val) =>
+                setParamObj((p) => ({ ...p, workingStatus: val }))
+              }
+            />
+          </Col>
 
-         <Col xs={24} md={8}>
-          <Input
-            placeholder="Search by name or email"
-            allowClear
-            value={paramObj.search}
-            onChange={(e) =>
-              setParamObj((p) => ({ ...p, search: e.target.value }))
-            }
-          />
-        </Col>
+          <Col xs={24} md={8}>
+            <Input
+              allowClear
+              placeholder="Search by name or email"
+              value={paramObj.search}
+              onChange={(e) =>
+                setParamObj((p) => ({ ...p, search: e.target.value }))
+              }
+            />
+          </Col>
 
-        {/* Actions */}
-        <Col xs={12} md={3}>
-          <Button
-            type="primary"
-            block
-            onClick={() => setRefreshCounter((p) => p + 1)}
-          >
-            Apply
-          </Button>
-        </Col>
+          <Col xs={12} md={3}>
+            <Button
+              type="primary"
+              block
+              onClick={() => {
+                setAppliedFilters(paramObj);
+                setRefreshCounter((p) => p + 1);
+              }}
+            >
+              Apply
+            </Button>
+          </Col>
 
-        <Col xs={12} md={3}>
-          <Button
-            block
-            onClick={() => {
-              setParamObj({
-                ...paramObj,
-                department: "",
-                workingStatus: "",
-                search: "",
-              });
-              setRefreshCounter((p) => p + 1);
-            }}
-          >
-            Clear
-          </Button>
-        </Col>
-      </Row>
-    </ModeFieldSet>
-  
-      {showInputForm ? <>
-        <InputForm type={type} initialData={initialData} setInitialData={setInitialData} setShowInputForm={setShowInputForm} setType={setType} />
-      </> :
+          <Col xs={12} md={3}>
+            <Button
+              block
+              onClick={() => {
+                const cleared = {
+                  ...paramObj,
+                  department: "",
+                  workingStatus: "",
+                  search: "",
+                };
+                setParamObj(cleared);
+                setAppliedFilters(cleared);
+                setRefreshCounter((p) => p + 1);
+              }}
+            >
+              Clear
+            </Button>
+          </Col>
+        </Row>
+      </ModeFieldSet>
+
+      {showInputForm ? (
+        <InputForm
+          type={type}
+          initialData={initialData}
+          setInitialData={setInitialData}
+          setShowInputForm={setShowInputForm}
+          setType={setType}
+        />
+      ) : (
         <CrudTable
           tableData={tableData}
           columns={columns}
           paramObj={paramObj}
           setParamObj={setParamObj}
           setRefreshCounter={setRefreshCounter}
-          tableClassName="table-bordered table-striped"
-          headerStyle={{
-            background: "#1677ff",
-            color: "#ffffff",
-          }}
         />
-      }
+      )}
     </ModeCard>
   );
 }

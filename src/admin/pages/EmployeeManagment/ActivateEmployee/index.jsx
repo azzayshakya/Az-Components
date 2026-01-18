@@ -8,16 +8,17 @@ import { CheckCircleOutlined } from "@ant-design/icons";
 import InputForm from "../component/InputForm";
 import EmployeeActivationModal from "./EmployeeActivationModal";
 import { DynamicStatusTag } from "../../constants/DynamicAntdStatusTag";
+import toast from "react-hot-toast";
+import apiService from "@/admin/advanceApi/apiService";
 
 export default function UpdateEmployeeDetails() {
   const [refreshCounter, setRefreshCounter] = useState(0);
-  const [, setData] = useState([]);
+  const [employeeData, setEmployeeData] = useState([]);
   const [type, setType] = useState();
 
   const [initialData, setInitialData] = useState({});
   const [showInputForm, setShowInputForm] = useState(false);
-  
-  // Activation Modal State
+
   const [showActivationModal, setShowActivationModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -29,6 +30,23 @@ export default function UpdateEmployeeDetails() {
     workingStatus: "",
     search: "",
   });
+
+  const [appliedFilters, setAppliedFilters] = useState(paramObj);
+
+  const fetchEmployees = async () => {
+    try {
+      const res = await apiService.activateEmployee(); 
+      setEmployeeData(res.data);
+    } catch (err) {
+      toast.error("Employee fetching failed");
+      toast.success("Using dummy employee data");
+      setEmployeeData(employeeListResponse.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
 
   const handleOpenActivationModal = (record) => {
     setSelectedUser(record);
@@ -44,42 +62,44 @@ export default function UpdateEmployeeDetails() {
     setRefreshCounter((p) => p + 1);
   };
 
-  const tableData = employeeListResponse.data.filter((emp) => {
+  const tableData = employeeData.filter((emp) => {
     return (
-      (!paramObj.department || emp.department === paramObj.department) &&
-      (!paramObj.workingStatus ||
-        emp.workingStatus === paramObj.workingStatus) &&
-      (!paramObj.search ||
-        emp.fullName.toLowerCase().includes(paramObj.search.toLowerCase()) ||
-        emp.email.toLowerCase().includes(paramObj.search.toLowerCase()))
+      (!appliedFilters.search ||
+        emp.fullName
+          .toLowerCase()
+          .includes(appliedFilters.search.toLowerCase()) ||
+        emp.email
+          .toLowerCase()
+          .includes(appliedFilters.search.toLowerCase()))
     );
   });
 
   const columns = [
-    { title: "Emp ID", dataIndex: "employeeId", key: "employeeId", width: 120 },
-    { title: "Name", dataIndex: "fullName", key: "fullName", sorter: true },
-    { title: "Email", dataIndex: "email", key: "email", width: 220 },
-    { title: "Phone", dataIndex: "mobile", key: "mobile", width: 150 },
-    { title: "Department", dataIndex: "department", key: "department" },
-    { title: "Designation", dataIndex: "designation", key: "designation" },
-    { title: "Status", dataIndex: "workingStatus", key: "workingStatus",render:(status)=>(<DynamicStatusTag type={status}/>) },
+    { title: "Emp ID", dataIndex: "employeeId", width: 120 },
+    { title: "Name", dataIndex: "fullName", sorter: true },
+    { title: "Email", dataIndex: "email", width: 220 },
+    { title: "Phone", dataIndex: "mobile", width: 150 },
+    { title: "Department", dataIndex: "department" },
+    { title: "Designation", dataIndex: "designation" },
+    {
+      title: "Status",
+      dataIndex: "workingStatus",
+      render: (status) => <DynamicStatusTag type={status} />,
+    },
     {
       title: "Action",
-      key: "action",
       fixed: "right",
       width: 140,
       render: (_, record) => (
         <Button
-          // type="primary"
-          // size="small"
-          
           icon={<CheckCircleOutlined />}
           onClick={() => handleOpenActivationModal(record)}
           style={{
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            border: 'none',
-            fontWeight: '500',
-            color:"white",
+            background:
+              "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            border: "none",
+            fontWeight: "500",
+            color: "white",
           }}
         >
           Activate
@@ -88,10 +108,6 @@ export default function UpdateEmployeeDetails() {
     },
   ];
 
-  useEffect(() => {
-    setData(employeeListResponse.data);
-  }, []);
-
   return (
     <>
       <ModeCard title="Employee Activation">
@@ -99,8 +115,8 @@ export default function UpdateEmployeeDetails() {
           <Row gutter={[12, 12]} align="middle">
             <Col xs={24} md={18}>
               <Input
-                placeholder="Search by name or email"
                 allowClear
+                placeholder="Search by name or email"
                 value={paramObj.search}
                 onChange={(e) =>
                   setParamObj((p) => ({ ...p, search: e.target.value }))
@@ -112,7 +128,10 @@ export default function UpdateEmployeeDetails() {
               <Button
                 type="primary"
                 block
-                onClick={() => setRefreshCounter((p) => p + 1)}
+                onClick={() => {
+                  setAppliedFilters(paramObj);
+                  setRefreshCounter((p) => p + 1);
+                }}
               >
                 Apply
               </Button>
@@ -122,12 +141,14 @@ export default function UpdateEmployeeDetails() {
               <Button
                 block
                 onClick={() => {
-                  setParamObj({
+                  const cleared = {
                     ...paramObj,
                     department: "",
                     workingStatus: "",
                     search: "",
-                  });
+                  };
+                  setParamObj(cleared);
+                  setAppliedFilters(cleared);
                   setRefreshCounter((p) => p + 1);
                 }}
               >

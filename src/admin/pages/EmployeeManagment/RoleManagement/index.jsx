@@ -8,15 +8,17 @@ import { DEPARTMENT_ENUM, WORK_STATUS_ENUM } from "../../constants/enum";
 import InputForm from "../component/InputForm";
 import RoleUpdateModal from "./RoleUpdateModal";
 import { DynamicStatusTag } from "../../constants/DynamicAntdStatusTag";
+import toast from "react-hot-toast";
+import apiService from "@/admin/advanceApi/apiService";
 
 export default function RoleManagement() {
   const [, setRefreshCounter] = useState(0);
-  const [, setData] = useState([]);
+  const [employeeData, setEmployeeData] = useState([]);
   const [type, setType] = useState();
 
   const [initialData, setInitialData] = useState({});
   const [showInputForm, setShowInputForm] = useState(false);
-  
+
   // Modal state
   const [showRoleModal, setShowRoleModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -29,6 +31,23 @@ export default function RoleManagement() {
     workingStatus: "",
     search: "",
   });
+
+  const [appliedFilters, setAppliedFilters] = useState(paramObj);
+
+  const fetchEmployees = async () => {
+    try {
+      const res = await apiService.activateEmployee(); 
+      setEmployeeData(res.data);
+    } catch (err) {
+      toast.error("Employee fetching failed");
+      toast.success("Using dummy employee data");
+      setEmployeeData(employeeListResponse.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
 
   const handleOpenRoleModal = (record) => {
     setSelectedUser(record);
@@ -44,28 +63,36 @@ export default function RoleManagement() {
     setRefreshCounter((p) => p + 1);
   };
 
-  const tableData = employeeListResponse.data.filter((emp) => {
+  /* ===========================
+     FILTER DATA (APPLY ONLY)
+  ============================ */
+  const tableData = employeeData.filter((emp) => {
     return (
-      (!paramObj.department || emp.department === paramObj.department) &&
-      (!paramObj.workingStatus ||
-        emp.workingStatus === paramObj.workingStatus) &&
-      (!paramObj.search ||
-        emp.fullName.toLowerCase().includes(paramObj.search.toLowerCase()) ||
-        emp.email.toLowerCase().includes(paramObj.search.toLowerCase()))
+      (!appliedFilters.department ||
+        emp.department === appliedFilters.department) &&
+      (!appliedFilters.workingStatus ||
+        emp.workingStatus === appliedFilters.workingStatus) &&
+      (!appliedFilters.search ||
+        emp.fullName
+          .toLowerCase()
+          .includes(appliedFilters.search.toLowerCase()) ||
+        emp.email
+          .toLowerCase()
+          .includes(appliedFilters.search.toLowerCase()))
     );
   });
 
   const columns = [
-    { title: "Emp ID", dataIndex: "employeeId", key: "employeeId", width: 120 },
-    { title: "Name", dataIndex: "fullName", key: "fullName", sorter: true },
-    { title: "Email", dataIndex: "email", key: "email", width: 220 },
-    { title: "Phone", dataIndex: "mobile", key: "mobile", width: 150 },
-    { title: "Department", dataIndex: "department", key: "department" },
-    { title: "Designation", dataIndex: "designation", key: "designation" },
+    { title: "Emp ID", dataIndex: "employeeId", width: 120 },
+    { title: "Name", dataIndex: "fullName", sorter: true },
+    { title: "Email", dataIndex: "email", width: 220 },
+    { title: "Phone", dataIndex: "mobile", width: 150 },
+    { title: "Department", dataIndex: "department" },
+    { title: "Designation", dataIndex: "designation" },
     {
       title: "Current Role",
-       dataIndex: "role", key: "role",
-      render:(role)=>(<DynamicStatusTag type={role} size="large"/>)
+      dataIndex: "role",
+      render: (role) => <DynamicStatusTag type={role} size="large" />,
     },
     {
       title: "Action",
@@ -73,11 +100,10 @@ export default function RoleManagement() {
       fixed: "right",
       render: (_, record) => (
         <Button
-        style={{
-          padding:"",
-          background:"#1677ff",
-          color:"white",
-        }}
+          style={{
+            background: "#1677ff",
+            color: "white",
+          }}
           onClick={() => handleOpenRoleModal(record)}
         >
           Update Role
@@ -86,16 +112,12 @@ export default function RoleManagement() {
     },
   ];
 
-  useEffect(() => {
-    setData(employeeListResponse.data);
-  }, []);
-
   return (
     <>
       <ModeCard title="Role Management">
         <ModeFieldSet title="Filters">
           <Row gutter={[12, 12]} align="middle">
-             <Col xs={24} sm={12} md={5}>
+            <Col xs={24} sm={12} md={5}>
               <Select
                 allowClear
                 placeholder="Department"
@@ -108,12 +130,12 @@ export default function RoleManagement() {
               />
             </Col>
 
-          <Col xs={24} sm={12} md={5}>
+            <Col xs={24} sm={12} md={5}>
               <Select
                 allowClear
                 placeholder="Working Status"
-                style={{ width: "100%" }}
                 options={WORK_STATUS_ENUM}
+                style={{ width: "100%" }}
                 value={paramObj.workingStatus || undefined}
                 onChange={(val) =>
                   setParamObj((p) => ({ ...p, workingStatus: val }))
@@ -123,8 +145,8 @@ export default function RoleManagement() {
 
             <Col xs={24} md={8}>
               <Input
-                placeholder="Search by name or email"
                 allowClear
+                placeholder="Search by name or email"
                 value={paramObj.search}
                 onChange={(e) =>
                   setParamObj((p) => ({ ...p, search: e.target.value }))
@@ -136,7 +158,10 @@ export default function RoleManagement() {
               <Button
                 type="primary"
                 block
-                onClick={() => setRefreshCounter((p) => p + 1)}
+                onClick={() => {
+                  setAppliedFilters(paramObj);
+                  setRefreshCounter((p) => p + 1);
+                }}
               >
                 Apply
               </Button>
@@ -146,12 +171,14 @@ export default function RoleManagement() {
               <Button
                 block
                 onClick={() => {
-                  setParamObj({
+                  const cleared = {
                     ...paramObj,
                     department: "",
                     workingStatus: "",
                     search: "",
-                  });
+                  };
+                  setParamObj(cleared);
+                  setAppliedFilters(cleared);
                   setRefreshCounter((p) => p + 1);
                 }}
               >
@@ -176,16 +203,10 @@ export default function RoleManagement() {
             paramObj={paramObj}
             setParamObj={setParamObj}
             setRefreshCounter={setRefreshCounter}
-            tableClassName="table-bordered table-striped"
-            headerStyle={{
-              background: "#1677ff",
-              color: "#ffffff",
-            }}
           />
         )}
       </ModeCard>
 
-      {/* Role Update Modal */}
       <RoleUpdateModal
         visible={showRoleModal}
         onClose={handleCloseRoleModal}

@@ -1,6 +1,6 @@
 import { salaryManagementResponse } from "@/admin/constants/dummyResponse";
-import { Button, Col, Input, Row, Select, Typography, message } from "antd";
-import { useState } from "react";
+import { Button, Col, Input, Row, Select, Typography } from "antd";
+import { useEffect, useState } from "react";
 
 import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
@@ -9,10 +9,16 @@ import SalaryHistoryPopover from "../constants";
 import { DEPARTMENT_ENUM, DESIGNATION_ENUM } from "../constants/enum";
 import SalaryUpdateForm from "./form";
 
+import apiService from "@/admin/advanceApi/apiService";
+import toast from "react-hot-toast";
+
 const { Text } = Typography;
 
 export default function SalaryManagement() {
   const [refreshCounter, setRefreshCounter] = useState(0);
+  const [tableData, setTableData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -30,16 +36,44 @@ export default function SalaryManagement() {
     search: "",
   });
 
-  const tableData = salaryManagementResponse.data.filter((emp) => {
-    return (
-      (!paramObj.department || emp.department === paramObj.department) &&
-      (!paramObj.designation || emp.designation === paramObj.designation) &&
-      (!paramObj.search ||
-        emp.name.toLowerCase().includes(paramObj.search.toLowerCase()) ||
-        emp.employeeId.toLowerCase().includes(paramObj.search.toLowerCase()))
-    );
-  });
+  
+  const fetchEmployees = async () => {
+    setLoading(true);
+    try {
+      const res = await apiService.deleteComment();
+      setTableData(res.data);
+      throw new Error("API not implemented");
+    } catch (error) {
+      console.warn("API failed, using dummy data");
 
+      toast.error(
+        error?.response?.data?.message ?? 
+          error?.message 
+         
+      );
+toast.success("using dummy data")
+      const filtered = salaryManagementResponse.data.filter((emp) => {
+        return (
+          (!paramObj.department || emp.department === paramObj.department) &&
+          (!paramObj.designation ||
+            emp.designation === paramObj.designation) &&
+          (!paramObj.search ||
+            emp.name.toLowerCase().includes(paramObj.search.toLowerCase()) ||
+            emp.employeeId
+              .toLowerCase()
+              .includes(paramObj.search.toLowerCase()))
+        );
+      });
+
+      setTableData(filtered);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
   const handleUpdateClick = (employee) => {
     setSelectedEmployee(employee);
     setIsFormVisible(true);
@@ -52,20 +86,18 @@ export default function SalaryManagement() {
 
   const handleFormSubmit = async (payload) => {
     try {
-      // Call the API to update salary
-      // const response = await updateEmployeeSalary(payload);
-      
-      // console.log("Salary update response:", response);
-      
-      message.success("Salary updated successfully!");
-      
+      await apiService.updateUserRole(payload);
+      toast.success("Salary updated successfully!");
       setRefreshCounter((p) => p + 1);
+      handleFormClose();
     } catch (error) {
-      console.error("Error updating salary:", error);
-      message.error(error.message || "Failed to update salary. Please try again.");
+      toast.error(
+        error?.response?.data?.message ??
+          error?.message ??
+          "Failed to update salary"
+      );
     }
   };
-
   const columns = [
     { title: "Emp ID", dataIndex: "employeeId", key: "employeeId" },
     { title: "Name", dataIndex: "name", key: "name" },
@@ -87,7 +119,10 @@ export default function SalaryManagement() {
       title: "Action",
       key: "action",
       render: (_, record) => (
-        <Button style={{background:"#1677ff",color:"white"}} onClick={() => handleUpdateClick(record)}>
+        <Button
+          style={{ background: "#1677ff", color: "white" }}
+          onClick={() => handleUpdateClick(record)}
+        >
           Update
         </Button>
       ),
@@ -182,6 +217,7 @@ export default function SalaryManagement() {
       <CrudTable
         tableData={tableData}
         columns={columns}
+        loading={loading}
         paramObj={paramObj}
         setParamObj={setParamObj}
         setRefreshCounter={setRefreshCounter}
