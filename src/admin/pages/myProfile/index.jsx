@@ -81,17 +81,18 @@ export default function MyProfile() {
       title="My Profile"
       // extra={<Button disabled type="primary">Edit</Button>}
     >
-      <PageInfoCard
-        title="About This Page"
-        icon={<ProjectOutlined />}
-        description="Create and manage a new project for Elmech India Engineers."
-        points={[
-          "Fill in basic project and client details.",
-          "Assign project lead and co-lead for responsibility tracking.",
-          "Select services, budget, and timeline accurately.",
-          "Project status helps monitor progress efficiently.",
-        ]}
-      />
+     <PageInfoCard
+  title="About This Page"
+  icon={<ProjectOutlined />}
+  description="View your personal, employment, and salary-related information registered with Elmech India Engineers."
+  points={[
+    "Personal details like name, contact information, and date of birth are managed by HR.",
+    "Employment information includes department, designation, and current working status.",
+    "Bank and salary details are shown for reference and payroll transparency.",
+    "For any corrections or updates, please contact the HR or Admin team.",
+  ]}
+/>
+
       <Form
         form={form}
         layout="horizontal"

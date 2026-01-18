@@ -15,6 +15,9 @@ import toast from "react-hot-toast";
 const { Text } = Typography;
 
 export default function SalaryManagement() {
+
+
+  
   const [refreshCounter, setRefreshCounter] = useState(0);
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);

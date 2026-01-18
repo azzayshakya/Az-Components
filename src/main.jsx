@@ -20,39 +20,39 @@ createRoot(document.getElementById("root")).render(
   </AdminAuthProvider>
   <Toaster
   position="top-right"
-  reverseOrder={false}
+  reverseOrder={true}
   gutter={8}
-  // containerClassName="toast-container"
-  // toastOptions={{
-  //   duration: 3500,
+  containerClassName="toast-container"
+  toastOptions={{
+    duration: 3500,
 
-  //   style: {
-  //     borderRadius: "8px",
-  //     fontSize: "14px",
-  //     maxWidth: "420px",
-  //     padding: "10px 14px",
-  //   },
+    style: {
+      borderRadius: "8px",
+      fontSize: "14px",
+      maxWidth: "420px",
+      padding: "10px 14px",
+    },
 
-  //   success: {
-  //     duration: 3000,
-  //     iconTheme: {
-  //       primary: "#22c55e",
-  //       secondary: "#ecfdf5",
-  //     },
-  //   },
+    success: {
+      duration: 3000,
+      iconTheme: {
+        primary: "#22c55e",
+        secondary: "#ecfdf5",
+      },
+    },
 
-  //   error: {
-  //     duration: 4500,
-  //     iconTheme: {
-  //       primary: "#ef4444",
-  //       secondary: "#fee2e2",
-  //     },
-  //   },
+    error: {
+      duration: 4500,
+      iconTheme: {
+        primary: "#ef4444",
+        secondary: "#fee2e2",
+      },
+    },
 
-  //   loading: {
-  //     duration: Infinity,
-  //   },
-  // }}
+    loading: {
+      duration: Infinity,
+    },
+  }}
 />
 
   </>

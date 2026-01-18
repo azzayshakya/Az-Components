@@ -143,3 +143,31 @@ export const PRIORITY_ENUM = [
   { label: "High", value: "high" },
   { label: "Critical", value: "critical" },
 ];
+
+
+export const DASHBOARD_REQUIREMENT_TYPE_ENUM = [
+  { label: "Bug Fix", value: "bug_fix" },
+  { label: "New Feature", value: "new_feature" },
+  { label: "UI/UX Improvement", value: "ui_ux_improvement" },
+  { label: "Performance Issue", value: "performance_issue" },
+  { label: "Data Issue", value: "data_issue" },
+  { label: "Navigation Issue", value: "navigation_issue" },
+  { label: "Form Validation", value: "form_validation" },
+  { label: "API Integration", value: "api_integration" },
+  { label: "Report Generation", value: "report_generation" },
+  { label: "Access Control", value: "access_control" },
+  { label: "Responsive Design", value: "responsive_design" },
+  { label: "Export/Import Feature", value: "export_import" },
+  { label: "Search/Filter Enhancement", value: "search_filter" },
+  { label: "Notification System", value: "notification" },
+  { label: "Other", value: "other" },
+];
+
+export const REQUIREMENT_STATUS_ENUM = [
+  { label: "Submitted", value: "submitted", color: "blue" },
+  { label: "Under Review", value: "under_review", color: "orange" },
+  { label: "In Progress", value: "in_progress", color: "purple" },
+  { label: "Completed", value: "completed", color: "green" },
+  { label: "Rejected", value: "rejected", color: "red" },
+  { label: "On Hold", value: "on_hold", color: "gold" },
+];
