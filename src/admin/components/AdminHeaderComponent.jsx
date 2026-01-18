@@ -1,5 +1,5 @@
-import { Breadcrumb, Layout } from "antd";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { Breadcrumb, Layout } from 'antd';
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 const { Header } = Layout;
 
 export default function AdminHeaderComponent({
@@ -12,13 +12,13 @@ export default function AdminHeaderComponent({
     <div>
       <Header
         style={{
-          padding: "0 24px",
+          padding: '0 24px',
           background: colorBgContainer,
-          display: "flex",
-          alignItems: "center",
+          display: 'flex',
+          alignItems: 'center',
           gap: 16,
-          borderBottom: "2px solid #f0f0f0",
-          position: "sticky",
+          borderBottom: '2px solid #f0f0f0',
+          position: 'sticky',
           top: 0,
           zIndex: 1,
         }}
@@ -26,9 +26,9 @@ export default function AdminHeaderComponent({
         <div
           style={{
             fontSize: 18,
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
           }}
           onClick={() => setCollapsed(!collapsed)}
         >
@@ -37,8 +37,8 @@ export default function AdminHeaderComponent({
 
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
           {breadcrumbItems.length > 0 && (

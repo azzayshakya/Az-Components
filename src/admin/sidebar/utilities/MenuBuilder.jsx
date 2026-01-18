@@ -43,25 +43,21 @@ const filterMenuByPermissions = (menuItems, userRole) => {
       if (item.children && item.children.length > 0) {
         const filteredChildren = filterMenuByPermissions(item.children, userRole);
         // Only include parent if it has accessible children
-        return filteredChildren.length > 0
-          ? { ...item, children: filteredChildren }
-          : null;
+        return filteredChildren.length > 0 ? { ...item, children: filteredChildren } : null;
       }
       return item;
     })
     .filter(Boolean); // Remove null items
 };
 
- /**
-   * Builds sidebar menu items based on:
-   * - MENU_CONFIG (structure)
-   * - userRole (permissions)
-   */
+/**
+ * Builds sidebar menu items based on:
+ * - MENU_CONFIG (structure)
+ * - userRole (permissions)
+ */
 export const buildMenuItems = (menuConfig, userRole = null) => {
   // Filter by permissions if userRole is provided
-  const filteredConfig = userRole
-    ? filterMenuByPermissions(menuConfig, userRole)
-    : menuConfig;
+  const filteredConfig = userRole ? filterMenuByPermissions(menuConfig, userRole) : menuConfig;
 
   const buildItems = (items) => {
     return items.map((item) => {

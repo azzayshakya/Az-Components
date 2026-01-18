@@ -1,15 +1,15 @@
-import { employeeListResponse } from "@/admin/constants/dummyResponse";
-import CrudTable from "@/pages/antdFormTable/components/CrudTable";
-import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
-import ModeCard from "@/pages/antdFormTable/components/ModeCard";
-import { Button, Col, Input, Row } from "antd";
-import { useEffect, useState } from "react";
-import { CheckCircleOutlined } from "@ant-design/icons";
-import InputForm from "../component/InputForm";
-import EmployeeActivationModal from "./EmployeeActivationModal";
-import { DynamicStatusTag } from "../../constants/DynamicAntdStatusTag";
-import toast from "react-hot-toast";
-import apiService from "@/admin/advanceApi/apiService";
+import { employeeListResponse } from '@/admin/constants/dummyResponse';
+import CrudTable from '@/pages/antdFormTable/components/CrudTable';
+import ModeFieldSet from '@/pages/antdFormTable/components/FieldSet';
+import ModeCard from '@/pages/antdFormTable/components/ModeCard';
+import { Button, Col, Input, Row } from 'antd';
+import { useEffect, useState } from 'react';
+import { CheckCircleOutlined } from '@ant-design/icons';
+import InputForm from '../component/InputForm';
+import EmployeeActivationModal from './EmployeeActivationModal';
+import { DynamicStatusTag } from '../../constants/DynamicAntdStatusTag';
+import toast from 'react-hot-toast';
+import apiService from '@/admin/advanceApi/apiService';
 
 export default function UpdateEmployeeDetails() {
   const [refreshCounter, setRefreshCounter] = useState(0);
@@ -26,20 +26,20 @@ export default function UpdateEmployeeDetails() {
     limit: 10,
     offset: 0,
     total: employeeListResponse.meta.total,
-    department: "",
-    workingStatus: "",
-    search: "",
+    department: '',
+    workingStatus: '',
+    search: '',
   });
 
   const [appliedFilters, setAppliedFilters] = useState(paramObj);
 
   const fetchEmployees = async () => {
     try {
-      const res = await apiService.activateEmployee(); 
+      const res = await apiService.activateEmployee();
       setEmployeeData(res.data);
     } catch (err) {
-      toast.error("Employee fetching failed");
-      toast.success("Using dummy employee data");
+      toast.error('Employee fetching failed');
+      toast.success('Using dummy employee data');
       setEmployeeData(employeeListResponse.data);
     }
   };
@@ -64,42 +64,37 @@ export default function UpdateEmployeeDetails() {
 
   const tableData = employeeData.filter((emp) => {
     return (
-      (!appliedFilters.search ||
-        emp.fullName
-          .toLowerCase()
-          .includes(appliedFilters.search.toLowerCase()) ||
-        emp.email
-          .toLowerCase()
-          .includes(appliedFilters.search.toLowerCase()))
+      !appliedFilters.search ||
+      emp.fullName.toLowerCase().includes(appliedFilters.search.toLowerCase()) ||
+      emp.email.toLowerCase().includes(appliedFilters.search.toLowerCase())
     );
   });
 
   const columns = [
-    { title: "Emp ID", dataIndex: "employeeId", width: 120 },
-    { title: "Name", dataIndex: "fullName", sorter: true },
-    { title: "Email", dataIndex: "email", width: 220 },
-    { title: "Phone", dataIndex: "mobile", width: 150 },
-    { title: "Department", dataIndex: "department" },
-    { title: "Designation", dataIndex: "designation" },
+    { title: 'Emp ID', dataIndex: 'employeeId', width: 120 },
+    { title: 'Name', dataIndex: 'fullName', sorter: true },
+    { title: 'Email', dataIndex: 'email', width: 220 },
+    { title: 'Phone', dataIndex: 'mobile', width: 150 },
+    { title: 'Department', dataIndex: 'department' },
+    { title: 'Designation', dataIndex: 'designation' },
     {
-      title: "Status",
-      dataIndex: "workingStatus",
+      title: 'Status',
+      dataIndex: 'workingStatus',
       render: (status) => <DynamicStatusTag type={status} />,
     },
     {
-      title: "Action",
-      fixed: "right",
+      title: 'Action',
+      fixed: 'right',
       width: 140,
       render: (_, record) => (
         <Button
           icon={<CheckCircleOutlined />}
           onClick={() => handleOpenActivationModal(record)}
           style={{
-            background:
-              "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-            border: "none",
-            fontWeight: "500",
-            color: "white",
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            border: 'none',
+            fontWeight: '500',
+            color: 'white',
           }}
         >
           Activate
@@ -118,9 +113,7 @@ export default function UpdateEmployeeDetails() {
                 allowClear
                 placeholder="Search by name or email"
                 value={paramObj.search}
-                onChange={(e) =>
-                  setParamObj((p) => ({ ...p, search: e.target.value }))
-                }
+                onChange={(e) => setParamObj((p) => ({ ...p, search: e.target.value }))}
               />
             </Col>
 
@@ -143,9 +136,9 @@ export default function UpdateEmployeeDetails() {
                 onClick={() => {
                   const cleared = {
                     ...paramObj,
-                    department: "",
-                    workingStatus: "",
-                    search: "",
+                    department: '',
+                    workingStatus: '',
+                    search: '',
                   };
                   setParamObj(cleared);
                   setAppliedFilters(cleared);
@@ -175,8 +168,8 @@ export default function UpdateEmployeeDetails() {
             setRefreshCounter={setRefreshCounter}
             tableClassName="table-bordered table-striped"
             headerStyle={{
-              background: "#1677ff",
-              color: "#ffffff",
+              background: '#1677ff',
+              color: '#ffffff',
             }}
           />
         )}

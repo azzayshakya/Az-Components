@@ -20,7 +20,7 @@ export const MENU_CONFIG = [
     label: MENU_LABELS.dashboard,
     icon: DashboardOutlined,
   },
-{
+  {
     key: MENU_KEYS.MY_PROFILE,
     label: MENU_LABELS.myProfile,
     icon: UserOutlined,
@@ -31,7 +31,7 @@ export const MENU_CONFIG = [
     label: MENU_LABELS.allUsers,
     icon: UsergroupAddOutlined,
   },
-   {
+  {
     key: MENU_KEYS.PROJECTS,
     label: MENU_LABELS.projects,
     icon: ProjectOutlined,
@@ -53,7 +53,7 @@ export const MENU_CONFIG = [
     label: MENU_LABELS.userQueries,
     icon: QuestionCircleOutlined,
   },
-  
+
   {
     key: MENU_KEYS.USER_COMMENTS,
     label: MENU_LABELS.userComments,
@@ -65,7 +65,7 @@ export const MENU_CONFIG = [
     label: MENU_LABELS.employeeManagement,
     icon: TeamOutlined,
     children: [
-       {
+      {
         key: MENU_KEYS.ALL_EMPLOYEES,
         label: MENU_LABELS.allEmployees,
         icon: UsergroupAddOutlined,
@@ -79,7 +79,7 @@ export const MENU_CONFIG = [
         key: MENU_KEYS.EMPLOYEE_ACTIVATION,
         label: MENU_LABELS.employeeActivation,
         icon: UserAddOutlined,
-      },      
+      },
       {
         key: MENU_KEYS.ADD_EMPLOYEE_DETAILS,
         label: MENU_LABELS.addEmployeeDetails,
@@ -92,7 +92,6 @@ export const MENU_CONFIG = [
     label: MENU_LABELS.salaryManagement,
     icon: DollarOutlined,
   },
- 
 ];
 
 export default MENU_CONFIG;

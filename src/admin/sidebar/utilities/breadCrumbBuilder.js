@@ -6,7 +6,7 @@
 import MENU_CONFIG from '../control/MenuConfig';
 import { findMenuItemByKey, getParentKeys } from './MenuBuilder';
 
-// header navigation ui 
+// header navigation ui
 export const buildBreadcrumbs = (currentKey, menuConfig = MENU_CONFIG) => {
   if (!currentKey) return [];
 

@@ -4,29 +4,25 @@
   cursor: pointer;
 
   text-align: center;
-
 }
 
 .status-sm {
   font-size: 11px;
   /* height: 18px; */
-   min-width: 5rem;
-   min-width: 3rem;
-
-
+  min-width: 5rem;
+  min-width: 3rem;
 }
 
 .status-md {
   font-size: 13px;
   /* height: 22px; */
-   min-width: 5rem;
-   text-align: center;
-
+  min-width: 5rem;
+  text-align: center;
 }
 
 .status-lg {
   font-size: 14px;
-   min-width: 7rem;
+  min-width: 7rem;
 
   /* height: 26px; */
 }
@@ -36,7 +32,7 @@
 }
 
 .status-pulse::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -44,7 +40,7 @@
   border: 1px solid currentColor;
 }
 
- @keyframes pulseForStatusTag {
+@keyframes pulseForStatusTag {
   0% {
     transform: scale(1);
     opacity: 0.6;
@@ -53,4 +49,4 @@
     transform: scale(1.3);
     opacity: 0;
   }
-} 
+}

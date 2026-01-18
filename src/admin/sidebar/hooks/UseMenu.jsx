@@ -1,10 +1,8 @@
-
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getRoute } from '../control/RouteConfiguration';
 import MENU_CONFIG from '../control/MenuConfig';
 import { getParentKeys } from '../utilities/MenuBuilder';
-
 
 export const useMenu = ({ defaultSelectedKey = 'dashboard', persistState = true } = {}) => {
   const navigate = useNavigate();
@@ -23,7 +21,7 @@ export const useMenu = ({ defaultSelectedKey = 'dashboard', persistState = true 
   const [openKeys, setOpenKeys] = useState(() => {
     if (persistState) {
       const saved = localStorage.getItem('openMenuKeys');
-      console.log("azopen ",   saved ? JSON.parse(saved) : [])
+      console.log('azopen ', saved ? JSON.parse(saved) : []);
 
       return saved ? JSON.parse(saved) : [];
     }
@@ -62,19 +60,18 @@ export const useMenu = ({ defaultSelectedKey = 'dashboard', persistState = true 
     [persistState]
   );
 
-  // get the current path from the route 
+  // get the current path from the route
   useEffect(() => {
     const currentPath = location.pathname;
-    console.log(currentPath)
-    
+    console.log(currentPath);
   }, [location.pathname]);
 
-  // Auto-open parent menus for selected item in case if it's closed 
+  // Auto-open parent menus for selected item in case if it's closed
   useEffect(() => {
     if (selectedKeys.length > 0) {
       const parents = getParentKeys(MENU_CONFIG, selectedKeys[0]);
-      if (parents.length > 0 && !openKeys.some(key => parents.includes(key))) {
-        setOpenKeys(prev => [...new Set([...prev, ...parents])]);
+      if (parents.length > 0 && !openKeys.some((key) => parents.includes(key))) {
+        setOpenKeys((prev) => [...new Set([...prev, ...parents])]);
       }
     }
   }, [selectedKeys, openKeys]);

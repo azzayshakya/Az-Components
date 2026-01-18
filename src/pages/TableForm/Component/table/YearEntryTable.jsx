@@ -1,20 +1,20 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
-import { Table, Button, Input, DatePicker, message } from "antd";
-import dayjs from "dayjs";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Table, Button, Input, DatePicker, message } from 'antd';
+import dayjs from 'dayjs';
 
 export default function YearEntryTable({ data, setData }) {
   const [count, setCount] = useState(1);
 
   const addRow = () => {
-    if (data.length >= 4) return message.error("You can only add 4 rows!");
+    if (data.length >= 4) return message.error('You can only add 4 rows!');
 
     const newRow = {
       key: count,
       sno: count,
-      year: "",
-      subjects: "",
-      marks: "",
+      year: '',
+      subjects: '',
+      marks: '',
       startDate: null,
       endDate: null,
     };
@@ -24,86 +24,68 @@ export default function YearEntryTable({ data, setData }) {
   };
 
   const updateRow = (value, key, field) => {
-    const updated = data.map((row) =>
-      row.key === key ? { ...row, [field]: value } : row
-    );
+    const updated = data.map((row) => (row.key === key ? { ...row, [field]: value } : row));
     setData(updated);
   };
 
   const columns = [
-    { title: "S.No", dataIndex: "sno", width: 70 },
+    { title: 'S.No', dataIndex: 'sno', width: 70 },
 
     {
-      title: "Year",
-      dataIndex: "year",
+      title: 'Year',
+      dataIndex: 'year',
       render: (_, record) => (
         <Input
           placeholder="Year"
           value={record.year}
-          onChange={(e) => updateRow(e.target.value, record.key, "year")}
+          onChange={(e) => updateRow(e.target.value, record.key, 'year')}
         />
       ),
     },
 
     {
-      title: "Subjects",
-      dataIndex: "subjects",
+      title: 'Subjects',
+      dataIndex: 'subjects',
       render: (_, record) => (
         <Input
           placeholder="Subjects"
           value={record.subjects}
-          onChange={(e) =>
-            updateRow(e.target.value, record.key, "subjects")
-          }
+          onChange={(e) => updateRow(e.target.value, record.key, 'subjects')}
         />
       ),
     },
 
     {
-      title: "Marks (%)",
-      dataIndex: "marks",
+      title: 'Marks (%)',
+      dataIndex: 'marks',
       render: (_, record) => (
         <Input
           type="number"
           placeholder="Marks"
           value={record.marks}
-          onChange={(e) =>
-            updateRow(e.target.value, record.key, "marks")
-          }
+          onChange={(e) => updateRow(e.target.value, record.key, 'marks')}
         />
       ),
     },
 
     {
-      title: "Start Date",
-      dataIndex: "startDate",
+      title: 'Start Date',
+      dataIndex: 'startDate',
       render: (_, record) => (
         <DatePicker
           value={record.startDate ? dayjs(record.startDate) : null}
-          onChange={(date) =>
-            updateRow(
-              date ? date.toISOString() : null,
-              record.key,
-              "startDate"
-            )
-          }
+          onChange={(date) => updateRow(date ? date.toISOString() : null, record.key, 'startDate')}
         />
       ),
     },
 
     {
-      title: "End Date",
-      dataIndex: "endDate",
+      title: 'End Date',
+      dataIndex: 'endDate',
       render: (_, record) => (
         <DatePicker
           value={record.endDate ? dayjs(record.endDate) : null}
-          onChange={(date) =>
-            updateRow(
-              date ? date.toISOString() : null,
-              record.key,
-              "endDate"
-            )
-          }
+          onChange={(date) => updateRow(date ? date.toISOString() : null, record.key, 'endDate')}
         />
       ),
     },
@@ -121,7 +103,7 @@ export default function YearEntryTable({ data, setData }) {
         pagination={false}
         bordered
         style={{
-          background: "#fafafa",
+          background: '#fafafa',
           borderRadius: 8,
         }}
       />

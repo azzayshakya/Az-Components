@@ -1,7 +1,14 @@
-import { Modal, Avatar, Button, Space, message, Popconfirm, Alert } from "antd";
-import { UserOutlined, MailOutlined, PhoneOutlined, TeamOutlined, ExclamationCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
-import { useState } from "react";
-import apiService from "@/admin/advanceApi/apiService";
+import { Modal, Avatar, Button, Space, message, Popconfirm, Alert } from 'antd';
+import {
+  UserOutlined,
+  MailOutlined,
+  PhoneOutlined,
+  TeamOutlined,
+  ExclamationCircleOutlined,
+  CheckCircleOutlined,
+} from '@ant-design/icons';
+import { useState } from 'react';
+import apiService from '@/admin/advanceApi/apiService';
 
 export default function EmployeeActivationModal({ visible, onClose, userData, onSuccess }) {
   const [loading, setLoading] = useState(false);
@@ -16,10 +23,10 @@ export default function EmployeeActivationModal({ visible, onClose, userData, on
       });
 
       message.success({
-        content: "Employee activated successfully!",
+        content: 'Employee activated successfully!',
         icon: <CheckCircleOutlined style={{ color: '#52c41a' }} />,
       });
-      
+
       if (onSuccess) {
         onSuccess();
       }
@@ -29,7 +36,7 @@ export default function EmployeeActivationModal({ visible, onClose, userData, on
         setLoading(false);
       }, 800);
     } catch (err) {
-      message.error(err?.message || "Failed to activate employee");
+      message.error(err?.message || 'Failed to activate employee');
       setLoading(false);
     }
   };
@@ -172,15 +179,9 @@ export default function EmployeeActivationModal({ visible, onClose, userData, on
       <div style={modalContentStyle}>
         {/* User Info Section */}
         <div style={userSectionStyle}>
-          <Avatar 
-            size={90} 
-            icon={<UserOutlined />} 
-            style={avatarStyle}
-          />
+          <Avatar size={90} icon={<UserOutlined />} style={avatarStyle} />
           <h2 style={userNameStyle}>{userData.fullName}</h2>
-          <span style={roleTagStyle}>
-            Current Role: {userData.role || 'User'}
-          </span>
+          <span style={roleTagStyle}>Current Role: {userData.role || 'User'}</span>
         </div>
 
         {/* User Details Card */}
@@ -211,7 +212,9 @@ export default function EmployeeActivationModal({ visible, onClose, userData, on
             What happens after activation?
           </div>
           <ul style={benefitListStyle}>
-            <li style={benefitItemStyle}>User will be promoted from <strong>User</strong> to <strong>Employee</strong></li>
+            <li style={benefitItemStyle}>
+              User will be promoted from <strong>User</strong> to <strong>Employee</strong>
+            </li>
             <li style={benefitItemStyle}>Access to company dashboard and employee portal</li>
             <li style={benefitItemStyle}>Ability to view and manage work-related data</li>
             <li style={benefitItemStyle}>Full employee privileges and permissions</li>
@@ -224,15 +227,29 @@ export default function EmployeeActivationModal({ visible, onClose, userData, on
           description={
             <div>
               <p style={{ margin: '8px 0 4px 0', fontSize: '14px' }}>
-                ⚠️ This user will gain access to <strong>sensitive company information</strong> including:
+                ⚠️ This user will gain access to <strong>sensitive company information</strong>{' '}
+                including:
               </p>
-              <ul style={{ margin: '8px 0', paddingLeft: '20px', fontSize: '13px' }}>
+              <ul
+                style={{
+                  margin: '8px 0',
+                  paddingLeft: '20px',
+                  fontSize: '13px',
+                }}
+              >
                 <li>Internal documents and reports</li>
                 <li>Employee and financial data</li>
                 <li>Company policies and procedures</li>
               </ul>
-              <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: '#d46b08' }}>
-                <strong>Please ensure this user is trustworthy and authorized.</strong> Unauthorized access may create security risks.
+              <p
+                style={{
+                  margin: '4px 0 0 0',
+                  fontSize: '13px',
+                  color: '#d46b08',
+                }}
+              >
+                <strong>Please ensure this user is trustworthy and authorized.</strong> Unauthorized
+                access may create security risks.
               </p>
             </div>
           }
@@ -244,11 +261,11 @@ export default function EmployeeActivationModal({ visible, onClose, userData, on
 
         {/* Action Buttons */}
         <div style={actionSectionStyle}>
-          <Button 
+          <Button
             size="large"
             onClick={handleCancel}
             disabled={loading}
-            style={{ 
+            style={{
               minWidth: '120px',
               height: '40px',
               borderRadius: '8px',
@@ -262,14 +279,14 @@ export default function EmployeeActivationModal({ visible, onClose, userData, on
             title="Confirm Employee Activation"
             description={
               <div style={{ maxWidth: '280px' }}>
-                Are you sure you want to activate <strong>{userData.fullName}</strong> as an employee? 
-                This action will grant them full employee access.
+                Are you sure you want to activate <strong>{userData.fullName}</strong> as an
+                employee? This action will grant them full employee access.
               </div>
             }
             onConfirm={handleActivateEmployee}
             okText="Yes, Activate"
             cancelText="No, Cancel"
-            okButtonProps={{ 
+            okButtonProps={{
               danger: false,
               type: 'primary',
               loading: loading,

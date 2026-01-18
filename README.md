@@ -30,17 +30,20 @@ A **fully pre-configured** React starter template with **ShadCN, Tailwind CSS, R
 ## 🚀 Getting Started
 
 1️⃣ Clone the project
+
 ```bash
  git clone https://github.com/your-repo.git
  cd your-project
 ```
 
 2️⃣ Install dependencies
+
 ```bash
  npm install
 ```
 
 3️⃣ Run the project
+
 ```bash
  npm run dev
 ```
@@ -54,7 +57,7 @@ A **fully pre-configured** React starter template with **ShadCN, Tailwind CSS, R
 ✅ **Lightning-fast development** – Just clone and start coding!
 
 ---
+
 _💡 Feel free to customize and contribute!_
 
 Made with ❤️ by **Ajay Shakya** (@azzayshakya) 🚀
-

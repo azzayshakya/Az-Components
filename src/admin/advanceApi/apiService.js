@@ -7,7 +7,6 @@ const handleApiCall = async (apiCall) => {
 };
 
 const authService = {
-
   createAccount: async (data) => {
     return handleApiCall(() => api.post('/auth/signup', data));
   },
@@ -54,7 +53,6 @@ const authService = {
     return handleApiCall(() => api.post('/auth/activateEmployee', data));
   },
 };
-
 
 const userService = {
   getProfile: async () => {
@@ -121,26 +119,21 @@ const queryService = {
 
 const projectService = {
   getAllProjects: async (params = {}) => {
-    return handleApiCall(() => api.get("/projects", { params }));
+    return handleApiCall(() => api.get('/projects', { params }));
   },
 
   addProject: async (data) => {
-    return handleApiCall(() => api.post("/projects", data));
+    return handleApiCall(() => api.post('/projects', data));
   },
 
   updateProjectData: async (projectId, data) => {
-    return handleApiCall(() =>
-      api.put(`/projects/${projectId}`, data)
-    );
+    return handleApiCall(() => api.put(`/projects/${projectId}`, data));
   },
 
   deleteProject: async (projectId) => {
-    return handleApiCall(() =>
-      api.delete(`/projects/${projectId}`)
-    );
+    return handleApiCall(() => api.delete(`/projects/${projectId}`));
   },
 };
-
 
 const apiService = {
   createAccount: authService.createAccount,
@@ -150,10 +143,9 @@ const apiService = {
   forgotPassword: authService.forgotPassword,
   resetPassword: authService.resetPassword,
   verifyEmail: authService.verifyEmail,
-  verifyAdminDashboardUser:authService.verifyAdminDashboardUser,
-  activateEmployee:authService.activateEmployee,
-  updateUserRole:authService.updateUserRole,
-
+  verifyAdminDashboardUser: authService.verifyAdminDashboardUser,
+  activateEmployee: authService.activateEmployee,
+  updateUserRole: authService.updateUserRole,
 
   getProfile: userService.getProfile,
   updateProfile: userService.updateProfile,
@@ -172,7 +164,7 @@ const apiService = {
   updateQueryStatus: queryService.updateQueryStatus,
   deleteQuery: queryService.deleteQuery,
 
-    getAllProjects: projectService.getAllProjects,
+  getAllProjects: projectService.getAllProjects,
   addProject: projectService.addProject,
   updateProjectData: projectService.updateProjectData,
   deleteProject: projectService.deleteProject,

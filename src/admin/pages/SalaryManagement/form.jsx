@@ -1,7 +1,7 @@
-import { Button, Col, DatePicker, Form, InputNumber, Modal, Row, Space, Typography } from "antd";
-import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
-import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { Button, Col, DatePicker, Form, InputNumber, Modal, Row, Space, Typography } from 'antd';
+import { DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 
 const { Text } = Typography;
 
@@ -34,14 +34,14 @@ export default function SalaryUpdateForm({ visible, employee, onClose, onSubmit 
     const updatedHistory = salaryHistory.map((item) => ({
       ...item,
       isActive: false,
-      to: item.to === "Present" ? dayjs().format("YYYY-MM") : item.to,
+      to: item.to === 'Present' ? dayjs().format('YYYY-MM') : item.to,
     }));
 
     // Add new row
     const newRow = {
       id: Date.now(),
-      from: dayjs().format("YYYY-MM"),
-      to: "Present",
+      from: dayjs().format('YYYY-MM'),
+      to: 'Present',
       salary: 0,
       isActive: true,
     };
@@ -51,15 +51,15 @@ export default function SalaryUpdateForm({ visible, employee, onClose, onSubmit 
 
   const handleDeleteRow = (id) => {
     const filteredHistory = salaryHistory.filter((item) => item.id !== id);
-    
+
     if (filteredHistory.length > 0) {
       const hasActive = filteredHistory.some((item) => item.isActive);
       if (!hasActive) {
         filteredHistory[filteredHistory.length - 1].isActive = true;
-        filteredHistory[filteredHistory.length - 1].to = "Present";
+        filteredHistory[filteredHistory.length - 1].to = 'Present';
       }
     }
-    
+
     setSalaryHistory(filteredHistory);
   };
 
@@ -74,7 +74,7 @@ export default function SalaryUpdateForm({ visible, employee, onClose, onSubmit 
       await form.validateFields();
 
       if (salaryHistory.length === 0) {
-        Modal.error({ content: "Please add at least one salary record" });
+        Modal.error({ content: 'Please add at least one salary record' });
         return;
       }
 
@@ -94,13 +94,12 @@ export default function SalaryUpdateForm({ visible, employee, onClose, onSubmit 
         salaryHistory: formattedHistory,
       };
 
-      
-      console.log("Payload to submit:", payload);
+      console.log('Payload to submit:', payload);
 
       onSubmit(payload);
       handleClose();
     } catch (error) {
-      console.error("Form validation error:", error);
+      console.error('Form validation error:', error);
     }
   };
 
@@ -113,7 +112,7 @@ export default function SalaryUpdateForm({ visible, employee, onClose, onSubmit 
   return (
     <Modal
       title={
-        <div style={{ fontSize: "18px", fontWeight: "600" }}>
+        <div style={{ fontSize: '18px', fontWeight: '600' }}>
           Update Salary - {employee?.employeeId}
         </div>
       }
@@ -152,60 +151,56 @@ export default function SalaryUpdateForm({ visible, employee, onClose, onSubmit 
         <div style={{ marginTop: 24, marginBottom: 16 }}>
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
               marginBottom: 16,
             }}
           >
-            <Text strong style={{ fontSize: "16px" }}>
+            <Text strong style={{ fontSize: '16px' }}>
               Salary History
             </Text>
-            <Button
-              type="dashed"
-              icon={<PlusOutlined />}
-              onClick={handleAddRow}
-            >
+            <Button type="dashed" icon={<PlusOutlined />} onClick={handleAddRow}>
               Add New Salary
             </Button>
           </div>
 
-          <div style={{ maxHeight: "400px", overflowY: "auto" }}>
+          <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
             {salaryHistory.length === 0 ? (
               <div
                 style={{
-                  textAlign: "center",
-                  padding: "40px",
-                  color: "#999",
+                  textAlign: 'center',
+                  padding: '40px',
+                  color: '#999',
                 }}
               >
                 No salary history. Click "Add New Salary" to begin.
               </div>
             ) : (
-              <Space direction="vertical" style={{ width: "100%" }} size={16}>
+              <Space direction="vertical" style={{ width: '100%' }} size={16}>
                 {salaryHistory.map((item, index) => (
                   <div
                     key={item.id}
                     style={{
-                      border: item.isActive ? "2px solid #1677ff" : "1px solid #d9d9d9",
-                      borderRadius: "8px",
-                      padding: "16px",
-                      backgroundColor: item.isActive ? "#f0f7ff" : "#fafafa",
-                      position: "relative",
+                      border: item.isActive ? '2px solid #1677ff' : '1px solid #d9d9d9',
+                      borderRadius: '8px',
+                      padding: '16px',
+                      backgroundColor: item.isActive ? '#f0f7ff' : '#fafafa',
+                      position: 'relative',
                     }}
                   >
                     {item.isActive && (
                       <div
                         style={{
-                          position: "absolute",
+                          position: 'absolute',
                           top: -10,
                           left: 16,
-                          backgroundColor: "#1677ff",
-                          color: "white",
-                          padding: "2px 12px",
-                          borderRadius: "4px",
-                          fontSize: "12px",
-                          fontWeight: "600",
+                          backgroundColor: '#1677ff',
+                          color: 'white',
+                          padding: '2px 12px',
+                          borderRadius: '4px',
+                          fontSize: '12px',
+                          fontWeight: '600',
                         }}
                       >
                         Current Salary
@@ -215,20 +210,20 @@ export default function SalaryUpdateForm({ visible, employee, onClose, onSubmit 
                     <Row gutter={16} align="middle">
                       <Col span={7}>
                         <div>
-                          <Text type="secondary" style={{ fontSize: "12px" }}>
+                          <Text type="secondary" style={{ fontSize: '12px' }}>
                             From (YYYY-MM)
                           </Text>
                           <br />
                           <DatePicker
                             picker="month"
                             format="YYYY-MM"
-                            style={{ width: "100%" }}
-                            value={item.from ? dayjs(item.from, "YYYY-MM") : null}
+                            style={{ width: '100%' }}
+                            value={item.from ? dayjs(item.from, 'YYYY-MM') : null}
                             onChange={(date) =>
                               handleSalaryChange(
                                 item.id,
-                                "from",
-                                date ? date.format("YYYY-MM") : ""
+                                'from',
+                                date ? date.format('YYYY-MM') : ''
                               )
                             }
                             disabled={item.isActive && salaryHistory.length > 1}
@@ -238,17 +233,17 @@ export default function SalaryUpdateForm({ visible, employee, onClose, onSubmit 
 
                       <Col span={7}>
                         <div>
-                          <Text type="secondary" style={{ fontSize: "12px" }}>
+                          <Text type="secondary" style={{ fontSize: '12px' }}>
                             To (YYYY-MM)
                           </Text>
                           <br />
                           {item.isActive ? (
                             <div
                               style={{
-                                height: "32px",
-                                lineHeight: "32px",
-                                fontWeight: "600",
-                                color: "#1677ff",
+                                height: '32px',
+                                lineHeight: '32px',
+                                fontWeight: '600',
+                                color: '#1677ff',
                               }}
                             >
                               Present
@@ -257,13 +252,13 @@ export default function SalaryUpdateForm({ visible, employee, onClose, onSubmit 
                             <DatePicker
                               picker="month"
                               format="YYYY-MM"
-                              style={{ width: "100%" }}
-                              value={item.to !== "Present" ? dayjs(item.to, "YYYY-MM") : null}
+                              style={{ width: '100%' }}
+                              value={item.to !== 'Present' ? dayjs(item.to, 'YYYY-MM') : null}
                               onChange={(date) =>
                                 handleSalaryChange(
                                   item.id,
-                                  "to",
-                                  date ? date.format("YYYY-MM") : ""
+                                  'to',
+                                  date ? date.format('YYYY-MM') : ''
                                 )
                               }
                             />
@@ -273,21 +268,19 @@ export default function SalaryUpdateForm({ visible, employee, onClose, onSubmit 
 
                       <Col span={7}>
                         <div>
-                          <Text type="secondary" style={{ fontSize: "12px" }}>
+                          <Text type="secondary" style={{ fontSize: '12px' }}>
                             Salary (₹)
                           </Text>
                           <br />
                           <InputNumber
-                            style={{ width: "100%" }}
+                            style={{ width: '100%' }}
                             value={item.salary}
-                            onChange={(value) =>
-                              handleSalaryChange(item.id, "salary", value)
-                            }
+                            onChange={(value) => handleSalaryChange(item.id, 'salary', value)}
                             min={0}
                             formatter={(value) =>
-                              `₹ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                              `₹ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                             }
-                            parser={(value) => value.replace(/₹\s?|(,*)/g, "")}
+                            parser={(value) => value.replace(/₹\s?|(,*)/g, '')}
                           />
                         </div>
                       </Col>
@@ -298,7 +291,7 @@ export default function SalaryUpdateForm({ visible, employee, onClose, onSubmit 
                           icon={<DeleteOutlined />}
                           onClick={() => handleDeleteRow(item.id)}
                           disabled={salaryHistory.length === 1}
-                          style={{ marginTop: "20px" }}
+                          style={{ marginTop: '20px' }}
                         />
                       </Col>
                     </Row>

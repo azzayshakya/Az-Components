@@ -1,27 +1,33 @@
-.table-action-btn-view{
-color: #1890ff;
-transition: transform 0.3s all , background-color 0.3s all ; 
+.table-action-btn-view {
+  color: #1890ff;
+  transition:
+    transform 0.3s all,
+    background-color 0.3s all;
 }
-.table-action-btn-view:hover{
-    transform: scale(1.1);
-     background-color: #c8eeff !important;
+.table-action-btn-view:hover {
+  transform: scale(1.1);
+  background-color: #c8eeff !important;
 }
 
-.table-action-btn-edit{
-color: #52c41a;
-transition: transform 0.3s all , background-color 0.3s all ; 
+.table-action-btn-edit {
+  color: #52c41a;
+  transition:
+    transform 0.3s all,
+    background-color 0.3s all;
 }
-.table-action-btn-edit:hover{
-    transform: scale(1.1);
-     background-color: #f6ffed !important;
+.table-action-btn-edit:hover {
+  transform: scale(1.1);
+  background-color: #f6ffed !important;
 }
-.table-action-btn-delete{
-color: red;
-transition: transform 0.3s all , background-color 0.3s all ; 
+.table-action-btn-delete {
+  color: red;
+  transition:
+    transform 0.3s all,
+    background-color 0.3s all;
 }
-.table-action-btn-delete:hover{
-    transform: scale(1.1);
-     background-color: #fff1f0 !important;
+.table-action-btn-delete:hover {
+  transform: scale(1.1);
+  background-color: #fff1f0 !important;
 }
 /* 
 .ant-table-thead > tr > th {

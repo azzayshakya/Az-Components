@@ -1,23 +1,21 @@
-import { Button, Col, Form, Input, Row, Select, DatePicker, InputNumber } from "antd";
-import ModeCard from "@/pages/antdFormTable/components/ModeCard";
-import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
+import { Button, Col, Form, Input, Row, Select, DatePicker, InputNumber } from 'antd';
+import ModeCard from '@/pages/antdFormTable/components/ModeCard';
+import ModeFieldSet from '@/pages/antdFormTable/components/FieldSet';
 import {
   ALL_EMPLOYEE_ENUM,
   PROJECT_SERVICES_ENUM,
   PROJECT_STATUS_ENUM,
-} from "../../constants/enum";
-import PageInfoCard from "@/admin/components/PageInfoCard";
-import {
-  ProjectOutlined,
-} from "@ant-design/icons";
-import apiService from "@/admin/advanceApi/apiService";
-import toast from "react-hot-toast";
-import dayjs from "dayjs";
-import { useState } from "react";
+} from '../../constants/enum';
+import PageInfoCard from '@/admin/components/PageInfoCard';
+import { ProjectOutlined } from '@ant-design/icons';
+import apiService from '@/admin/advanceApi/apiService';
+import toast from 'react-hot-toast';
+import dayjs from 'dayjs';
+import { useState } from 'react';
 
 export default function AddProject() {
- const [form] = Form.useForm();
- const [isSubmitting, setIsSubmitting] = useState(false);
+  const [form] = Form.useForm();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleEmployeeSelect = (fieldName, empName) => {
     const emp = ALL_EMPLOYEE_ENUM.find((e) => e.value === empName);
@@ -29,7 +27,7 @@ export default function AddProject() {
   };
 
   const handleSubmit = async (values) => {
-   if (isSubmitting) return;
+    if (isSubmitting) return;
 
     const payload = {
       projectName: values.projectName,
@@ -46,72 +44,66 @@ export default function AddProject() {
       budget: values.budget || 0,
       status: values.status,
 
-      startDate: values.startDate
-        ? dayjs(values.startDate).format("YYYY-MM-DD")
-        : null,
-      endDate: values.endDate
-        ? dayjs(values.endDate).format("YYYY-MM-DD")
-        : null,
+      startDate: values.startDate ? dayjs(values.startDate).format('YYYY-MM-DD') : null,
+      endDate: values.endDate ? dayjs(values.endDate).format('YYYY-MM-DD') : null,
 
       address: values.address,
       description: values.description,
     };
 
-    console.log("FINAL PAYLOAD:", payload);
+    console.log('FINAL PAYLOAD:', payload);
 
-    const toastId = toast.loading("Creating project...");
+    const toastId = toast.loading('Creating project...');
 
     try {
       await apiService.addProject(payload);
 
-      toast.success("Project created successfully", { id: toastId });
+      toast.success('Project created successfully', { id: toastId });
       form.resetFields();
     } catch (error) {
-      console.error("API Error:", error);
+      console.error('API Error:', error);
 
-      toast.error("Project creation failed ", { id: toastId });
-
-
+      toast.error('Project creation failed ', { id: toastId });
 
       form.resetFields();
-
+    } finally {
+      setIsSubmitting(false);
     }
-    finally {
-    setIsSubmitting(false); 
-  }
   };
   return (
-    <ModeCard title="Add Project" extra={
-         <Button
-      type="primary"
-      onClick={() => form.submit()}
-      loading={isSubmitting}
-      disabled={isSubmitting}
-      style={{color:"white" , background:"#1677ff"}}
-
+    <ModeCard
+      title="Add Project"
+      extra={
+        <Button
+          type="primary"
+          onClick={() => form.submit()}
+          loading={isSubmitting}
+          disabled={isSubmitting}
+          style={{ color: 'white', background: '#1677ff' }}
+        >
+          {isSubmitting ? 'Submitting...' : 'Submit'}
+        </Button>
+      }
     >
-      {isSubmitting ? "Submitting..." : "Submit"}
-    </Button>
-        }>
-          <PageInfoCard
-  title="About This Page"
-  icon={<ProjectOutlined />}
-  description="Create and manage a new project for Elmech India Engineers."
-  points={[
-    "Fill in basic project and client details.",
-    "Assign project lead and co-lead for responsibility tracking.",
-    "Select services, budget, and timeline accurately.",
-    "Project status helps monitor progress efficiently.",
-  ]}
-/>
+      <PageInfoCard
+        title="About This Page"
+        icon={<ProjectOutlined />}
+        description="Create and manage a new project for Elmech India Engineers."
+        points={[
+          'Fill in basic project and client details.',
+          'Assign project lead and co-lead for responsibility tracking.',
+          'Select services, budget, and timeline accurately.',
+          'Project status helps monitor progress efficiently.',
+        ]}
+      />
       <Form
         form={form}
-        layout="horizontal" 
+        layout="horizontal"
         labelCol={{ sm: 8 }}
         wrapperCol={{ sm: 16 }}
         onFinish={handleSubmit}
       >
-        <ModeFieldSet title="Project Information"  >
+        <ModeFieldSet title="Project Information">
           <Row gutter={[24, 16]}>
             <Col md={12}>
               <Form.Item label="Project Name" name="projectName" rules={[{ required: true }]}>
@@ -142,7 +134,7 @@ export default function AddProject() {
               <Form.Item label="Project Lead" name="projectLeadName">
                 <Select
                   options={ALL_EMPLOYEE_ENUM}
-                  onChange={(val) => handleEmployeeSelect("projectLead", val)}
+                  onChange={(val) => handleEmployeeSelect('projectLead', val)}
                 />
               </Form.Item>
             </Col>
@@ -158,7 +150,7 @@ export default function AddProject() {
               <Form.Item label="Project Co-Lead" name="projectCoLeadName">
                 <Select
                   options={ALL_EMPLOYEE_ENUM}
-                  onChange={(val) => handleEmployeeSelect("projectCoLead", val)}
+                  onChange={(val) => handleEmployeeSelect('projectCoLead', val)}
                 />
               </Form.Item>
             </Col>
@@ -171,7 +163,7 @@ export default function AddProject() {
 
             <Col md={12}>
               <Form.Item label="Budget" name="budget">
-                <InputNumber style={{ width: "100%" }} />
+                <InputNumber style={{ width: '100%' }} />
               </Form.Item>
             </Col>
 
@@ -183,20 +175,19 @@ export default function AddProject() {
 
             <Col md={12}>
               <Form.Item label="Start Date" name="startDate">
-                <DatePicker style={{ width: "100%" }} />
+                <DatePicker style={{ width: '100%' }} />
               </Form.Item>
             </Col>
 
             <Col md={12}>
               <Form.Item label="End Date" name="endDate">
-                <DatePicker style={{ width: "100%" }} />
+                <DatePicker style={{ width: '100%' }} />
               </Form.Item>
             </Col>
 
             <Col md={12}>
               <Form.Item label="Address" name="address">
-                               <Input.TextArea rows={3} />
-
+                <Input.TextArea rows={3} />
               </Form.Item>
             </Col>
 
@@ -206,8 +197,6 @@ export default function AddProject() {
               </Form.Item>
             </Col>
           </Row>
-
-        
         </ModeFieldSet>
       </Form>
     </ModeCard>

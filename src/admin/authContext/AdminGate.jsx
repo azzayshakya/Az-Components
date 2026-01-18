@@ -43,7 +43,7 @@ export default function AuthGate({ children }) {
                 height: `${Math.random() * 4 + 2}px`,
                 left: `${Math.random() * 100}%`,
                 animationDuration: `${Math.random() * 10 + 10}s`,
-                animationDelay: `${Math.random() * 5}s`
+                animationDelay: `${Math.random() * 5}s`,
               }}
             />
           ))}
@@ -58,7 +58,8 @@ export default function AuthGate({ children }) {
           <div className="ag-error-code">403</div>
           <div className="ag-error-title">Access Denied</div>
           <div className="ag-error-message">
-            You are not authorized to access this application. This area is restricted to authorized personnel only.
+            You are not authorized to access this application. This area is restricted to authorized
+            personnel only.
           </div>
 
           {error && (
@@ -73,10 +74,10 @@ export default function AuthGate({ children }) {
   }
 
   return (
-    <div 
+    <div
       style={{
         opacity: showContent ? 1 : 0,
-        transition: 'opacity 0.5s ease-in-out'
+        transition: 'opacity 0.5s ease-in-out',
       }}
     >
       {children}

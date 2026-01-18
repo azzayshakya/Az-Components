@@ -1,4 +1,4 @@
-import Password from "antd/es/input/Password";
+import Password from 'antd/es/input/Password';
 
 export const USER_UI_SCHEMA = {
   id: { type: 'string', showOnUI: true },
@@ -11,21 +11,21 @@ export const USER_UI_SCHEMA = {
   createdAt: { type: 'date', showOnUI: false },
 };
 export const EMPLOYEE_UI_SCHEMA = {
-  image:{type:"string"},
-  empId:{type :"string"},
+  image: { type: 'string' },
+  empId: { type: 'string' },
   // Personal Information
-  firstName: { type: 'string'  },
-  lastName: { type: 'string'  },
-  fullName:{type:'string '}, // genrate from backend 
+  firstName: { type: 'string' },
+  lastName: { type: 'string' },
+  fullName: { type: 'string ' }, // genrate from backend
   fatherName: { type: 'string' },
   dob: { type: 'date' },
-  gender: { type: 'string'  },
-  mobile: { type: 'string'  },
-  email: { type: 'string'  },
+  gender: { type: 'string' },
+  mobile: { type: 'string' },
+  email: { type: 'string' },
   aadharNumber: { type: 'string' },
-Password:{},
+  Password: {},
   // Employment Details
- 
+
   joiningDate: { type: 'date' },
   workingStatus: { type: 'string' },
   lastWorkingDate: { type: 'date' },
@@ -44,47 +44,50 @@ Password:{},
   salary: { type: 'number' },
   // backen self creation used on update the user details of history
   salaryHistory: [
-        { from: "2023-01", to: "2023-06", salary: 45000 },
-        { from: "2023-07", to: "2024-02", salary: 55000 },
-        { from: "2024-03", to: "Present", salary: 65000, isActive: true },
-      ],
+    { from: '2023-01', to: '2023-06', salary: 45000 },
+    { from: '2023-07', to: '2024-02', salary: 55000 },
+    { from: '2024-03', to: 'Present', salary: 65000, isActive: true },
+  ],
 
   // Emergency
   emergencyContact: { type: 'string' },
   emergencyDetails: { type: 'string' },
 
   // Documents
-  document :[ type = "array", data=" string with array of photos "
-    ,aadharDoc=" string with array of photos ",
-    panDoc=" string with array of photos ",
-    otherDocs=" string with array of photos "  ],
+  document: [
+    (type = 'array'),
+    (data = ' string with array of photos '),
+    (aadharDoc = ' string with array of photos '),
+    (panDoc = ' string with array of photos '),
+    (otherDocs = ' string with array of photos '),
+  ],
   // photo: { type: 'string' },
   // aadharDoc: { type: 'string' },
   // panDoc: { type: 'string' },
   // otherDocs: { type: 'array' },
-  terms:{},
-  userRole:{}
+  terms: {},
+  userRole: {},
 };
 export const QUERY_UI_SCHEMA = {
-  queryId: { type: "string" },
+  queryId: { type: 'string' },
 
-  fullName: { type: "string" },
-  email: { type: "string" },
-  mobile: { type: "string" },
-  location: { type: "string" },
+  fullName: { type: 'string' },
+  email: { type: 'string' },
+  mobile: { type: 'string' },
+  location: { type: 'string' },
 
-  subject: { type: "string" },
-  message: { type: "string" },
+  subject: { type: 'string' },
+  message: { type: 'string' },
 
-  status: { type: "string" },
+  status: { type: 'string' },
 
-  showOnUI: { type: "boolean", default: false },
+  showOnUI: { type: 'boolean', default: false },
 
-  createdAt: { type: "date" },
+  createdAt: { type: 'date' },
 };
 
 export const PROJECT_UI_SCHEMA = {
-  id: { type: 'string' },// it will be set from uuid in backend not handled from the ui   Ex. PRJ-2025-0012
+  id: { type: 'string' }, // it will be set from uuid in backend not handled from the ui   Ex. PRJ-2025-0012
   projectName: { type: 'string', showOnUI: true },
   clientName: { type: 'string', showOnUI: true },
   projectType: { type: 'string', showOnUI: true },
@@ -97,10 +100,6 @@ export const PROJECT_UI_SCHEMA = {
   description: { type: 'string', showOnUI: false },
 };
 
-
 export const COMMENTS_UI_SCHEMA = {
-  commentid: { type: 'string', showOnUI: true },// it will be set from uuid in backend not handled from the ui   Ex. PRJ-2025-0012
- 
-
+  commentid: { type: 'string', showOnUI: true }, // it will be set from uuid in backend not handled from the ui   Ex. PRJ-2025-0012
 };
-

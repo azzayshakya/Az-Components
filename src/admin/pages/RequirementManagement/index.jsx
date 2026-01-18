@@ -1,36 +1,25 @@
-import {
-  Button,
-  Col,
-  Form,
-  Input,
-  Row,
-  Select,
-  Space,
-  Tooltip,
-  Tag,
-  Modal,
-} from "antd";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { Button, Col, Form, Input, Row, Select, Space, Tooltip, Tag, Modal } from 'antd';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import {
   DeleteOutlined,
   EditOutlined,
   EyeOutlined,
   PlusOutlined,
   ReloadOutlined,
-} from "@ant-design/icons";
+} from '@ant-design/icons';
 
-import ModeCard from "@/pages/antdFormTable/components/ModeCard";
-import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
-import CrudTable from "@/pages/antdFormTable/components/CrudTable";
-import apiService from "@/admin/advanceApi/apiService";
+import ModeCard from '@/pages/antdFormTable/components/ModeCard';
+import ModeFieldSet from '@/pages/antdFormTable/components/FieldSet';
+import CrudTable from '@/pages/antdFormTable/components/CrudTable';
+import apiService from '@/admin/advanceApi/apiService';
 
 // import {
 //   DASHBOARD_REQUIREMENT_TYPE_ENUM,
 //   REQUIREMENT_STATUS_ENUM,
 // } from "../../constants/requirementEnums";
-import { dummyRequirementsData } from "@/admin/constants/dummyResponse";
-import { DASHBOARD_REQUIREMENT_TYPE_ENUM, REQUIREMENT_STATUS_ENUM } from "../constants/enum";
+import { dummyRequirementsData } from '@/admin/constants/dummyResponse';
+import { DASHBOARD_REQUIREMENT_TYPE_ENUM, REQUIREMENT_STATUS_ENUM } from '../constants/enum';
 
 const { TextArea } = Input;
 
@@ -49,8 +38,8 @@ export default function SalaryManagement() {
     total: 0,
   });
 
-  console.log("🎯 RequirementsManagement Component Rendered");
-  console.log("📊 Current requirements count:", requirements.length);
+  console.log('🎯 RequirementsManagement Component Rendered');
+  console.log('📊 Current requirements count:', requirements.length);
 
   /* ================= FETCH REQUIREMENTS ================= */
   useEffect(() => {
@@ -58,30 +47,30 @@ export default function SalaryManagement() {
   }, [refreshCounter]);
 
   const fetchRequirements = async () => {
-    console.log("🔄 Fetching requirements...");
+    console.log('🔄 Fetching requirements...');
     setTableLoading(true);
 
     try {
-      console.log("📡 Calling API: getAllRequirements");
+      console.log('📡 Calling API: getAllRequirements');
       const res = await apiService.getAllRequirements();
-      
-      console.log("✅ API Response:", res);
-      
+
+      console.log('✅ API Response:', res);
+
       const fetchedData = res.data?.data || [];
       setRequirements(fetchedData);
       setParamObj((p) => ({
         ...p,
         total: res.data?.meta?.total || 0,
       }));
-      
-      console.log("✅ Requirements loaded:", fetchedData.length, "items");
-      toast.success("Requirements loaded successfully");
+
+      console.log('✅ Requirements loaded:', fetchedData.length, 'items');
+      toast.success('Requirements loaded successfully');
     } catch (err) {
-      console.error("❌ API Error:", err);
-      console.log("⚠️ Using dummy data as fallback");
-      
-      toast.error("Failed to fetch requirements from API");
-      toast("Using dummy data for demonstration", { icon: "ℹ️" });
+      console.error('❌ API Error:', err);
+      console.log('⚠️ Using dummy data as fallback');
+
+      toast.error('Failed to fetch requirements from API');
+      toast('Using dummy data for demonstration', { icon: 'ℹ️' });
 
       // Use dummy data as fallback
       setRequirements(dummyRequirementsData.data);
@@ -89,110 +78,118 @@ export default function SalaryManagement() {
         ...p,
         total: dummyRequirementsData.meta?.total || 0,
       }));
-      
-      console.log("📦 Loaded dummy data:", dummyRequirementsData.data.length, "items");
+
+      console.log('📦 Loaded dummy data:', dummyRequirementsData.data.length, 'items');
     } finally {
       setTableLoading(false);
-      console.log("🏁 Fetch complete");
+      console.log('🏁 Fetch complete');
     }
   };
 
   /* ================= SUBMIT NEW REQUIREMENT ================= */
   const handleSubmit = async (values) => {
-    console.log("📤 Submitting new requirement:", values);
+    console.log('📤 Submitting new requirement:', values);
 
     setLoading(true);
-    const toastId = toast.loading("Submitting requirement...");
+    const toastId = toast.loading('Submitting requirement...');
 
     try {
       const payload = {
         ...values,
-        status: "submitted",
+        status: 'submitted',
         openedAt: new Date().toISOString(),
         closedAt: null,
         developerThought: null,
       };
 
-      console.log("📦 Payload:", payload);
-      console.log("📡 Calling API: addRequirement");
+      console.log('📦 Payload:', payload);
+      console.log('📡 Calling API: addRequirement');
 
       const res = await apiService.addRequirement(payload);
-      
-      console.log("✅ API Success:", res);
-      
-      toast.success("Requirement submitted successfully!", { id: toastId });
-      
+
+      console.log('✅ API Success:', res);
+
+      toast.success('Requirement submitted successfully!', { id: toastId });
+
       // Reset form
       form.resetFields();
-      console.log("🔄 Form reset");
-      
+      console.log('🔄 Form reset');
+
       // Refresh table
       setRefreshCounter((p) => p + 1);
-      console.log("🔄 Triggering table refresh");
+      console.log('🔄 Triggering table refresh');
     } catch (err) {
-      console.error("❌ Submit Error:", err);
-      toast.error(err?.message || "Failed to submit requirement", { id: toastId });
-      
+      console.error('❌ Submit Error:', err);
+      toast.error(err?.message || 'Failed to submit requirement', {
+        id: toastId,
+      });
+
       // For demo purposes, add to local state
-      console.log("⚠️ Adding to local state for demo");
+      console.log('⚠️ Adding to local state for demo');
       const newReq = {
-        reqId: `REQ_${String(requirements.length + 1).padStart(3, "0")}`,
+        reqId: `REQ_${String(requirements.length + 1).padStart(3, '0')}`,
         ...values,
-        status: "submitted",
+        status: 'submitted',
         openedAt: new Date().toISOString(),
         closedAt: null,
         developerThought: null,
-        employeeName: "Current User",
-        employeeId: "EMP000",
+        employeeName: 'Current User',
+        employeeId: 'EMP000',
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       };
-      
+
       setRequirements([newReq, ...requirements]);
       form.resetFields();
-      toast("Added to local list (API unavailable)", { id: toastId, icon: "ℹ️" });
+      toast('Added to local list (API unavailable)', {
+        id: toastId,
+        icon: 'ℹ️',
+      });
     } finally {
       setLoading(false);
-      console.log("🏁 Submit complete");
+      console.log('🏁 Submit complete');
     }
   };
 
   /* ================= VIEW REQUIREMENT DETAILS ================= */
   const handleView = (record) => {
-    console.log("👁️ Viewing requirement:", record);
+    console.log('👁️ Viewing requirement:', record);
     setSelectedRequirement(record);
     setViewModal(true);
   };
 
   /* ================= DELETE REQUIREMENT ================= */
   const handleDelete = async (record) => {
-    console.log("🗑️ Deleting requirement:", record.reqId);
-    
+    console.log('🗑️ Deleting requirement:', record.reqId);
+
     Modal.confirm({
-      title: "Delete Requirement",
+      title: 'Delete Requirement',
       content: `Are you sure you want to delete requirement ${record.reqId}?`,
-      okText: "Yes, Delete",
-      okType: "danger",
-      cancelText: "Cancel",
+      okText: 'Yes, Delete',
+      okType: 'danger',
+      cancelText: 'Cancel',
       onOk: async () => {
-        const toastId = toast.loading("Deleting requirement...");
-        
+        const toastId = toast.loading('Deleting requirement...');
+
         try {
-          console.log("📡 Calling API: deleteRequirement");
+          console.log('📡 Calling API: deleteRequirement');
           await apiService.deleteRequirement(record.reqId);
-          
-          console.log("✅ Delete successful");
-          toast.success("Requirement deleted successfully", { id: toastId });
-          
+
+          console.log('✅ Delete successful');
+          toast.success('Requirement deleted successfully', { id: toastId });
+
           setRefreshCounter((p) => p + 1);
         } catch (err) {
-          console.error("❌ Delete Error:", err);
-          toast.error("Failed to delete requirement", { id: toastId });
-          
+          console.error('❌ Delete Error:', err);
+          toast.error('Failed to delete requirement', { id: toastId });
+
           // For demo, remove from local state
-          console.log("⚠️ Removing from local state for demo");
+          console.log('⚠️ Removing from local state for demo');
           setRequirements(requirements.filter((r) => r.reqId !== record.reqId));
-          toast("Removed from local list (API unavailable)", { id: toastId, icon: "ℹ️" });
+          toast('Removed from local list (API unavailable)', {
+            id: toastId,
+            icon: 'ℹ️',
+          });
         }
       },
     });
@@ -201,23 +198,23 @@ export default function SalaryManagement() {
   /* ================= TABLE COLUMNS ================= */
   const columns = [
     {
-      title: "Req ID",
-      dataIndex: "reqId",
-      align: "center",
+      title: 'Req ID',
+      dataIndex: 'reqId',
+      align: 'center',
       width: 100,
-      fixed: "left",
+      fixed: 'left',
     },
     {
-      title: "Path",
-      dataIndex: "path",
-      align: "left",
+      title: 'Path',
+      dataIndex: 'path',
+      align: 'left',
       width: 200,
-      render: (path) => <code style={{ fontSize: "12px" }}>{path}</code>,
+      render: (path) => <code style={{ fontSize: '12px' }}>{path}</code>,
     },
     {
-      title: "Type",
-      dataIndex: "requirementType",
-      align: "center",
+      title: 'Type',
+      dataIndex: 'requirementType',
+      align: 'center',
       width: 150,
       render: (type) => {
         const typeData = DASHBOARD_REQUIREMENT_TYPE_ENUM.find((t) => t.value === type);
@@ -225,41 +222,41 @@ export default function SalaryManagement() {
       },
     },
     {
-      title: "Description",
-      dataIndex: "description",
-      align: "left",
+      title: 'Description',
+      dataIndex: 'description',
+      align: 'left',
       width: 300,
       ellipsis: true,
     },
     {
-      title: "Status",
-      dataIndex: "status",
-      align: "center",
+      title: 'Status',
+      dataIndex: 'status',
+      align: 'center',
       width: 120,
       render: (status) => {
         const statusData = REQUIREMENT_STATUS_ENUM.find((s) => s.value === status);
-        return <Tag color={statusData?.color || "default"}>{statusData?.label || status}</Tag>;
+        return <Tag color={statusData?.color || 'default'}>{statusData?.label || status}</Tag>;
       },
     },
     {
-      title: "Opened Date",
-      dataIndex: "openedAt",
-      align: "center",
+      title: 'Opened Date',
+      dataIndex: 'openedAt',
+      align: 'center',
       width: 150,
-      render: (date) => (date ? new Date(date).toLocaleDateString() : "N/A"),
+      render: (date) => (date ? new Date(date).toLocaleDateString() : 'N/A'),
     },
     {
-      title: "Employee",
-      dataIndex: "employeeName",
-      align: "center",
+      title: 'Employee',
+      dataIndex: 'employeeName',
+      align: 'center',
       width: 150,
     },
     {
-      title: "Action",
-      key: "action",
-      fixed: "right",
+      title: 'Action',
+      key: 'action',
+      fixed: 'right',
       width: 120,
-      align: "center",
+      align: 'center',
       render: (_, record) => (
         <Space size="small">
           <Tooltip title="View Details">
@@ -293,7 +290,7 @@ export default function SalaryManagement() {
           layout="vertical"
           onFinish={handleSubmit}
           onValuesChange={(changedValues) => {
-            console.log("📝 Form values changed:", changedValues);
+            console.log('📝 Form values changed:', changedValues);
           }}
         >
           <Row gutter={[16, 0]}>
@@ -302,17 +299,15 @@ export default function SalaryManagement() {
                 name="path"
                 label="Page Path"
                 rules={[
-                  { required: true, message: "Please enter the page path" },
+                  { required: true, message: 'Please enter the page path' },
                   {
                     pattern: /^\/[a-zA-Z0-9\/-]*$/,
-                    message: "Path must start with / and contain only alphanumeric characters, / and -",
+                    message:
+                      'Path must start with / and contain only alphanumeric characters, / and -',
                   },
                 ]}
               >
-                <Input
-                  placeholder="e.g., /dashboard or /salary-management"
-                  prefix="🔗"
-                />
+                <Input placeholder="e.g., /dashboard or /salary-management" prefix="🔗" />
               </Form.Item>
             </Col>
 
@@ -320,7 +315,7 @@ export default function SalaryManagement() {
               <Form.Item
                 name="requirementType"
                 label="Requirement Type"
-                rules={[{ required: true, message: "Please select requirement type" }]}
+                rules={[{ required: true, message: 'Please select requirement type' }]}
               >
                 <Select
                   placeholder="Select type"
@@ -344,7 +339,7 @@ export default function SalaryManagement() {
                   </Button>
                   <Button
                     onClick={() => {
-                      console.log("🔄 Resetting form");
+                      console.log('🔄 Resetting form');
                       form.resetFields();
                     }}
                   >
@@ -359,8 +354,11 @@ export default function SalaryManagement() {
                 name="description"
                 label="Description"
                 rules={[
-                  { required: true, message: "Please provide a description" },
-                  { min: 10, message: "Description must be at least 10 characters" },
+                  { required: true, message: 'Please provide a description' },
+                  {
+                    min: 10,
+                    message: 'Description must be at least 10 characters',
+                  },
                 ]}
               >
                 <TextArea
@@ -381,7 +379,7 @@ export default function SalaryManagement() {
           <Button
             icon={<ReloadOutlined />}
             onClick={() => {
-              console.log("🔄 Manual refresh triggered");
+              console.log('🔄 Manual refresh triggered');
               setRefreshCounter((p) => p + 1);
             }}
           >
@@ -405,7 +403,7 @@ export default function SalaryManagement() {
         title={`Requirement Details - ${selectedRequirement?.reqId}`}
         open={viewModal}
         onCancel={() => {
-          console.log("❌ Closing view modal");
+          console.log('❌ Closing view modal');
           setViewModal(false);
           setSelectedRequirement(null);
         }}
@@ -423,7 +421,7 @@ export default function SalaryManagement() {
         width={700}
       >
         {selectedRequirement && (
-          <div style={{ lineHeight: "2" }}>
+          <div style={{ lineHeight: '2' }}>
             <Row gutter={[16, 16]}>
               <Col span={8}>
                 <strong>Requirement ID:</strong>
@@ -472,9 +470,7 @@ export default function SalaryManagement() {
               <Col span={8}>
                 <strong>Opened Date:</strong>
               </Col>
-              <Col span={16}>
-                {new Date(selectedRequirement.openedAt).toLocaleString()}
-              </Col>
+              <Col span={16}>{new Date(selectedRequirement.openedAt).toLocaleString()}</Col>
 
               <Col span={8}>
                 <strong>Closed Date:</strong>
@@ -482,17 +478,17 @@ export default function SalaryManagement() {
               <Col span={16}>
                 {selectedRequirement.closedAt
                   ? new Date(selectedRequirement.closedAt).toLocaleString()
-                  : "N/A"}
+                  : 'N/A'}
               </Col>
 
               <Col span={24}>
                 <strong>Description:</strong>
                 <div
                   style={{
-                    marginTop: "8px",
-                    padding: "12px",
-                    background: "#f5f5f5",
-                    borderRadius: "4px",
+                    marginTop: '8px',
+                    padding: '12px',
+                    background: '#f5f5f5',
+                    borderRadius: '4px',
                   }}
                 >
                   {selectedRequirement.description}
@@ -504,11 +500,11 @@ export default function SalaryManagement() {
                   <strong>Developer's Thought:</strong>
                   <div
                     style={{
-                      marginTop: "8px",
-                      padding: "12px",
-                      background: "#e6f7ff",
-                      borderRadius: "4px",
-                      border: "1px solid #91d5ff",
+                      marginTop: '8px',
+                      padding: '12px',
+                      background: '#e6f7ff',
+                      borderRadius: '4px',
+                      border: '1px solid #91d5ff',
                     }}
                   >
                     {selectedRequirement.developerThought}

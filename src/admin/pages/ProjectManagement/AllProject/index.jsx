@@ -1,15 +1,15 @@
-import { Input, Select, Row, Col, Button, Space, Tooltip } from "antd";
-import { useEffect, useState } from "react";
-import ModeCard from "@/pages/antdFormTable/components/ModeCard";
-import CrudTable from "@/pages/antdFormTable/components/CrudTable";
-import { allProjectsResponse } from "@/admin/constants/dummyResponse";
-import { PROJECT_STATUS_ENUM, DEPARTMENT_ENUM } from "../../constants/enum";
-import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
-import { DeleteOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
-import InputForm from "./InputForm";
-import { DynamicStatusTag } from "../../constants/DynamicAntdStatusTag";
-import apiService from "@/admin/advanceApi/apiService";
-import toast from "react-hot-toast";
+import { Input, Select, Row, Col, Button, Space, Tooltip } from 'antd';
+import { useEffect, useState } from 'react';
+import ModeCard from '@/pages/antdFormTable/components/ModeCard';
+import CrudTable from '@/pages/antdFormTable/components/CrudTable';
+import { allProjectsResponse } from '@/admin/constants/dummyResponse';
+import { PROJECT_STATUS_ENUM, DEPARTMENT_ENUM } from '../../constants/enum';
+import ModeFieldSet from '@/pages/antdFormTable/components/FieldSet';
+import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
+import InputForm from './InputForm';
+import { DynamicStatusTag } from '../../constants/DynamicAntdStatusTag';
+import apiService from '@/admin/advanceApi/apiService';
+import toast from 'react-hot-toast';
 
 export default function AllProject() {
   const [refreshCounter, setRefreshCounter] = useState(0);
@@ -23,9 +23,9 @@ export default function AllProject() {
     limit: 10,
     offset: 0,
     total: 0,
-    search: "",
-    department: "",
-    status: "",
+    search: '',
+    department: '',
+    status: '',
   });
 
   const [appliedFilters, setAppliedFilters] = useState({});
@@ -40,8 +40,8 @@ export default function AllProject() {
           total: res.data?.meta?.total || 0,
         }));
       } catch (err) {
-        toast.error("Failed to fetch projects");
-        toast("Using dummy data");
+        toast.error('Failed to fetch projects');
+        toast('Using dummy data');
 
         setProjects(allProjectsResponse.data);
         setParamObj((p) => ({
@@ -62,9 +62,9 @@ export default function AllProject() {
   const handleClear = () => {
     setParamObj({
       ...paramObj,
-      search: "",
-      department: "",
-      status: "",
+      search: '',
+      department: '',
+      status: '',
     });
     setAppliedFilters({});
     setRefreshCounter((p) => p + 1);
@@ -73,32 +73,32 @@ export default function AllProject() {
   const tableData = projects.filter((item) => {
     return (
       (!appliedFilters.search ||
-        item.projectName
-          ?.toLowerCase()
-          .includes(appliedFilters.search.toLowerCase())) &&
-      (!appliedFilters.department ||
-        item.department === appliedFilters.department) &&
-      (!appliedFilters.status ||
-        item.projectStatus === appliedFilters.status)
+        item.projectName?.toLowerCase().includes(appliedFilters.search.toLowerCase())) &&
+      (!appliedFilters.department || item.department === appliedFilters.department) &&
+      (!appliedFilters.status || item.projectStatus === appliedFilters.status)
     );
   });
 
   const columns = [
-    { title: "Project Id", dataIndex: "projectId", align: "center" },
-    { title: "Project Name", dataIndex: "projectName", align: "center" },
-    { title: "Project Lead Name", dataIndex: "projectLeadName", align: "center" },
-    { title: "Budget", dataIndex: "budget", align: "center" },
-    { title: "Start Date", dataIndex: "startDate", align: "center" },
-    { title: "Client", dataIndex: "clientName", align: "center" },
+    { title: 'Project Id', dataIndex: 'projectId', align: 'center' },
+    { title: 'Project Name', dataIndex: 'projectName', align: 'center' },
     {
-      title: "Status",
-      dataIndex: "projectStatus",
+      title: 'Project Lead Name',
+      dataIndex: 'projectLeadName',
+      align: 'center',
+    },
+    { title: 'Budget', dataIndex: 'budget', align: 'center' },
+    { title: 'Start Date', dataIndex: 'startDate', align: 'center' },
+    { title: 'Client', dataIndex: 'clientName', align: 'center' },
+    {
+      title: 'Status',
+      dataIndex: 'projectStatus',
       render: (status) => <DynamicStatusTag type={status} />,
     },
     {
-      title: "Action",
-      key: "action",
-      fixed: "right",
+      title: 'Action',
+      key: 'action',
+      fixed: 'right',
       width: 120,
       render: (_, record) => (
         <Space size="small">
@@ -109,7 +109,7 @@ export default function AllProject() {
               onClick={() => {
                 setShowInputForm(true);
                 setInitialData(record);
-                setType("VIEW");
+                setType('VIEW');
               }}
             />
           </Tooltip>
@@ -121,7 +121,7 @@ export default function AllProject() {
               onClick={() => {
                 setShowInputForm(true);
                 setInitialData(record);
-                setType("EDIT");
+                setType('EDIT');
               }}
             />
           </Tooltip>
@@ -142,12 +142,10 @@ export default function AllProject() {
             <Select
               allowClear
               placeholder="Department"
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               options={DEPARTMENT_ENUM}
               value={paramObj.department || undefined}
-              onChange={(val) =>
-                setParamObj((p) => ({ ...p, department: val }))
-              }
+              onChange={(val) => setParamObj((p) => ({ ...p, department: val }))}
             />
           </Col>
 
@@ -155,12 +153,10 @@ export default function AllProject() {
             <Select
               allowClear
               placeholder="Status"
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               options={PROJECT_STATUS_ENUM}
               value={paramObj.status || undefined}
-              onChange={(val) =>
-                setParamObj((p) => ({ ...p, status: val }))
-              }
+              onChange={(val) => setParamObj((p) => ({ ...p, status: val }))}
             />
           </Col>
 
@@ -169,9 +165,7 @@ export default function AllProject() {
               allowClear
               placeholder="Search project"
               value={paramObj.search}
-              onChange={(e) =>
-                setParamObj((p) => ({ ...p, search: e.target.value }))
-              }
+              onChange={(e) => setParamObj((p) => ({ ...p, search: e.target.value }))}
             />
           </Col>
 

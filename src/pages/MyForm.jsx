@@ -1,27 +1,23 @@
-import { useState } from "react";
-import { Form, Input, Button } from "antd";
-import {
-  EyeOutlined,
-  EyeInvisibleOutlined,
-  PlusOutlined,
-} from "@ant-design/icons";
-import PropTypes from "prop-types";
+import { useState } from 'react';
+import { Form, Input, Button } from 'antd';
+import { EyeOutlined, EyeInvisibleOutlined, PlusOutlined } from '@ant-design/icons';
+import PropTypes from 'prop-types';
 
-const MaskedInput = ({ value = "", onChange }) => {
+const MaskedInput = ({ value = '', onChange }) => {
   const [show, setShow] = useState(false);
 
   // Convert real value to masked display value
   const maskValue = (val) => {
     if (show) return val; // Show full when eye is open
-    if (!val) return "";
+    if (!val) return '';
 
     const len = val.length;
 
     if (len <= 8) {
-      return "X".repeat(len);
+      return 'X'.repeat(len);
     }
     if (len > 8 && len < 12) {
-      return "XXXXXXXX" + val.slice(8);
+      return 'XXXXXXXX' + val.slice(8);
     }
     if (len === 12) {
       return val;
@@ -31,7 +27,7 @@ const MaskedInput = ({ value = "", onChange }) => {
 
   // Capture REAL digits before masking
   const handleKeyDown = (e) => {
-    if (e.key === "Backspace") {
+    if (e.key === 'Backspace') {
       onChange(value.slice(0, -1));
       return;
     }
@@ -52,7 +48,7 @@ const MaskedInput = ({ value = "", onChange }) => {
   };
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: 'relative' }}>
       <Input
         value={maskValue(value)} // masked output
         onKeyDown={handleKeyDown} // REAL input handling
@@ -62,11 +58,11 @@ const MaskedInput = ({ value = "", onChange }) => {
       {/* Eye toggle */}
       <span
         style={{
-          position: "absolute",
+          position: 'absolute',
           right: 10,
-          top: "50%",
-          transform: "translateY(-50%)",
-          cursor: "pointer",
+          top: '50%',
+          transform: 'translateY(-50%)',
+          cursor: 'pointer',
         }}
         onClick={() => setShow(!show)}
       >
@@ -91,7 +87,7 @@ const MyForm = () => {
               <Form.Item
                 label="Masked Number"
                 {...field}
-                name={[field.name, "value"]}
+                name={[field.name, 'value']}
                 key={field.key}
               >
                 <MaskedInput />

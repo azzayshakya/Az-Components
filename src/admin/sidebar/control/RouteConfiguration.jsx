@@ -10,7 +10,6 @@ export const ROUTES = {
   [MENU_KEYS.ADD_EMPLOYEE_DETAILS]: '/employees/update-employee-details',
   [MENU_KEYS.ROLE_MANAGEMENT]: '/employees/role-management',
 
-
   // Salary
   [MENU_KEYS.SALARY_MANAGEMENT]: '/salary',
 

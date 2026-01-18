@@ -1,4 +1,4 @@
-import {  Tag } from "antd";
+import { Tag } from 'antd';
 
 const SalaryHistoryPopover = ({ history }) => {
   return (
@@ -7,8 +7,8 @@ const SalaryHistoryPopover = ({ history }) => {
         <div
           key={index}
           style={{
-            display: "flex",
-            justifyContent: "space-between",
+            display: 'flex',
+            justifyContent: 'space-between',
             marginBottom: 6,
           }}
         >

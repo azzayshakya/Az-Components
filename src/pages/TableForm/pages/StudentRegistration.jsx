@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Form, Button, message } from "antd";
-import PageContainer from "../layout/PageContainer";
-import UserDetailsForm from "../Component/form/UserDetailsForm";
-import YearEntryTable from "../Component/table/YearEntryTable";
-import FamileDetails from "../Component/table/FamileDetails";
+import { useState } from 'react';
+import { Form, Button, message } from 'antd';
+import PageContainer from '../layout/PageContainer';
+import UserDetailsForm from '../Component/form/UserDetailsForm';
+import YearEntryTable from '../Component/table/YearEntryTable';
+import FamileDetails from '../Component/table/FamileDetails';
 
 export default function StudentRegistration() {
   const [form] = Form.useForm();
@@ -11,7 +11,7 @@ export default function StudentRegistration() {
   const [familyData, setFamilyData] = useState([]);
   const onSubmit = (values) => {
     if (tableData.length === 0) {
-      return message.error("Please add at least one year record!");
+      return message.error('Please add at least one year record!');
     }
 
     const payload = {
@@ -19,8 +19,8 @@ export default function StudentRegistration() {
       results: tableData,
     };
 
-    console.log("FINAL SUBMIT:", payload);
-    message.success("Form submitted successfully!");
+    console.log('FINAL SUBMIT:', payload);
+    message.success('Form submitted successfully!');
   };
 
   return (
@@ -29,13 +29,7 @@ export default function StudentRegistration() {
         <UserDetailsForm />
         <FamileDetails data={familyData} setData={familyData} />
         <YearEntryTable data={tableData} setData={setTableData} />
-        <Button
-          type="primary"
-          htmlType="submit"
-          size="large"
-          block
-          style={{ marginTop: 25 }}
-        >
+        <Button type="primary" htmlType="submit" size="large" block style={{ marginTop: 25 }}>
           Submit Details
         </Button>
       </Form>

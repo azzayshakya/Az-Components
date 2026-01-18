@@ -1,15 +1,12 @@
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { useRouteError } from "react-router-dom";
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { useRouteError } from 'react-router-dom';
 
 const ErrorPage = () => {
   const error = useRouteError();
   return (
     <div className="flex h-screen w-full flex-col items-center p-3 lg:w-[100%]">
       <div className="flex w-full items-center justify-between p-5 xs:p-3">
-        <a
-          href="/help?id=help-on-error"
-          className={ "text-right"}
-        >
+        <a href="/help?id=help-on-error" className={'text-right'}>
           Help?
         </a>
       </div>
@@ -25,11 +22,8 @@ const ErrorPage = () => {
           )}
         </div>
       </div>
-
     </div>
   );
 };
 
 export { ErrorPage };
-
-

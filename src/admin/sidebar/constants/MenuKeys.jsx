@@ -3,12 +3,12 @@ export const MENU_KEYS = {
   DASHBOARD: 'dashboard',
   MY_PROFILE: 'my-profile',
   ALL_USERS: 'all-users',
-  
+
   // Employee Management
   EMPLOYEE_ACTIVATION: 'employee-activation',
   ALL_EMPLOYEES: 'all-employees',
-  ROLE_MANAGEMENT:'role-management',
-  ADD_EMPLOYEE_DETAILS:'add-employee-details',
+  ROLE_MANAGEMENT: 'role-management',
+  ADD_EMPLOYEE_DETAILS: 'add-employee-details',
 
   // Salary Management
   EMPLOYEE_MANAGEMENT: 'employee-management',

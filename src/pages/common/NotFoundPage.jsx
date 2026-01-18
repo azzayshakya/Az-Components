@@ -1,13 +1,13 @@
-import React from "react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
 
 const NotFoundPage = () => {
   return (
     <div className="flex h-screen w-full flex-col items-center p-3 lg:w-[100%]">
       <div className="xs:p-3 flex w-full items-center justify-between p-5">
         {/* <AppLogo doNotShowAppName={true} /> */}
-        <a href="/help?id=help-on-not-found" className={"text-right"}>
+        <a href="/help?id=help-on-not-found" className={'text-right'}>
           Help?
         </a>
       </div>
@@ -19,7 +19,7 @@ const NotFoundPage = () => {
           <p>The page you're looking for could not be found.</p>
         </div>
         <div className="mt-4">
-          <Link to="/" className={"text-center"}>
+          <Link to="/" className={'text-center'}>
             Go to Homepage
           </Link>
         </div>

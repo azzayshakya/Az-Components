@@ -1,17 +1,16 @@
-import { useState, useMemo } from "react";
-import { Layout, Menu, theme, Typography } from "antd";
+import { useState, useMemo } from 'react';
+import { Layout, Menu, theme, Typography } from 'antd';
 
+import { buildMenuItems } from './sidebar/utilities/MenuBuilder';
+import { buildBreadcrumbs } from './sidebar/utilities/breadCrumbBuilder';
 
-import { buildMenuItems } from "./sidebar/utilities/MenuBuilder";
-import { buildBreadcrumbs } from "./sidebar/utilities/breadCrumbBuilder";
+import { USER_ROLES } from './sidebar/constants/Permission';
+import MENU_CONFIG from './sidebar/control/MenuConfig';
 
-import { USER_ROLES } from "./sidebar/constants/Permission";
-import MENU_CONFIG from "./sidebar/control/MenuConfig";
-
-import AdminFooterComponent from "@/admin/components/Footer";
-import AdminHeaderComponent from "@/admin/components/AdminHeaderComponent";
-import { Outlet } from "react-router-dom";
-import useMenu from "@/admin/sidebar/hooks/useMenu.jsx";
+import AdminFooterComponent from '@/admin/components/Footer';
+import AdminHeaderComponent from '@/admin/components/AdminHeaderComponent';
+import { Outlet } from 'react-router-dom';
+import useMenu from '@/admin/sidebar/hooks/useMenu.jsx';
 
 const { Sider } = Layout;
 const { Text } = Typography;
@@ -22,12 +21,10 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-  const { selectedKeys, openKeys, handleMenuClick, handleOpenChange } = useMenu(
-    {
-      defaultSelectedKey: "dashboard",
-      persistState: true,
-    },
-  );
+  const { selectedKeys, openKeys, handleMenuClick, handleOpenChange } = useMenu({
+    defaultSelectedKey: 'dashboard',
+    persistState: true,
+  });
 
   const menuItems = useMemo(() => {
     return buildMenuItems(MENU_CONFIG, userRole);
@@ -39,16 +36,16 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
   }, [selectedKeys]);
 
   return (
-    <Layout style={{ minHeight: "100vh"  }}>
+    <Layout style={{ minHeight: '100vh' }}>
       <Sider
         collapsible
         collapsed={collapsed}
         onCollapse={setCollapsed}
         width={250}
         style={{
-          overflow: "auto",
-          height: "100vh",
-          position: "fixed",
+          overflow: 'auto',
+          height: '100vh',
+          position: 'fixed',
           left: 0,
           top: 0,
           bottom: 0,
@@ -57,23 +54,23 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
         <div
           style={{
             height: 64,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "rgba(255, 255, 255, 0.1)",
-            margin: "16px",
-            borderRadius: "8px",
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'rgba(255, 255, 255, 0.1)',
+            margin: '16px',
+            borderRadius: '8px',
           }}
         >
           <Text
             strong
             style={{
-              color: "white",
-              fontSize: collapsed ? "16px" : "20px",
-              transition: "font-size 0.3s",
+              color: 'white',
+              fontSize: collapsed ? '16px' : '20px',
+              transition: 'font-size 0.3s',
             }}
           >
-            {collapsed ? "EIE" : "Elmech"}
+            {collapsed ? 'EIE' : 'Elmech'}
           </Text>
         </div>
 
@@ -91,7 +88,7 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
       <Layout
         style={{
           marginLeft: collapsed ? 80 : 250,
-          transition: "margin-left 0.2s",
+          transition: 'margin-left 0.2s',
         }}
       >
         <AdminHeaderComponent
@@ -107,8 +104,7 @@ const AdminMain = ({ userRole = USER_ROLES.ADMIN, userData = null }) => {
             // minHeight: "calc(100vh - 64px)",
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
-            flex:1
-            
+            flex: 1,
           }}
         >
           <Outlet />

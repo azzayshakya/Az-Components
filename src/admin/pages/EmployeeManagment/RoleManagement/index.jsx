@@ -1,15 +1,15 @@
-import { employeeListResponse } from "@/admin/constants/dummyResponse";
-import CrudTable from "@/pages/antdFormTable/components/CrudTable";
-import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
-import ModeCard from "@/pages/antdFormTable/components/ModeCard";
-import { Button, Col, Input, Select, Row } from "antd";
-import { useEffect, useState } from "react";
-import { DEPARTMENT_ENUM, WORK_STATUS_ENUM } from "../../constants/enum";
-import InputForm from "../component/InputForm";
-import RoleUpdateModal from "./RoleUpdateModal";
-import { DynamicStatusTag } from "../../constants/DynamicAntdStatusTag";
-import toast from "react-hot-toast";
-import apiService from "@/admin/advanceApi/apiService";
+import { employeeListResponse } from '@/admin/constants/dummyResponse';
+import CrudTable from '@/pages/antdFormTable/components/CrudTable';
+import ModeFieldSet from '@/pages/antdFormTable/components/FieldSet';
+import ModeCard from '@/pages/antdFormTable/components/ModeCard';
+import { Button, Col, Input, Select, Row } from 'antd';
+import { useEffect, useState } from 'react';
+import { DEPARTMENT_ENUM, WORK_STATUS_ENUM } from '../../constants/enum';
+import InputForm from '../component/InputForm';
+import RoleUpdateModal from './RoleUpdateModal';
+import { DynamicStatusTag } from '../../constants/DynamicAntdStatusTag';
+import toast from 'react-hot-toast';
+import apiService from '@/admin/advanceApi/apiService';
 
 export default function RoleManagement() {
   const [, setRefreshCounter] = useState(0);
@@ -27,20 +27,20 @@ export default function RoleManagement() {
     limit: 10,
     offset: 0,
     total: employeeListResponse.meta.total,
-    department: "",
-    workingStatus: "",
-    search: "",
+    department: '',
+    workingStatus: '',
+    search: '',
   });
 
   const [appliedFilters, setAppliedFilters] = useState(paramObj);
 
   const fetchEmployees = async () => {
     try {
-      const res = await apiService.activateEmployee(); 
+      const res = await apiService.activateEmployee();
       setEmployeeData(res.data);
     } catch (err) {
-      toast.error("Employee fetching failed");
-      toast.success("Using dummy employee data");
+      toast.error('Employee fetching failed');
+      toast.success('Using dummy employee data');
       setEmployeeData(employeeListResponse.data);
     }
   };
@@ -68,41 +68,35 @@ export default function RoleManagement() {
   ============================ */
   const tableData = employeeData.filter((emp) => {
     return (
-      (!appliedFilters.department ||
-        emp.department === appliedFilters.department) &&
-      (!appliedFilters.workingStatus ||
-        emp.workingStatus === appliedFilters.workingStatus) &&
+      (!appliedFilters.department || emp.department === appliedFilters.department) &&
+      (!appliedFilters.workingStatus || emp.workingStatus === appliedFilters.workingStatus) &&
       (!appliedFilters.search ||
-        emp.fullName
-          .toLowerCase()
-          .includes(appliedFilters.search.toLowerCase()) ||
-        emp.email
-          .toLowerCase()
-          .includes(appliedFilters.search.toLowerCase()))
+        emp.fullName.toLowerCase().includes(appliedFilters.search.toLowerCase()) ||
+        emp.email.toLowerCase().includes(appliedFilters.search.toLowerCase()))
     );
   });
 
   const columns = [
-    { title: "Emp ID", dataIndex: "employeeId", width: 120 },
-    { title: "Name", dataIndex: "fullName", sorter: true },
-    { title: "Email", dataIndex: "email", width: 220 },
-    { title: "Phone", dataIndex: "mobile", width: 150 },
-    { title: "Department", dataIndex: "department" },
-    { title: "Designation", dataIndex: "designation" },
+    { title: 'Emp ID', dataIndex: 'employeeId', width: 120 },
+    { title: 'Name', dataIndex: 'fullName', sorter: true },
+    { title: 'Email', dataIndex: 'email', width: 220 },
+    { title: 'Phone', dataIndex: 'mobile', width: 150 },
+    { title: 'Department', dataIndex: 'department' },
+    { title: 'Designation', dataIndex: 'designation' },
     {
-      title: "Current Role",
-      dataIndex: "role",
+      title: 'Current Role',
+      dataIndex: 'role',
       render: (role) => <DynamicStatusTag type={role} size="large" />,
     },
     {
-      title: "Action",
+      title: 'Action',
       width: 140,
-      fixed: "right",
+      fixed: 'right',
       render: (_, record) => (
         <Button
           style={{
-            background: "#1677ff",
-            color: "white",
+            background: '#1677ff',
+            color: 'white',
           }}
           onClick={() => handleOpenRoleModal(record)}
         >
@@ -122,11 +116,9 @@ export default function RoleManagement() {
                 allowClear
                 placeholder="Department"
                 options={DEPARTMENT_ENUM}
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 value={paramObj.department || undefined}
-                onChange={(val) =>
-                  setParamObj((p) => ({ ...p, department: val }))
-                }
+                onChange={(val) => setParamObj((p) => ({ ...p, department: val }))}
               />
             </Col>
 
@@ -135,11 +127,9 @@ export default function RoleManagement() {
                 allowClear
                 placeholder="Working Status"
                 options={WORK_STATUS_ENUM}
-                style={{ width: "100%" }}
+                style={{ width: '100%' }}
                 value={paramObj.workingStatus || undefined}
-                onChange={(val) =>
-                  setParamObj((p) => ({ ...p, workingStatus: val }))
-                }
+                onChange={(val) => setParamObj((p) => ({ ...p, workingStatus: val }))}
               />
             </Col>
 
@@ -148,9 +138,7 @@ export default function RoleManagement() {
                 allowClear
                 placeholder="Search by name or email"
                 value={paramObj.search}
-                onChange={(e) =>
-                  setParamObj((p) => ({ ...p, search: e.target.value }))
-                }
+                onChange={(e) => setParamObj((p) => ({ ...p, search: e.target.value }))}
               />
             </Col>
 
@@ -173,9 +161,9 @@ export default function RoleManagement() {
                 onClick={() => {
                   const cleared = {
                     ...paramObj,
-                    department: "",
-                    workingStatus: "",
-                    search: "",
+                    department: '',
+                    workingStatus: '',
+                    search: '',
                   };
                   setParamObj(cleared);
                   setAppliedFilters(cleared);

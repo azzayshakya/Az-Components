@@ -1,4 +1,4 @@
-import api from './apiService'
+import api from './apiService';
 
 export const projectService = {
   getAll: () => api.get('/projects'),
@@ -10,4 +10,4 @@ export const projectService = {
   update: (id, data) => api.put(`/projects/${id}`, data),
 
   remove: (id) => api.delete(`/projects/${id}`),
-}
+};

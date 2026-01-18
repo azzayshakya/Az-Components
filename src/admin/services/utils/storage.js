@@ -4,7 +4,7 @@ export const storage = {
   clear: () => localStorage.clear(),
 
   getUser: () => {
-    const user = localStorage.getItem('user')
-    return user ? JSON.parse(user) : null
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
   },
-}
+};

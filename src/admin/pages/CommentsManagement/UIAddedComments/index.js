@@ -1,6 +1,3 @@
-
 export default function index() {
-  return (
-    <div>Ui Added AddComments</div>
-  )
+  return <div>Ui Added AddComments</div>;
 }

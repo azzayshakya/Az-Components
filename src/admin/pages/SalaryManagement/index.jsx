@@ -1,23 +1,20 @@
-import { salaryManagementResponse } from "@/admin/constants/dummyResponse";
-import { Button, Col, Input, Row, Select, Typography } from "antd";
-import { useEffect, useState } from "react";
+import { salaryManagementResponse } from '@/admin/constants/dummyResponse';
+import { Button, Col, Input, Row, Select, Typography } from 'antd';
+import { useEffect, useState } from 'react';
 
-import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
-import ModeCard from "@/pages/antdFormTable/components/ModeCard";
-import CrudTable from "@/pages/antdFormTable/components/CrudTable";
-import SalaryHistoryPopover from "../constants";
-import { DEPARTMENT_ENUM, DESIGNATION_ENUM } from "../constants/enum";
-import SalaryUpdateForm from "./form";
+import ModeFieldSet from '@/pages/antdFormTable/components/FieldSet';
+import ModeCard from '@/pages/antdFormTable/components/ModeCard';
+import CrudTable from '@/pages/antdFormTable/components/CrudTable';
+import SalaryHistoryPopover from '../constants';
+import { DEPARTMENT_ENUM, DESIGNATION_ENUM } from '../constants/enum';
+import SalaryUpdateForm from './form';
 
-import apiService from "@/admin/advanceApi/apiService";
-import toast from "react-hot-toast";
+import apiService from '@/admin/advanceApi/apiService';
+import toast from 'react-hot-toast';
 
 const { Text } = Typography;
 
 export default function SalaryManagement() {
-
-
-  
   const [refreshCounter, setRefreshCounter] = useState(0);
   const [tableData, setTableData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -26,45 +23,37 @@ export default function SalaryManagement() {
   const [isFormVisible, setIsFormVisible] = useState(false);
 
   const [filters, setFilters] = useState({
-    department: "",
-    designation: "",
-    search: "",
+    department: '',
+    designation: '',
+    search: '',
   });
 
   const [paramObj, setParamObj] = useState({
     limit: 10,
     offset: 0,
-    department: "",
-    designation: "",
-    search: "",
+    department: '',
+    designation: '',
+    search: '',
   });
 
-  
   const fetchEmployees = async () => {
     setLoading(true);
     try {
       const res = await apiService.deleteComment();
       setTableData(res.data);
-      throw new Error("API not implemented");
+      throw new Error('API not implemented');
     } catch (error) {
-      console.warn("API failed, using dummy data");
+      console.warn('API failed, using dummy data');
 
-      toast.error(
-        error?.response?.data?.message ?? 
-          error?.message 
-         
-      );
-toast.success("using dummy data")
+      toast.error(error?.response?.data?.message ?? error?.message);
+      toast.success('using dummy data');
       const filtered = salaryManagementResponse.data.filter((emp) => {
         return (
           (!paramObj.department || emp.department === paramObj.department) &&
-          (!paramObj.designation ||
-            emp.designation === paramObj.designation) &&
+          (!paramObj.designation || emp.designation === paramObj.designation) &&
           (!paramObj.search ||
             emp.name.toLowerCase().includes(paramObj.search.toLowerCase()) ||
-            emp.employeeId
-              .toLowerCase()
-              .includes(paramObj.search.toLowerCase()))
+            emp.employeeId.toLowerCase().includes(paramObj.search.toLowerCase()))
         );
       });
 
@@ -90,40 +79,36 @@ toast.success("using dummy data")
   const handleFormSubmit = async (payload) => {
     try {
       await apiService.updateUserRole(payload);
-      toast.success("Salary updated successfully!");
+      toast.success('Salary updated successfully!');
       setRefreshCounter((p) => p + 1);
       handleFormClose();
     } catch (error) {
-      toast.error(
-        error?.response?.data?.message ??
-          error?.message ??
-          "Failed to update salary"
-      );
+      toast.error(error?.response?.data?.message ?? error?.message ?? 'Failed to update salary');
     }
   };
   const columns = [
-    { title: "Emp ID", dataIndex: "employeeId", key: "employeeId" },
-    { title: "Name", dataIndex: "name", key: "name" },
-    { title: "Department", dataIndex: "department", key: "department" },
-    { title: "Designation", dataIndex: "designation", key: "designation" },
+    { title: 'Emp ID', dataIndex: 'employeeId', key: 'employeeId' },
+    { title: 'Name', dataIndex: 'name', key: 'name' },
+    { title: 'Department', dataIndex: 'department', key: 'department' },
+    { title: 'Designation', dataIndex: 'designation', key: 'designation' },
     {
-      title: "Current Salary",
-      dataIndex: "currentSalary",
-      key: "currentSalary",
+      title: 'Current Salary',
+      dataIndex: 'currentSalary',
+      key: 'currentSalary',
       render: (salary, row) => (
         <SalaryHistoryPopover history={row.salaryHistory}>
-          <Text strong style={{ cursor: "pointer", color: "#1677ff" }}>
+          <Text strong style={{ cursor: 'pointer', color: '#1677ff' }}>
             ₹{salary.toLocaleString()}
           </Text>
         </SalaryHistoryPopover>
       ),
     },
     {
-      title: "Action",
-      key: "action",
+      title: 'Action',
+      key: 'action',
       render: (_, record) => (
         <Button
-          style={{ background: "#1677ff", color: "white" }}
+          style={{ background: '#1677ff', color: 'white' }}
           onClick={() => handleUpdateClick(record)}
         >
           Update
@@ -140,12 +125,10 @@ toast.success("using dummy data")
             <Select
               allowClear
               placeholder="Department"
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               value={filters.department || undefined}
               options={DEPARTMENT_ENUM}
-              onChange={(val) =>
-                setFilters((p) => ({ ...p, department: val }))
-              }
+              onChange={(val) => setFilters((p) => ({ ...p, department: val }))}
             />
           </Col>
 
@@ -153,12 +136,10 @@ toast.success("using dummy data")
             <Select
               allowClear
               placeholder="Designation"
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               value={filters.designation || undefined}
               options={DESIGNATION_ENUM}
-              onChange={(val) =>
-                setFilters((p) => ({ ...p, designation: val }))
-              }
+              onChange={(val) => setFilters((p) => ({ ...p, designation: val }))}
             />
           </Col>
 
@@ -167,9 +148,7 @@ toast.success("using dummy data")
               allowClear
               placeholder="Search by name or emp id"
               value={filters.search}
-              onChange={(e) =>
-                setFilters((p) => ({ ...p, search: e.target.value }))
-              }
+              onChange={(e) => setFilters((p) => ({ ...p, search: e.target.value }))}
             />
           </Col>
 
@@ -195,16 +174,16 @@ toast.success("using dummy data")
               block
               onClick={() => {
                 setFilters({
-                  department: "",
-                  designation: "",
-                  search: "",
+                  department: '',
+                  designation: '',
+                  search: '',
                 });
 
                 setParamObj((p) => ({
                   ...p,
-                  department: "",
-                  designation: "",
-                  search: "",
+                  department: '',
+                  designation: '',
+                  search: '',
                   offset: 0,
                 }));
 

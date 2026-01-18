@@ -1,11 +1,11 @@
-import PropTypes from "prop-types";
-import { Table } from "antd";
+import PropTypes from 'prop-types';
+import { Table } from 'antd';
 
 export default function ModeTable({
   columns,
   dataSource,
   styles = {},
-  className = "",
+  className = '',
   ...restProps
 }) {
   const mergedStyles = {

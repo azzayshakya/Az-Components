@@ -1,16 +1,16 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 
 export default function ModeFieldSet({
-  title = "",
+  title = '',
   children,
-  className = "",
+  className = '',
   style = {},
   legendStyle = {},
-  borderColor = "#d9d9d9",
-  borderWidth = "1px",
-  borderStyle = "solid",
+  borderColor = '#d9d9d9',
+  borderWidth = '1px',
+  borderStyle = 'solid',
   required = false,
-  size = "medium",
+  size = 'medium',
   ...restProps
 }) {
   const fieldsetClassName = `mode-fieldset-alt mode-fieldset-alt-${size} ${className}`.trim();
@@ -47,5 +47,5 @@ ModeFieldSet.propTypes = {
   borderWidth: PropTypes.string,
   borderStyle: PropTypes.string,
   required: PropTypes.bool,
-  size: PropTypes.oneOf(["small", "medium", "large"]),
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
 };

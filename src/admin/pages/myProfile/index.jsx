@@ -1,60 +1,58 @@
-import apiService from "@/admin/advanceApi/apiService";
-import PageInfoCard from "@/admin/components/PageInfoCard";
-import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
-import ModeCard from "@/pages/antdFormTable/components/ModeCard";
-import { Button, Col, Form, Input, Row, Select, DatePicker, Upload } from "antd";
-import dayjs from "dayjs";
-import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import {
-  ProjectOutlined
-} from "@ant-design/icons";
+import apiService from '@/admin/advanceApi/apiService';
+import PageInfoCard from '@/admin/components/PageInfoCard';
+import ModeFieldSet from '@/pages/antdFormTable/components/FieldSet';
+import ModeCard from '@/pages/antdFormTable/components/ModeCard';
+import { Button, Col, Form, Input, Row, Select, DatePicker, Upload } from 'antd';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { ProjectOutlined } from '@ant-design/icons';
 export default function MyProfile() {
   const [form] = Form.useForm();
   const [profileData, setProfileData] = useState({});
 
   const userProfile = {
-    firstName: "Ajay",
-    lastName: "Shakya",
-    fatherName: "Rajendra Shakya",
-    dob: "1999-06-15",
-    gender: "male",
-    mobile: "9876543210",
-    email: "ajay.shakya@elmechindia.com",
-    aadharNumber: "1234-5678-9012",
+    firstName: 'Ajay',
+    lastName: 'Shakya',
+    fatherName: 'Rajendra Shakya',
+    dob: '1999-06-15',
+    gender: 'male',
+    mobile: '9876543210',
+    email: 'ajay.shakya@elmechindia.com',
+    aadharNumber: '1234-5678-9012',
 
-    employeeId: "EMP-001",
-    joiningDate: "2022-04-01",
-    workingStatus: "working",
+    employeeId: 'EMP-001',
+    joiningDate: '2022-04-01',
+    workingStatus: 'working',
     lastWorkingDate: null,
-    department: "electrical",
-    designation: "senior-engineer",
-    workLocation: "site",
+    department: 'electrical',
+    designation: 'senior-engineer',
+    workLocation: 'site',
 
-    tempAddress: "Delhi, India",
-    permanentAddress: "Jhansi, Uttar Pradesh",
+    tempAddress: 'Delhi, India',
+    permanentAddress: 'Jhansi, Uttar Pradesh',
 
-    bankName: "State Bank of India",
-    accountNumber: "123456789012",
-    ifscCode: "SBIN0001234",
+    bankName: 'State Bank of India',
+    accountNumber: '123456789012',
+    ifscCode: 'SBIN0001234',
     salary: 65000,
 
-    emergencyContact: "9123456789",
-    emergencyDetails: "Father - Rajendra Shakya",
+    emergencyContact: '9123456789',
+    emergencyDetails: 'Father - Rajendra Shakya',
   };
 
   const getProfileData = async () => {
-    const toastId = toast.loading("Fetching profile details...");
+    const toastId = toast.loading('Fetching profile details...');
     try {
       const response = await apiService.getProfile();
 
       const data = response?.data?.data || userProfile;
       setProfileData(data);
 
-      toast.success("Profile loaded successfully", { id: toastId });
+      toast.success('Profile loaded successfully', { id: toastId });
     } catch (error) {
       setProfileData(userProfile);
-      toast.error("API failed, loaded dummy data", { id: toastId });
+      toast.error('API failed, loaded dummy data', { id: toastId });
     }
   };
 
@@ -64,12 +62,8 @@ export default function MyProfile() {
     form.setFieldsValue({
       ...profileData,
       dob: profileData.dob ? dayjs(profileData.dob) : null,
-      joiningDate: profileData.joiningDate
-        ? dayjs(profileData.joiningDate)
-        : null,
-      lastWorkingDate: profileData.lastWorkingDate
-        ? dayjs(profileData.lastWorkingDate)
-        : null,
+      joiningDate: profileData.joiningDate ? dayjs(profileData.joiningDate) : null,
+      lastWorkingDate: profileData.lastWorkingDate ? dayjs(profileData.lastWorkingDate) : null,
     });
   }, [profileData, form]);
 
@@ -81,17 +75,17 @@ export default function MyProfile() {
       title="My Profile"
       // extra={<Button disabled type="primary">Edit</Button>}
     >
-     <PageInfoCard
-  title="About This Page"
-  icon={<ProjectOutlined />}
-  description="View your personal, employment, and salary-related information registered with Elmech India Engineers."
-  points={[
-    "Personal details like name, contact information, and date of birth are managed by HR.",
-    "Employment information includes department, designation, and current working status.",
-    "Bank and salary details are shown for reference and payroll transparency.",
-    "For any corrections or updates, please contact the HR or Admin team.",
-  ]}
-/>
+      <PageInfoCard
+        title="About This Page"
+        icon={<ProjectOutlined />}
+        description="View your personal, employment, and salary-related information registered with Elmech India Engineers."
+        points={[
+          'Personal details like name, contact information, and date of birth are managed by HR.',
+          'Employment information includes department, designation, and current working status.',
+          'Bank and salary details are shown for reference and payroll transparency.',
+          'For any corrections or updates, please contact the HR or Admin team.',
+        ]}
+      />
 
       <Form
         form={form}
@@ -129,7 +123,7 @@ export default function MyProfile() {
 
             <Col xs={24} md={12}>
               <Form.Item label="Date of Birth" name="dob">
-                <DatePicker style={{ width: "100%" }} disabled />
+                <DatePicker style={{ width: '100%' }} disabled />
               </Form.Item>
             </Col>
 
@@ -174,7 +168,7 @@ export default function MyProfile() {
 
             <Col xs={24} md={12}>
               <Form.Item label="Joining Date" name="joiningDate">
-                <DatePicker style={{ width: "100%" }} disabled />
+                <DatePicker style={{ width: '100%' }} disabled />
               </Form.Item>
             </Col>
 
@@ -190,7 +184,7 @@ export default function MyProfile() {
 
             <Col xs={24} md={12}>
               <Form.Item label="Last Working Date" name="lastWorkingDate">
-                <DatePicker style={{ width: "100%" }} disabled />
+                <DatePicker style={{ width: '100%' }} disabled />
               </Form.Item>
             </Col>
 

@@ -1,16 +1,6 @@
-import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
-import ModeCard from "@/pages/antdFormTable/components/ModeCard";
-import {
-  Button,
-  Col,
-  Form,
-  Input,
-  Row,
-  Select,
-  DatePicker,
-  Upload,
-  message,
-} from "antd";
+import ModeFieldSet from '@/pages/antdFormTable/components/FieldSet';
+import ModeCard from '@/pages/antdFormTable/components/ModeCard';
+import { Button, Col, Form, Input, Row, Select, DatePicker, Upload, message } from 'antd';
 
 import {
   requiredRule,
@@ -21,18 +11,18 @@ import {
   safeAddressRule,
   regexRule,
   digitsWithLengthValidator,
-} from "@/admin/pages/constants/FormValidators";
-import { addEmployee } from "@/admin/services/employeeService";
-import { DEPARTMENT_ENUM, WORK_LOCATION_ENUM, WORK_STATUS_ENUM } from "../../constants/enum";
+} from '@/admin/pages/constants/FormValidators';
+import { addEmployee } from '@/admin/services/employeeService';
+import { DEPARTMENT_ENUM, WORK_LOCATION_ENUM, WORK_STATUS_ENUM } from '../../constants/enum';
 
 const toStringPayload = (values) => {
   const payload = {};
 
   Object.entries(values).forEach(([key, value]) => {
     if (value === undefined || value === null) {
-      payload[key] = "";
+      payload[key] = '';
     } else if (value?.format) {
-      payload[key] = value.format("YYYY-MM-DD");
+      payload[key] = value.format('YYYY-MM-DD');
     } else {
       payload[key] = String(value);
     }
@@ -51,10 +41,10 @@ export default function AddEmployee() {
 
       await addEmployee(payload);
 
-      message.success("Employee added successfully");
+      message.success('Employee added successfully');
       form.resetFields();
     } catch (err) {
-      if (typeof err === "string") {
+      if (typeof err === 'string') {
         message.error(err);
       }
     }
@@ -84,21 +74,14 @@ export default function AddEmployee() {
                 <Form.Item
                   label="First Name"
                   name="firstName"
-                  rules={[
-                    requiredRule("First Name"),
-                    onlyLettersRule("First Name"),
-                  ]}
+                  rules={[requiredRule('First Name'), onlyLettersRule('First Name')]}
                 >
                   <Input placeholder="Enter first name" />
                 </Form.Item>
               </Col>
 
               <Col xs={24} md={12}>
-                <Form.Item
-                  label="Last Name"
-                  name="lastName"
-                  rules={[onlyLettersRule("Last Name")]}
-                >
+                <Form.Item label="Last Name" name="lastName" rules={[onlyLettersRule('Last Name')]}>
                   <Input placeholder="Enter last name" />
                 </Form.Item>
               </Col>
@@ -117,9 +100,9 @@ export default function AddEmployee() {
                 <Form.Item
                   label="Date of Birth"
                   name="dob"
-                  rules={[noFutureDateRule("Date of Birth")]}
+                  rules={[noFutureDateRule('Date of Birth')]}
                 >
-                  <DatePicker style={{ width: "100%" }} />
+                  <DatePicker style={{ width: '100%' }} />
                 </Form.Item>
               </Col>
 
@@ -137,11 +120,7 @@ export default function AddEmployee() {
                 <Form.Item
                   label="Mobile Number"
                   name="mobile"
-                  rules={[
-                    digitsWithLengthValidator('Mobile Number', 10),
-
-                  ]}
-
+                  rules={[digitsWithLengthValidator('Mobile Number', 10)]}
                 >
                   <Input placeholder="Enter mobile number" />
                 </Form.Item>
@@ -157,9 +136,7 @@ export default function AddEmployee() {
                 <Form.Item
                   label="Aadhar Number"
                   name="aadharNumber"
-                  rules={[
-                    digitsWithLengthValidator('Aadhar Number', 12),
-                  ]}
+                  rules={[digitsWithLengthValidator('Aadhar Number', 12)]}
                 >
                   <Input placeholder="Enter Aadhar number" />
                 </Form.Item>
@@ -179,9 +156,9 @@ export default function AddEmployee() {
                 <Form.Item
                   label="Joining Date"
                   name="joiningDate"
-                  rules={[noFutureDateRule("Joining Date")]}
+                  rules={[noFutureDateRule('Joining Date')]}
                 >
-                  <DatePicker style={{ width: "100%" }} />
+                  <DatePicker style={{ width: '100%' }} />
                 </Form.Item>
               </Col>
 
@@ -195,9 +172,9 @@ export default function AddEmployee() {
                 <Form.Item
                   label="Last Working Date"
                   name="lastWorkingDate"
-                  rules={[noFutureDateRule("Last Working Date")]}
+                  rules={[noFutureDateRule('Last Working Date')]}
                 >
-                  <DatePicker style={{ width: "100%" }} />
+                  <DatePicker style={{ width: '100%' }} />
                 </Form.Item>
               </Col>
 
@@ -225,11 +202,7 @@ export default function AddEmployee() {
           <ModeFieldSet title="Address Information">
             <Row gutter={[24, 16]}>
               <Col xs={24} md={12}>
-                <Form.Item
-                  label="Temporary Address"
-                  name="tempAddress"
-                  rules={[safeAddressRule()]}
-                >
+                <Form.Item label="Temporary Address" name="tempAddress" rules={[safeAddressRule()]}>
                   <Input.TextArea rows={3} placeholder="Enter temporary address" />
                 </Form.Item>
               </Col>
@@ -259,7 +232,7 @@ export default function AddEmployee() {
                 <Form.Item
                   label="Account Number"
                   name="accountNumber"
-                  rules={[onlyDigitsRule("Account Number")]}
+                  rules={[onlyDigitsRule('Account Number')]}
                 >
                   <Input placeholder="Enter account number" />
                 </Form.Item>
@@ -275,7 +248,7 @@ export default function AddEmployee() {
                 <Form.Item
                   label="Salary (Monthly)"
                   name="salary"
-                  rules={[onlyDigitsRule("Salary")]}
+                  rules={[onlyDigitsRule('Salary')]}
                 >
                   <Input prefix="₹" placeholder="Enter salary amount" />
                 </Form.Item>
@@ -290,10 +263,8 @@ export default function AddEmployee() {
                 <Form.Item
                   label="Contact No"
                   name="emergencyContactNo"
-                  rules={[
-                    digitsWithLengthValidator('Contact No', 10)
-                  ]}
-                > 
+                  rules={[digitsWithLengthValidator('Contact No', 10)]}
+                >
                   <Input placeholder="Enter emergency contact number" />
                 </Form.Item>
               </Col>
@@ -302,7 +273,7 @@ export default function AddEmployee() {
                 <Form.Item
                   label="Contact Name"
                   name="emergencyContactName"
-                  rules={[onlyLettersRule("Contact Name")]}
+                  rules={[onlyLettersRule('Contact Name')]}
                 >
                   <Input placeholder="Name" />
                 </Form.Item>

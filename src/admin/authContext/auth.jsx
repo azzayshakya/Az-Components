@@ -1,9 +1,9 @@
-import { createContext, useContext, useState, useEffect } from 'react'
-import {  getApiBaseUrl, STORAGE_KEYS } from '../advanceApi/apiConfig';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { getApiBaseUrl, STORAGE_KEYS } from '../advanceApi/apiConfig';
 import apiService from '../advanceApi/apiService';
 
 const AdminAuthContext = createContext(null);
-const useDummyData=true;
+const useDummyData = true;
 export const AdminAuthProvider = ({ children }) => {
   const [adminUser, setAdminUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,7 +15,7 @@ export const AdminAuthProvider = ({ children }) => {
     verifyAdminAccess();
   }, []);
 
-  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const verifyAdminAccess = async () => {
     setLoading(true);
@@ -24,7 +24,6 @@ export const AdminAuthProvider = ({ children }) => {
     console.log('🔐 AUTHENTICATION FLOW: STARTED');
 
     try {
-      
       console.log('📦 STEP 1: Checking local storage cache...');
       const cachedUser = localStorage.getItem(STORAGE_KEYS.ADMIN_USER);
       const cachedToken = localStorage.getItem(STORAGE_KEYS.ADMIN_TOKEN);
@@ -36,14 +35,17 @@ export const AdminAuthProvider = ({ children }) => {
           id: parsedUser.id,
           name: parsedUser.name,
           role: parsedUser.role,
-          email: parsedUser.email
+          email: parsedUser.email,
         });
       } else {
         console.log('⚠️  Cache MISS: No cached admin data found');
       }
 
       if (cachedToken) {
-        console.log('🔑 Found cached token (first 20 chars):', cachedToken.substring(0, 20) + '...');
+        console.log(
+          '🔑 Found cached token (first 20 chars):',
+          cachedToken.substring(0, 20) + '...'
+        );
       } else {
         console.log('⚠️  No cached token found');
       }
@@ -64,20 +66,20 @@ export const AdminAuthProvider = ({ children }) => {
         // DUMMY DATA MODE (Development)
         // ────────────────────────────────────────────────────
         console.log('🔧 Using DUMMY DATA (useDummyData = true)');
-        
+
         console.log('⏱️  Simulating network delay (2000ms)...');
         await delay(2000);
 
         const dummyAdmin = {
           id: 1,
-          name: "Ajay Admin",
-          role: "Admin",
-          email: "admin@elmech.live",
-          designation: "Software Developer",
-          permissions: ["read", "write", "delete", "manage_users"],
-          department: "Engineering",
+          name: 'Ajay Admin',
+          role: 'Admin',
+          email: 'admin@elmech.live',
+          designation: 'Software Developer',
+          permissions: ['read', 'write', 'delete', 'manage_users'],
+          department: 'Engineering',
           lastLogin: new Date().toISOString(),
-          profileImage: null
+          profileImage: null,
         };
 
         console.log('🎭 Dummy Admin Data Loaded:');
@@ -89,14 +91,12 @@ export const AdminAuthProvider = ({ children }) => {
         console.log('   └─ Permissions:', dummyAdmin.permissions.join(', '));
 
         authenticatedUser = dummyAdmin;
-
       } else {
-    
         console.log('🌐 Making REAL API call to verify admin...');
         console.log('📡 Endpoint:', getApiBaseUrl() + apiService.verifyAdminDashboardUser());
 
         try {
-          const response = apiService.verifyAdminDashboardUser()
+          const response = apiService.verifyAdminDashboardUser();
 
           console.log('✅ API Response received');
           console.log('📊 Response status:', response.status);
@@ -109,7 +109,7 @@ export const AdminAuthProvider = ({ children }) => {
               id: user.id,
               name: user.name,
               role: user.role,
-              email: user.email
+              email: user.email,
             });
 
             if (accessToken) {
@@ -122,25 +122,20 @@ export const AdminAuthProvider = ({ children }) => {
             }
 
             authenticatedUser = user;
-
           } else {
             console.error('❌ API returned success=false');
             throw new Error(response.data.message || 'Authentication failed');
           }
-
         } catch (apiError) {
-        
           console.error('❌ API Call Failed');
           console.error('🔍 Error Details:', {
             message: apiError.message,
             status: apiError.response?.status,
             statusText: apiError.response?.statusText,
-            data: apiError.response?.data
+            data: apiError.response?.data,
           });
           throw apiError;
-        
         }
-       
       }
       // ============================================================
 
@@ -165,13 +160,13 @@ export const AdminAuthProvider = ({ children }) => {
       // STEP 4: Store User Data
       // ──────────────────────────────────────────────────────
       console.log('\n💾 STEP 4: Storing authenticated user data...');
-      
+
       localStorage.setItem(STORAGE_KEYS.ADMIN_USER, JSON.stringify(authenticatedUser));
       console.log('✅ User data saved to localStorage');
-      
+
       setAdminUser(authenticatedUser);
       console.log('✅ User data set in React state');
-      
+
       setError(null);
       console.log('✅ Error state cleared');
 
@@ -184,7 +179,6 @@ export const AdminAuthProvider = ({ children }) => {
       console.log('✨ Admin access GRANTED');
       console.log('👤 Welcome, ' + authenticatedUser.name + '!');
       console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n');
-
     } catch (err) {
       // ──────────────────────────────────────────────────────
       // ERROR HANDLING
@@ -202,7 +196,6 @@ export const AdminAuthProvider = ({ children }) => {
       console.log('🧹 Admin data cleared from storage');
       console.log('⚠️  User will see "Access Denied" screen');
       console.log('⏱️  Auto-redirect to marketing site in 5 seconds');
-
     } finally {
       setLoading(false);
       console.log('🔓 Authentication flow COMPLETED');
@@ -210,7 +203,6 @@ export const AdminAuthProvider = ({ children }) => {
     }
   };
 
- 
   const clearAdminData = () => {
     localStorage.removeItem(STORAGE_KEYS.ADMIN_USER);
     localStorage.removeItem(STORAGE_KEYS.ADMIN_TOKEN);
@@ -218,20 +210,16 @@ export const AdminAuthProvider = ({ children }) => {
     console.log('✅ Admin data cleared successfully');
   };
 
-
-  const logout = async () => {
-   
-  };
-
+  const logout = async () => {};
 
   const isAuthorized = () => {
     const authorized = adminUser !== null && !error;
     console.log('🔐 Authorization check:', {
       hasUser: adminUser !== null,
       hasError: error !== null,
-      isAuthorized: authorized
+      isAuthorized: authorized,
     });
-    
+
     return authorized;
   };
   const value = {
@@ -240,24 +228,17 @@ export const AdminAuthProvider = ({ children }) => {
     error,
     isAuthorized,
     logout,
-  
   };
 
-  return (
-    <AdminAuthContext.Provider value={value}>
-      {children}
-    </AdminAuthContext.Provider>
-  );
+  return <AdminAuthContext.Provider value={value}>{children}</AdminAuthContext.Provider>;
 };
-
 
 export const useAdminAuth = () => {
   const context = useContext(AdminAuthContext);
-  
+
   if (!context) {
     throw new Error('useAdminAuth must be used within AdminAuthProvider');
   }
-  
+
   return context;
 };
-

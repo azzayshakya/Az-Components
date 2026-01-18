@@ -1,7 +1,6 @@
-import axios from 'axios'
-import { storage } from './utils/storage'
-import { errorHandler } from './utils/errorHandler'
-
+import axios from 'axios';
+import { storage } from './utils/storage';
+import { errorHandler } from './utils/errorHandler';
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -9,32 +8,31 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-})
-
+});
 
 api.interceptors.request.use(
   (config) => {
-    const token = storage.getToken()
+    const token = storage.getToken();
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+      config.headers.Authorization = `Bearer ${token}`;
     }
-    return config
+    return config;
   },
   (error) => Promise.reject(error)
-)
+);
 
 api.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    const normalizedError = errorHandler(error)
+    const normalizedError = errorHandler(error);
 
     if (normalizedError.status === 401) {
-      storage.clear()
-      window.location.href = '/login'
+      storage.clear();
+      window.location.href = '/login';
     }
 
-    return Promise.reject(normalizedError)
+    return Promise.reject(normalizedError);
   }
-)
+);
 
-export default api
+export default api;

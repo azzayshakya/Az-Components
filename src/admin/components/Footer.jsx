@@ -1,4 +1,4 @@
-import { Typography, Space } from "antd";
+import { Typography, Space } from 'antd';
 
 const { Text } = Typography;
 
@@ -6,13 +6,13 @@ export default function AdminFooterComponent({ colorBgContainer }) {
   return (
     <footer
       style={{
-        width: "100%",
+        width: '100%',
         background: colorBgContainer,
-        borderTop: "1px solid #f0f0f0",
-        padding: "12px 24px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
+        borderTop: '1px solid #f0f0f0',
+        padding: '12px 24px',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         fontSize: 13,
       }}
     >

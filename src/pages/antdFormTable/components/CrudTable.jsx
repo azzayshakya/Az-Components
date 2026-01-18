@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
-import ModeTable from "./ModeTable";
+import PropTypes from 'prop-types';
+import ModeTable from './ModeTable';
 
 export default function CrudTable({
   tableData,

@@ -1,12 +1,11 @@
-
 export const MENU_LABELS = {
   dashboard: 'Dashboard',
 
   employeeManagement: 'Employee Management',
   employeeActivation: 'Employee Activation',
   allEmployees: 'All Employees',
-  roleManagement:'Role Management',
-  addEmployeeDetails:'Add Employee Details',
+  roleManagement: 'Role Management',
+  addEmployeeDetails: 'Add Employee Details',
 
   salaryManagement: 'Salary Management',
 
