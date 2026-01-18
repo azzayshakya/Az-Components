@@ -1,39 +1,19 @@
 import apiService from "@/admin/advanceApi/apiService";
+import PageInfoCard from "@/admin/components/PageInfoCard";
 import ModeFieldSet from "@/pages/antdFormTable/components/FieldSet";
 import ModeCard from "@/pages/antdFormTable/components/ModeCard";
 import { Button, Col, Form, Input, Row, Select, DatePicker, Upload } from "antd";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-
+import {
+  ProjectOutlined
+} from "@ant-design/icons";
 export default function MyProfile() {
   const [form] = Form.useForm();
-  const [profileData,setProfileData]=useState();
-  const normalizeProfileData = (data) => ({
-    ...data,
-    dob: data.dob ? dayjs(data.dob) : null,
-    joiningDate: data.joiningDate ? dayjs(data.joiningDate) : null,
-    lastWorkingDate: data.lastWorkingDate
-      ? dayjs(data.lastWorkingDate)
-      : null,
-  });
+  const [profileData, setProfileData] = useState({});
 
-  const getUserProfileData = async () => {
-    try {
-      const response = await apiService.getProfile();
-      const profile = response?.data;
-      form.setFieldsValue(normalizeProfileData(profile));
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to load profile, using Dummy data");
-      form.setFieldsValue(normalizeProfileData(dummyProfile));
-    }
-  };
-  
-  useEffect(() => {
-    getUserProfileData();
-  }, []);
-  const dummyProfile = {
+  const userProfile = {
     firstName: "Ajay",
     lastName: "Shakya",
     fatherName: "Rajendra Shakya",
@@ -63,11 +43,55 @@ export default function MyProfile() {
     emergencyDetails: "Father - Rajendra Shakya",
   };
 
+  const getProfileData = async () => {
+    const toastId = toast.loading("Fetching profile details...");
+    try {
+      const response = await apiService.getProfile();
+
+      const data = response?.data?.data || userProfile;
+      setProfileData(data);
+
+      toast.success("Profile loaded successfully", { id: toastId });
+    } catch (error) {
+      setProfileData(userProfile);
+      toast.error("API failed, loaded dummy data", { id: toastId });
+    }
+  };
+
+  useEffect(() => {
+    if (!profileData || Object.keys(profileData).length === 0) return;
+
+    form.setFieldsValue({
+      ...profileData,
+      dob: profileData.dob ? dayjs(profileData.dob) : null,
+      joiningDate: profileData.joiningDate
+        ? dayjs(profileData.joiningDate)
+        : null,
+      lastWorkingDate: profileData.lastWorkingDate
+        ? dayjs(profileData.lastWorkingDate)
+        : null,
+    });
+  }, [profileData, form]);
+
+  useEffect(() => {
+    getProfileData();
+  }, []);
   return (
     <ModeCard
       title="My Profile"
       // extra={<Button disabled type="primary">Edit</Button>}
     >
+      <PageInfoCard
+        title="About This Page"
+        icon={<ProjectOutlined />}
+        description="Create and manage a new project for Elmech India Engineers."
+        points={[
+          "Fill in basic project and client details.",
+          "Assign project lead and co-lead for responsibility tracking.",
+          "Select services, budget, and timeline accurately.",
+          "Project status helps monitor progress efficiently.",
+        ]}
+      />
       <Form
         form={form}
         layout="horizontal"

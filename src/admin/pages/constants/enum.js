@@ -120,3 +120,26 @@ export const ALL_EMPLOYEE_ENUM = [
   { label: "Rohit Verma", value: "Rohit Verma", empId: "EMP002", empRole: "Engineer" },
   { label: "Neha Singh", value: "Neha Singh", empId: "EMP003", empRole: "Team Lead" },
 ];
+
+
+export const CLIENT_TYPE_ENUM = [
+  { label: "Individual", value: "individual" },
+  { label: "Company", value: "company" },
+  { label: "Government", value: "government" },
+];
+
+export const PROJECT_TYPE_ENUM = [
+  { label: "Residential", value: "residential" },
+  { label: "Commercial", value: "commercial" },
+  { label: "Industrial", value: "industrial" },
+  { label: "Infrastructure", value: "infrastructure" },
+  { label: "Hospital", value: "hospital" },
+  { label: "IT / Data Center", value: "it_infra" },
+];
+
+export const PRIORITY_ENUM = [
+  { label: "Low", value: "low" },
+  { label: "Medium", value: "medium" },
+  { label: "High", value: "high" },
+  { label: "Critical", value: "critical" },
+];

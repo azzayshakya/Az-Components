@@ -10,8 +10,14 @@ import PageInfoCard from "@/admin/components/PageInfoCard";
 import {
   ProjectOutlined,
 } from "@ant-design/icons";
+import apiService from "@/admin/advanceApi/apiService";
+import toast from "react-hot-toast";
+import dayjs from "dayjs";
+import { useState } from "react";
+
 export default function AddProject() {
-  const [form] = Form.useForm();
+ const [form] = Form.useForm();
+ const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleEmployeeSelect = (fieldName, empName) => {
     const emp = ALL_EMPLOYEE_ENUM.find((e) => e.value === empName);
@@ -23,20 +29,69 @@ export default function AddProject() {
   };
 
   const handleSubmit = async (values) => {
-    const payload = {
-      ...values,
-      services: values.services || [],
-    };
-console.log(payload)
-    // await apiService.addProject(payload);
-    form.resetFields();
-  };
+   if (isSubmitting) return;
 
+    const payload = {
+      projectName: values.projectName,
+      clientName: values.clientName,
+      clientNumber: values.clientNumber,
+      services: values.services || [],
+
+      projectLeadName: values.projectLeadName,
+      projectLeadEmpId: values.projectLeadEmpId,
+
+      projectCoLeadName: values.projectCoLeadName,
+      projectCoLeadEmpId: values.projectCoLeadEmpId,
+
+      budget: values.budget || 0,
+      status: values.status,
+
+      startDate: values.startDate
+        ? dayjs(values.startDate).format("YYYY-MM-DD")
+        : null,
+      endDate: values.endDate
+        ? dayjs(values.endDate).format("YYYY-MM-DD")
+        : null,
+
+      address: values.address,
+      description: values.description,
+    };
+
+    console.log("FINAL PAYLOAD:", payload);
+
+    const toastId = toast.loading("Creating project...");
+
+    try {
+      await apiService.addProject(payload);
+
+      toast.success("Project created successfully", { id: toastId });
+      form.resetFields();
+    } catch (error) {
+      console.error("API Error:", error);
+
+      toast.error("Project creation failed ", { id: toastId });
+
+
+
+      form.resetFields();
+
+    }
+    finally {
+    setIsSubmitting(false); 
+  }
+  };
   return (
     <ModeCard title="Add Project" extra={
-          <Button type="primary" onClick={handleSubmit}>
-            Submit
-          </Button>
+         <Button
+      type="primary"
+      onClick={() => form.submit()}
+      loading={isSubmitting}
+      disabled={isSubmitting}
+      style={{color:"white" , background:"#1677ff"}}
+
+    >
+      {isSubmitting ? "Submitting..." : "Submit"}
+    </Button>
         }>
           <PageInfoCard
   title="About This Page"
