@@ -17,6 +17,8 @@ export const MENU_LABELS = {
   projects: 'Projects',
   addProject: 'Add Project',
   allProjects: 'All Projects',
+
+  requirementsManagement: 'Requirements Management',
 };
 
 export const getMenuLabel = (key) => {

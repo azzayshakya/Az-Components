@@ -23,7 +23,7 @@ import { DASHBOARD_REQUIREMENT_TYPE_ENUM, REQUIREMENT_STATUS_ENUM } from '../con
 
 const { TextArea } = Input;
 
-export default function SalaryManagement() {
+export default function RequirementsManagement() {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [tableLoading, setTableLoading] = useState(false);
@@ -38,23 +38,16 @@ export default function SalaryManagement() {
     total: 0,
   });
 
-  console.log('🎯 RequirementsManagement Component Rendered');
-  console.log('📊 Current requirements count:', requirements.length);
-
-  /* ================= FETCH REQUIREMENTS ================= */
   useEffect(() => {
     fetchRequirements();
   }, [refreshCounter]);
 
   const fetchRequirements = async () => {
-    console.log('🔄 Fetching requirements...');
     setTableLoading(true);
 
     try {
       console.log('📡 Calling API: getAllRequirements');
       const res = await apiService.getAllRequirements();
-
-      console.log('✅ API Response:', res);
 
       const fetchedData = res.data?.data || [];
       setRequirements(fetchedData);
@@ -63,7 +56,6 @@ export default function SalaryManagement() {
         total: res.data?.meta?.total || 0,
       }));
 
-      console.log('✅ Requirements loaded:', fetchedData.length, 'items');
       toast.success('Requirements loaded successfully');
     } catch (err) {
       console.error('❌ API Error:', err);
@@ -72,24 +64,17 @@ export default function SalaryManagement() {
       toast.error('Failed to fetch requirements from API');
       toast('Using dummy data for demonstration', { icon: 'ℹ️' });
 
-      // Use dummy data as fallback
       setRequirements(dummyRequirementsData.data);
       setParamObj((p) => ({
         ...p,
         total: dummyRequirementsData.meta?.total || 0,
       }));
-
-      console.log('📦 Loaded dummy data:', dummyRequirementsData.data.length, 'items');
     } finally {
       setTableLoading(false);
-      console.log('🏁 Fetch complete');
     }
   };
 
-  /* ================= SUBMIT NEW REQUIREMENT ================= */
   const handleSubmit = async (values) => {
-    console.log('📤 Submitting new requirement:', values);
-
     setLoading(true);
     const toastId = toast.loading('Submitting requirement...');
 
@@ -111,11 +96,9 @@ export default function SalaryManagement() {
 
       toast.success('Requirement submitted successfully!', { id: toastId });
 
-      // Reset form
       form.resetFields();
       console.log('🔄 Form reset');
 
-      // Refresh table
       setRefreshCounter((p) => p + 1);
       console.log('🔄 Triggering table refresh');
     } catch (err) {
@@ -124,7 +107,6 @@ export default function SalaryManagement() {
         id: toastId,
       });
 
-      // For demo purposes, add to local state
       console.log('⚠️ Adding to local state for demo');
       const newReq = {
         reqId: `REQ_${String(requirements.length + 1).padStart(3, '0')}`,
@@ -151,14 +133,12 @@ export default function SalaryManagement() {
     }
   };
 
-  /* ================= VIEW REQUIREMENT DETAILS ================= */
   const handleView = (record) => {
     console.log('👁️ Viewing requirement:', record);
     setSelectedRequirement(record);
     setViewModal(true);
   };
 
-  /* ================= DELETE REQUIREMENT ================= */
   const handleDelete = async (record) => {
     console.log('🗑️ Deleting requirement:', record.reqId);
 
@@ -183,7 +163,6 @@ export default function SalaryManagement() {
           console.error('❌ Delete Error:', err);
           toast.error('Failed to delete requirement', { id: toastId });
 
-          // For demo, remove from local state
           console.log('⚠️ Removing from local state for demo');
           setRequirements(requirements.filter((r) => r.reqId !== record.reqId));
           toast('Removed from local list (API unavailable)', {
@@ -195,7 +174,6 @@ export default function SalaryManagement() {
     });
   };
 
-  /* ================= TABLE COLUMNS ================= */
   const columns = [
     {
       title: 'Req ID',
@@ -373,7 +351,7 @@ export default function SalaryManagement() {
         </Form>
       </ModeCard>
 
-      <ModeCard
+      {/* <ModeCard
         title="Requirements List"
         extra={
           <Button
@@ -386,19 +364,18 @@ export default function SalaryManagement() {
             Refresh
           </Button>
         }
-      >
-        <CrudTable
-          tableData={requirements}
-          columns={columns}
-          paramObj={paramObj}
-          setParamObj={setParamObj}
-          setRefreshCounter={setRefreshCounter}
-          loading={tableLoading}
-          scroll={{ x: 1400 }}
-        />
-      </ModeCard>
+      > */}
+      <CrudTable
+        tableData={requirements}
+        columns={columns}
+        paramObj={paramObj}
+        setParamObj={setParamObj}
+        setRefreshCounter={setRefreshCounter}
+        loading={tableLoading}
+        scroll={{ x: 1400 }}
+      />
+      {/* </ModeCard> */}
 
-      {/* View Modal */}
       <Modal
         title={`Requirement Details - ${selectedRequirement?.reqId}`}
         open={viewModal}

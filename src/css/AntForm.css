@@ -29,19 +29,8 @@
   transform: scale(1.1);
   background-color: #fff1f0 !important;
 }
-/* 
-.ant-table-thead > tr > th {
-  border: 2px red solid;
-  text-align: center !important;
-  z-index: 100;
 
-}
-        
-.ant-table-cell{
-  text-align: center !important;
-  border: 2px blue solid;
-  z-index: 100;
-
-
-} */
 /* table header name center */
+.ant-table-wrapper .ant-table-thead > tr > th {
+  text-align: center !important;
+}

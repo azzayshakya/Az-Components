@@ -23,6 +23,9 @@ export const MENU_KEYS = {
   PROJECTS: 'projects',
   ADD_PROJECT: 'add-project',
   ALL_PROJECTS: 'all-projects',
+
+  //Requirements Management
+  REQUIREMENTS_MANAGEMENT: 'requirements-management',
 };
 
 export default MENU_KEYS;

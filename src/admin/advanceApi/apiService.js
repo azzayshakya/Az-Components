@@ -45,22 +45,15 @@ const authService = {
   verifyAdminDashboardUser: async (data) => {
     return handleApiCall(() => api.post('/auth/verifyAdminDashboardUser', data));
   },
-
-  updateUserRole: async (data) => {
-    return handleApiCall(() => api.post('/auth/updateUserRole', data));
-  },
-  activateEmployee: async (data) => {
-    return handleApiCall(() => api.post('/auth/activateEmployee', data));
-  },
 };
 
 const userService = {
-  getProfile: async () => {
+  getUserProfile: async () => {
     return handleApiCall(() => api.get('/user/profile'));
   },
 
-  updateProfile: async (data) => {
-    return handleApiCall(() => api.put('/user/profile', data));
+  updateUserProfile: async (data) => {
+    return handleApiCall(() => api.put('/user/updateProfile', data));
   },
 
   updatePassword: async (data) => {
@@ -69,6 +62,10 @@ const userService = {
 
   deleteAccount: async () => {
     return handleApiCall(() => api.delete('/user/account'));
+  },
+
+  activateEmployee: async (data) => {
+    return handleApiCall(() => api.post('/user/activateEmployee', data));
   },
 };
 
@@ -118,8 +115,8 @@ const queryService = {
 // projectService.js (inside same file for now)
 
 const projectService = {
-  getAllProjects: async (params = {}) => {
-    return handleApiCall(() => api.get('/projects', { params }));
+  getAllProjects: async () => {
+    return handleApiCall(() => api.get('/projects'));
   },
 
   addProject: async (data) => {
@@ -130,8 +127,48 @@ const projectService = {
     return handleApiCall(() => api.put(`/projects/${projectId}`, data));
   },
 
-  deleteProject: async (projectId) => {
-    return handleApiCall(() => api.delete(`/projects/${projectId}`));
+  deleteProject: async (data) => {
+    return handleApiCall(() => api.delete('/projects', data));
+  },
+};
+const companyServices = {
+  getCompanyStats: async () => {
+    return handleApiCall(() => api.get('/getCompanyStats'));
+  },
+};
+
+const requirementsServices = {
+  getAllRequirements: async () => {
+    return handleApiCall(() => api.get('/getAllRequirements'));
+  },
+  PostRequirement: async (data) => {
+    return handleApiCall(() => api.get('/postRequirement', data));
+  },
+  UpdateRequirement: async (data) => {
+    return handleApiCall(() => api.get('/updateRequirement', data));
+  },
+  DeleteRequirement: async (data) => {
+    return handleApiCall(() => api.get('/deleteRequirement', data));
+  },
+};
+
+const employeeServices = {
+  getEmployeeProfile: async () => {
+    return handleApiCall(() => api.get('/employee/profile'));
+  },
+  getAllemployee: async () => {
+    return handleApiCall(() => api.get('/employee/getAllRequirements'));
+  },
+  updateEmployeeRole: async (data) => {
+    return handleApiCall(() => api.post('/employee/updateEmployeeRole', data));
+  },
+  updateEmployeeProfile: async (data) => {
+    return handleApiCall(() => api.post('/employee/updateEmployeeProfile', data));
+  },
+};
+const salaryServices = {
+  updateEmployeeSalary: async (data) => {
+    return handleApiCall(() => api.post('/employee/updateEmployeeSalary', data));
   },
 };
 
@@ -144,13 +181,12 @@ const apiService = {
   resetPassword: authService.resetPassword,
   verifyEmail: authService.verifyEmail,
   verifyAdminDashboardUser: authService.verifyAdminDashboardUser,
-  activateEmployee: authService.activateEmployee,
-  updateUserRole: authService.updateUserRole,
 
-  getProfile: userService.getProfile,
-  updateProfile: userService.updateProfile,
+  getUserProfile: userService.getUserProfile,
+  updateUserProfile: userService.updateUserProfile,
   updatePassword: userService.updatePassword,
   deleteAccount: userService.deleteAccount,
+  activateEmployee: userService.activateEmployee,
 
   submitComment: commentService.submitComment,
   getAllComments: commentService.getAllComments,
@@ -168,6 +204,20 @@ const apiService = {
   addProject: projectService.addProject,
   updateProjectData: projectService.updateProjectData,
   deleteProject: projectService.deleteProject,
+
+  getCompanyStats: companyServices.getCompanyStats,
+
+  getAllRequirements: requirementsServices.getAllRequirements,
+  postRequirement: requirementsServices.PostRequirement,
+  updateRequirement: requirementsServices.UpdateRequirement,
+  deleteRequirement: requirementsServices.DeleteRequirement,
+
+  getAllEmployee: employeeServices.getAllemployee,
+  updateEmployeeRole: employeeServices.updateEmployeeRole,
+  updateEmployeeProfile: employeeServices.updateEmployeeProfile,
+  getEmployeeProfile: employeeServices.getEmployeeProfile,
+
+  updateEmployeeSalary: salaryServices.updateEmployeeSalary,
 };
 
 export default apiService;

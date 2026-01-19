@@ -2,14 +2,18 @@ import {
   DashboardOutlined,
   TeamOutlined,
   UserAddOutlined,
-  UsergroupAddOutlined,
-  DollarOutlined,
+  SafetyCertificateOutlined,
+  WalletOutlined,
   UserOutlined,
-  CommentOutlined,
-  QuestionCircleOutlined,
+  MessageOutlined,
+  CustomerServiceOutlined,
   ProjectOutlined,
-  PlusOutlined,
-  UnorderedListOutlined,
+  PlusCircleOutlined,
+  AppstoreOutlined,
+  UsergroupAddOutlined,
+  CrownOutlined,
+  CheckCircleOutlined,
+  FormOutlined,
 } from '@ant-design/icons';
 import MENU_KEYS from '../constants/MenuKeys';
 import MENU_LABELS from '../constants/MenuLabels';
@@ -27,40 +31,6 @@ export const MENU_CONFIG = [
   },
 
   {
-    key: MENU_KEYS.ALL_USERS,
-    label: MENU_LABELS.allUsers,
-    icon: UsergroupAddOutlined,
-  },
-  {
-    key: MENU_KEYS.PROJECTS,
-    label: MENU_LABELS.projects,
-    icon: ProjectOutlined,
-    children: [
-      {
-        key: MENU_KEYS.ADD_PROJECT,
-        label: MENU_LABELS.addProject,
-        icon: PlusOutlined,
-      },
-      {
-        key: MENU_KEYS.ALL_PROJECTS,
-        label: MENU_LABELS.allProjects,
-        icon: UnorderedListOutlined,
-      },
-    ],
-  },
-  {
-    key: MENU_KEYS.USER_QUERIES,
-    label: MENU_LABELS.userQueries,
-    icon: QuestionCircleOutlined,
-  },
-
-  {
-    key: MENU_KEYS.USER_COMMENTS,
-    label: MENU_LABELS.userComments,
-    icon: CommentOutlined,
-  },
-
-  {
     key: MENU_KEYS.EMPLOYEE_MANAGEMENT,
     label: MENU_LABELS.employeeManagement,
     icon: TeamOutlined,
@@ -73,24 +43,64 @@ export const MENU_CONFIG = [
       {
         key: MENU_KEYS.ROLE_MANAGEMENT,
         label: MENU_LABELS.roleManagement,
-        icon: UsergroupAddOutlined,
+        icon: CrownOutlined,
       },
       {
         key: MENU_KEYS.EMPLOYEE_ACTIVATION,
         label: MENU_LABELS.employeeActivation,
-        icon: UserAddOutlined,
+        icon: CheckCircleOutlined,
       },
       {
         key: MENU_KEYS.ADD_EMPLOYEE_DETAILS,
         label: MENU_LABELS.addEmployeeDetails,
-        icon: UsergroupAddOutlined,
+        icon: FormOutlined,
       },
     ],
   },
   {
+    key: MENU_KEYS.ALL_USERS,
+    label: MENU_LABELS.allUsers,
+    icon: SafetyCertificateOutlined,
+  },
+  {
+    key: MENU_KEYS.PROJECTS,
+    label: MENU_LABELS.projects,
+    icon: ProjectOutlined,
+    children: [
+      {
+        key: MENU_KEYS.ADD_PROJECT,
+        label: MENU_LABELS.addProject,
+        icon: PlusCircleOutlined,
+      },
+      {
+        key: MENU_KEYS.ALL_PROJECTS,
+        label: MENU_LABELS.allProjects,
+        icon: AppstoreOutlined,
+      },
+    ],
+  },
+  {
+    key: MENU_KEYS.USER_QUERIES,
+    label: MENU_LABELS.userQueries,
+    icon: CustomerServiceOutlined,
+  },
+
+  {
+    key: MENU_KEYS.USER_COMMENTS,
+    label: MENU_LABELS.userComments,
+    icon: MessageOutlined,
+  },
+
+  {
     key: MENU_KEYS.SALARY_MANAGEMENT,
     label: MENU_LABELS.salaryManagement,
-    icon: DollarOutlined,
+    icon: WalletOutlined,
+  },
+
+  {
+    key: MENU_KEYS.REQUIREMENTS_MANAGEMENT,
+    label: MENU_LABELS.requirementsManagement,
+    icon: WalletOutlined,
   },
 ];
 

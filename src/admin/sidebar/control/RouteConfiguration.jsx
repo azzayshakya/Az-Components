@@ -23,6 +23,8 @@ export const ROUTES = {
   [MENU_KEYS.PROJECTS]: '/projects',
   [MENU_KEYS.ADD_PROJECT]: '/projects/add',
   [MENU_KEYS.ALL_PROJECTS]: '/projects/all',
+
+  [MENU_KEYS.REQUIREMENTS_MANAGEMENT]: '/requirements-management',
 };
 
 export const getRoute = (key) => {

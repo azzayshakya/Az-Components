@@ -17,6 +17,7 @@ import Dashboard from '@/admin/Dashboard';
 import RoleManagement from '@/admin/pages/EmployeeManagment/RoleManagement';
 import UpdateEmployeeDetails from '@/admin/pages/EmployeeManagment/UpdateEmployeeDetails';
 import ActivateEmployee from '@/admin/pages/EmployeeManagment/ActivateEmployee';
+import RequirementsManagement from '@/admin/pages/RequirementManagement';
 
 const router = createBrowserRouter(
   [
@@ -80,6 +81,10 @@ const router = createBrowserRouter(
         {
           path: '/profile',
           element: <MyProfile />,
+        },
+        {
+          path: '/requirements-management',
+          element: <RequirementsManagement />,
         },
         {
           path: '*',

@@ -1,4 +1,3 @@
-import apiService from '@/admin/advanceApi/apiService';
 import PageInfoCard from '@/admin/components/PageInfoCard';
 import ModeFieldSet from '@/pages/antdFormTable/components/FieldSet';
 import ModeCard from '@/pages/antdFormTable/components/ModeCard';
@@ -7,6 +6,7 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ProjectOutlined } from '@ant-design/icons';
+import apiService from '@/admin/advanceApi/apiService';
 export default function MyProfile() {
   const [form] = Form.useForm();
   const [profileData, setProfileData] = useState({});
@@ -42,17 +42,17 @@ export default function MyProfile() {
   };
 
   const getProfileData = async () => {
-    const toastId = toast.loading('Fetching profile details...');
     try {
-      const response = await apiService.getProfile();
+      const response = await apiService.getEmployeeProfile();
 
       const data = response?.data?.data || userProfile;
       setProfileData(data);
 
-      toast.success('Profile loaded successfully', { id: toastId });
+      toast.success('Profile loaded successfully');
     } catch (error) {
       setProfileData(userProfile);
-      toast.error('API failed, loaded dummy data', { id: toastId });
+      toast.error('Failed to load Profile Data');
+      toast('Using dummy Profile Data');
     }
   };
 

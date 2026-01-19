@@ -17,14 +17,31 @@ import {
 } from '@ant-design/icons';
 import { useEffect, useState } from 'react';
 import './Dashboard.css';
+import toast from 'react-hot-toast';
+import apiService from '../advanceApi/apiService';
 
 const { Title, Text } = Typography;
 
 export default function Dashboard() {
   const [mounted, setMounted] = useState(false);
+  const [, setCompanyStats] = useState([]);
+
+  const getCompanyStats = async () => {
+    try {
+      const response = await apiService.getCompanyStats();
+      setCompanyStats(response);
+      toast.success('Company stats loaded successfully');
+    } catch (error) {
+      console.error('Company states API failed:', error);
+      toast.error('Failed to load company stats');
+      // setCompanyStates(DUMMY_COMPANY_STATES);
+      toast('Using dummy company stats data');
+    }
+  };
 
   useEffect(() => {
     setMounted(true);
+    getCompanyStats();
   }, []);
 
   const userInfo = {
