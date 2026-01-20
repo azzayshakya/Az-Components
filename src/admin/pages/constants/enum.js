@@ -32,9 +32,9 @@ export const WORK_LOCATION_ENUM = [
 ];
 export const USER_ROLES_ENUM = [
   { label: 'Admin', value: 'admin' }, //me
-  { label: 'CEO', value: 'ceo' }, //wx. big brother
+  { label: 'CEO', value: 'ceo' }, 
   { label: 'CFO', value: 'cfo' },
-  { label: 'CTO', value: 'cto' }, //ex. ankit bhaiya
+  { label: 'CTO', value: 'cto' }, 
   { label: 'Project Manager', value: 'project_manager' },
   { label: 'Finance Manager', value: 'finance_manager' },
   { label: 'Employee', value: 'employee' },
