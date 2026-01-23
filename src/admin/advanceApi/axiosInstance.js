@@ -28,9 +28,11 @@ const processQueue = (error, token = null) => {
   failedQueue.forEach((prom) => (error ? prom.reject(error) : prom.resolve(token)));
   failedQueue = [];
 };
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 api.interceptors.request.use(
-  (config) => {
+  async (config) => {
+    await delay(5000);
     const token = getAccessToken();
 
     if (token) {

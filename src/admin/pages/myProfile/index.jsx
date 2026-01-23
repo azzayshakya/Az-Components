@@ -42,17 +42,17 @@ export default function MyProfile() {
   };
 
   const getProfileData = async () => {
+    const toastId = toast.loading('Fetching profile details...');
     try {
-      const response = await apiService.getEmployeeProfile();
+      const response = await apiService.getUserProfile();
 
       const data = response?.data?.data || userProfile;
       setProfileData(data);
 
-      toast.success('Profile loaded successfully');
+      toast.success('Profile loaded successfully', { id: toastId });
     } catch (error) {
-      setProfileData(userProfile);
-      toast.error('Failed to load Profile Data');
-      toast('Using dummy Profile Data');
+      // setProfileData(userProfile);
+      toast.error('API failed, loaded dummy data', { id: toastId });
     }
   };
 
