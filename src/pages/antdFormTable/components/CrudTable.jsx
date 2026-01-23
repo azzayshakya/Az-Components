@@ -7,6 +7,7 @@ export default function CrudTable({
   paramObj,
   setParamObj,
   setRefreshCounter,
+  loading,
 }) {
   const handleTableChange = (pagination) => {
     setParamObj((prev) => ({
@@ -31,6 +32,7 @@ export default function CrudTable({
         total: tableData.length,
         showSizeChanger: true,
       }}
+      loading={loading}
       onChange={handleTableChange}
     />
   );

@@ -25,7 +25,7 @@ export default function RoleUpdateModal({ visible, onClose, userData, onSuccess 
     try {
       setLoading(true);
 
-      await apiService.updateUserRole({
+      await apiService.updateEmployeeRole({
         userId: userData.id,
         role: selectedRole,
         email: userData.email,

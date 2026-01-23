@@ -14,6 +14,8 @@ import apiService from '@/admin/advanceApi/apiService';
 
 export default function AllEmployee() {
   const [refreshCounter, setRefreshCounter] = useState(0);
+  const [loading, setLoading] = useState(false);
+
   const [employeeData, setEmployeeData] = useState([]);
   const [type, setType] = useState();
   const [initialData, setInitialData] = useState({});
@@ -31,13 +33,19 @@ export default function AllEmployee() {
   const [appliedFilters, setAppliedFilters] = useState(paramObj);
 
   const fetchEmployees = async () => {
+    const toastId = toast.loading('Fetching employee details...');
+    setLoading(true);
+
     try {
       const res = await apiService.getAllProjects();
-      setEmployeeData(res.data);
+      setEmployeeData(res?.data || []);
+      toast.success('Employees loaded successfully', { id: toastId });
     } catch (err) {
-      toast.error('Employee fetching failed');
-      toast.success('Using dummy employee data');
+      toast.error('Failed to load Employee Data', { id: toastId });
+      toast.success('Using Dummy Data');
       setEmployeeData(employeeListResponse.data);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -173,6 +181,7 @@ export default function AllEmployee() {
           paramObj={paramObj}
           setParamObj={setParamObj}
           setRefreshCounter={setRefreshCounter}
+          loading={loading}
         />
       )}
     </ModeCard>

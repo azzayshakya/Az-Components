@@ -48,7 +48,6 @@ export default function MyProfile() {
 
       const data = response?.data?.data || userProfile;
       setProfileData(data);
-
       toast.success('Profile loaded successfully', { id: toastId });
     } catch (error) {
       // setProfileData(userProfile);

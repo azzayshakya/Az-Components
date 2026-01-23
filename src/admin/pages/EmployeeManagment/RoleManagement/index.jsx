@@ -15,11 +15,10 @@ export default function RoleManagement() {
   const [, setRefreshCounter] = useState(0);
   const [employeeData, setEmployeeData] = useState([]);
   const [type, setType] = useState();
-
+  const [loading, setLoading] = useState(false);
   const [initialData, setInitialData] = useState({});
   const [showInputForm, setShowInputForm] = useState(false);
 
-  // Modal state
   const [showRoleModal, setShowRoleModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -35,13 +34,18 @@ export default function RoleManagement() {
   const [appliedFilters, setAppliedFilters] = useState(paramObj);
 
   const fetchEmployees = async () => {
+    const toastId = toast.loading('Fetching employee details...');
+    setLoading(true);
     try {
       const res = await apiService.activateEmployee();
       setEmployeeData(res.data);
+      toast.success('Employees loaded successfully', { id: toastId });
     } catch (err) {
-      toast.error('Employee fetching failed');
-      toast.success('Using dummy employee data');
+      toast.error('Failed to load Employee Data', { id: toastId });
+      toast.success('Using Dummy Data');
       setEmployeeData(employeeListResponse.data);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -63,9 +67,6 @@ export default function RoleManagement() {
     setRefreshCounter((p) => p + 1);
   };
 
-  /* ===========================
-     FILTER DATA (APPLY ONLY)
-  ============================ */
   const tableData = employeeData.filter((emp) => {
     return (
       (!appliedFilters.department || emp.department === appliedFilters.department) &&
@@ -200,6 +201,7 @@ export default function RoleManagement() {
         onClose={handleCloseRoleModal}
         userData={selectedUser}
         onSuccess={handleRoleUpdateSuccess}
+        loading={loading}
       />
     </>
   );

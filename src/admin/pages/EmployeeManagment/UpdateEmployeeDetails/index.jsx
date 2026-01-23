@@ -19,7 +19,7 @@ export default function UpdateEmployeeDetails() {
 
   const [initialData, setInitialData] = useState({});
   const [showInputForm, setShowInputForm] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [paramObj, setParamObj] = useState({
     limit: 10,
     offset: 0,
@@ -29,30 +29,27 @@ export default function UpdateEmployeeDetails() {
     search: '',
   });
 
-  // applied filters (Apply button only)
   const [appliedFilters, setAppliedFilters] = useState(paramObj);
 
-  /* ===========================
-     FETCH EMPLOYEES
-  ============================ */
   const fetchEmployees = async () => {
+    const toastId = toast.loading('Fetching employee details...');
+    setLoading(true);
     try {
-      const res = await apiService.getAllEmployees(); // API will fail
+      const res = await apiService.getAllEmployee();
       setEmployeeData(res.data);
+      toast.success('Employees loaded successfully', { id: toastId });
     } catch (err) {
-      toast.error('Employee fetching failed');
-      toast.success('Using dummy employee data');
+      toast.error('Failed to load Employee Data', { id: toastId });
+      toast.success('Using Dummy Data');
       setEmployeeData(employeeListResponse.data);
+    } finally {
+      setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchEmployees();
   }, []);
 
-  /* ===========================
-     FILTER DATA (APPLY ONLY)
-  ============================ */
   const tableData = employeeData.filter((emp) => {
     return (
       (!appliedFilters.department || emp.department === appliedFilters.department) &&
@@ -207,6 +204,7 @@ export default function UpdateEmployeeDetails() {
             background: '#1677ff',
             color: '#ffffff',
           }}
+          loading={loading}
         />
       )}
     </ModeCard>
