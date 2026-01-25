@@ -32,7 +32,7 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 api.interceptors.request.use(
   async (config) => {
-    await delay(5000);
+    await delay(2000);
     const token = getAccessToken();
 
     if (token) {

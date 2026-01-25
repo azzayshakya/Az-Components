@@ -16,6 +16,7 @@ export default function AllProject() {
   const [type, setType] = useState();
   const [initialData, setInitialData] = useState({});
   const [showInputForm, setShowInputForm] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [projects, setProjects] = useState([]);
 
@@ -32,22 +33,27 @@ export default function AllProject() {
 
   useEffect(() => {
     const fetchProjects = async () => {
+      const toastId = toast.loading('Fetching Projects details...');
+      setLoading(true);
       try {
         const res = await apiService.getAllProjects();
+        toast.success('Projects loaded successfully', { id: toastId });
         setProjects(res.data?.data || []);
         setParamObj((p) => ({
           ...p,
           total: res.data?.meta?.total || 0,
         }));
       } catch (err) {
-        toast.error('Failed to fetch projects');
-        toast('Using dummy data');
+        toast.error('Failed to fetch projects', { id: toastId });
+        toast.success('Using Dummy Data');
 
         setProjects(allProjectsResponse.data);
         setParamObj((p) => ({
           ...p,
           total: allProjectsResponse.meta?.total || 0,
         }));
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -193,6 +199,7 @@ export default function AllProject() {
         />
       ) : (
         <CrudTable
+          loading={loading}
           tableData={tableData}
           columns={columns}
           paramObj={paramObj}

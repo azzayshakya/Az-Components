@@ -221,24 +221,23 @@ export default function ProjectInputForm({ type, projectId, setShowInputForm, in
               </Col>
 
               <Col md={12}>
+                <Form.Item name="projectAddress" label="Project Address">
+                  <Input.TextArea rows={3} placeholder="Enter project address" />
+                </Form.Item>
+              </Col>
+
+              <Col md={12}>
+                <Form.Item name="description" label="Description">
+                  <Input.TextArea rows={3} placeholder="Enter project description" />
+                </Form.Item>
+              </Col>
+              <Col md={12}>
                 <Form.Item name="services" label="Services">
                   <Select
                     mode="multiple"
                     placeholder="Select services"
                     options={PROJECT_SERVICES_ENUM}
                   />
-                </Form.Item>
-              </Col>
-
-              <Col md={12}>
-                <Form.Item name="projectAddress" label="Project Address">
-                  <Input.TextArea rows={2} placeholder="Enter project address" />
-                </Form.Item>
-              </Col>
-
-              <Col md={24}>
-                <Form.Item name="description" label="Description">
-                  <Input.TextArea rows={3} placeholder="Enter project description" />
                 </Form.Item>
               </Col>
             </Row>
@@ -349,9 +348,9 @@ export default function ProjectInputForm({ type, projectId, setShowInputForm, in
                 </Form.Item>
               </Col>
 
-              <Col md={24}>
+              <Col md={12}>
                 <Form.Item name="clientAddress" label="Client Address">
-                  <Input.TextArea rows={2} placeholder="Enter client address" />
+                  <Input.TextArea rows={3} placeholder="Enter client address" />
                 </Form.Item>
               </Col>
             </Row>
@@ -395,7 +394,7 @@ export default function ProjectInputForm({ type, projectId, setShowInputForm, in
 
               <Col md={12}>
                 <Form.Item name="showOnUI" label="Show On UI" valuePropName="checked">
-                  <Switch />
+                  <Switch disabled />
                 </Form.Item>
               </Col>
             </Row>

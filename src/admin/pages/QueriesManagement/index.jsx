@@ -61,6 +61,7 @@ export default function QueriesManagement() {
     },
     {
       title: 'Action',
+      fixed: 'right',
       key: 'action',
       width: 120,
       align: 'center',

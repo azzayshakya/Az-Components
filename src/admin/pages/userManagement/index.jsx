@@ -2,13 +2,17 @@ import { Input, Select, Row, Col, Button } from 'antd';
 import ModeCard from '@/pages/antdFormTable/components/ModeCard';
 import { allUsersResponse } from '@/admin/constants/dummyResponse';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CrudTable from '@/pages/antdFormTable/components/CrudTable';
 import ModeFieldSet from '@/pages/antdFormTable/components/FieldSet';
 import { DEPARTMENT_ENUM, USER_ROLES_ENUM } from '../constants/enum';
 import { DynamicStatusTag } from '../constants/DynamicAntdStatusTag';
+import toast from 'react-hot-toast';
+import apiService from '@/admin/advanceApi/apiService';
 
 export default function UserManagement() {
+  const [loading, setLoading] = useState(false);
+
   const [refreshCounter, setRefreshCounter] = useState(0);
   console.log(refreshCounter);
   const [paramObj, setParamObj] = useState({
@@ -48,7 +52,26 @@ export default function UserManagement() {
       render: (status) => <DynamicStatusTag type={status} />,
     },
   ];
+  const fetchUsersData = async () => {
+    const toastId = toast.loading('Fetching employee details...');
+    setLoading(true);
 
+    try {
+      const res = await apiService.getAllEmployee();
+      setEmployeeData(res?.data || []);
+      toast.success('Employees loaded successfully', { id: toastId });
+    } catch (err) {
+      toast.error('Failed to load Employee Data', { id: toastId });
+      toast.success('Using Dummy Data');
+      setEmployeeData(employeeListResponse.data);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsersData();
+  }, []);
   return (
     <ModeCard title="All Users">
       <ModeFieldSet title="Filters">

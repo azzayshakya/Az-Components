@@ -105,6 +105,7 @@ export default function SalaryManagement() {
     },
     {
       title: 'Action',
+      fixed: 'right',
       key: 'action',
       render: (_, record) => (
         <Button

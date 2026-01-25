@@ -187,6 +187,7 @@ export default function RoleManagement() {
           />
         ) : (
           <CrudTable
+            loading={loading}
             tableData={tableData}
             columns={columns}
             paramObj={paramObj}
@@ -201,7 +202,6 @@ export default function RoleManagement() {
         onClose={handleCloseRoleModal}
         userData={selectedUser}
         onSuccess={handleRoleUpdateSuccess}
-        loading={loading}
       />
     </>
   );

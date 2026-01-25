@@ -62,6 +62,7 @@ export default function CommentsManagement() {
     { title: 'Created At', dataIndex: 'createdAt', key: 'createdAt' },
     {
       title: 'Action',
+      fixed: 'right',
       key: 'action',
       width: 140,
       render: () => (
