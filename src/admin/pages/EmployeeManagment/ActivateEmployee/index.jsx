@@ -181,7 +181,6 @@ export default function UpdateEmployeeDetails() {
         )}
       </ModeCard>
 
-      {/* Employee Activation Modal */}
       <EmployeeActivationModal
         visible={showActivationModal}
         onClose={handleCloseActivationModal}

@@ -117,6 +117,7 @@ export default function AllProject() {
                 setInitialData(record);
                 setType('VIEW');
               }}
+              className="table-action-btn-view"
             />
           </Tooltip>
 
@@ -129,11 +130,17 @@ export default function AllProject() {
                 setInitialData(record);
                 setType('EDIT');
               }}
+              className="table-action-btn-edit"
             />
           </Tooltip>
 
           <Tooltip title="Delete">
-            <Button type="text" danger icon={<DeleteOutlined />} />
+            <Button
+              type="text"
+              danger
+              icon={<DeleteOutlined />}
+              className="table-action-btn-delete "
+            />
           </Tooltip>
         </Space>
       ),

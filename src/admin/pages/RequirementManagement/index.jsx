@@ -243,7 +243,11 @@ export default function RequirementsManagement() {
               size="small"
               icon={<EyeOutlined />}
               onClick={() => handleView(record)}
+              className="table-action-btn-view"
             />
+          </Tooltip>
+          <Tooltip title="Edit">
+            <Button type="text" icon={<EditOutlined />} className="table-action-btn-edit" />
           </Tooltip>
 
           <Tooltip title="Delete">
@@ -253,6 +257,7 @@ export default function RequirementsManagement() {
               danger
               icon={<DeleteOutlined />}
               onClick={() => handleDelete(record)}
+              className="table-action-btn-delete"
             />
           </Tooltip>
         </Space>
@@ -304,16 +309,16 @@ export default function RequirementsManagement() {
               </Form.Item>
             </Col>
 
-            <Col xs={24} md={8}>
+            <Col xs={12} md={3}>
               <Form.Item label="&nbsp;">
                 <Space>
                   <Button
                     type="primary"
                     htmlType="submit"
                     loading={loading}
-                    icon={<PlusOutlined />}
+                    // icon={<PlusOutlined />}
                   >
-                    Submit Requirement
+                    Submit
                   </Button>
                   <Button
                     onClick={() => {

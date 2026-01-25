@@ -2,17 +2,21 @@ import { commentListResponse } from '@/admin/constants/dummyResponse';
 import CrudTable from '@/pages/antdFormTable/components/CrudTable';
 import ModeFieldSet from '@/pages/antdFormTable/components/FieldSet';
 import ModeCard from '@/pages/antdFormTable/components/ModeCard';
-import { Button, Col, Input, Row, Select, Rate, Tag, Space, Tooltip, DatePicker } from 'antd';
-import { useState } from 'react';
+import { Button, Col, Input, Row, Select, Rate, Space, Tooltip, DatePicker } from 'antd';
+import { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 import { DynamicStatusTag } from '../constants/DynamicAntdStatusTag';
+import toast from 'react-hot-toast';
+import apiService from '@/admin/advanceApi/apiService';
 
 const { RangePicker } = DatePicker;
 
 export default function CommentsManagement() {
   const [refreshCounter, setRefreshCounter] = useState(0);
   const [showFilters, setShowFilters] = useState(true);
+  const [commentData, setCommentData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const [paramObj, setParamObj] = useState({
     limit: 10,
@@ -23,15 +27,32 @@ export default function CommentsManagement() {
     dateRange: [],
   });
 
-  /* ---------------- FILTER LOGIC ---------------- */
-  const tableData = commentListResponse.data.filter((c) => {
-    const matchesStatus = paramObj.showOnUi === '' || c.showOnUi === paramObj.showOnUi;
+  const fetchComments = async () => {
+    const toastId = toast.loading('Fetching comments...');
+    setLoading(true);
+    try {
+      const res = await apiService.getCommentById();
+      setCommentData(res.data);
+      toast.success('Comments loaded successfully', { id: toastId });
+    } catch (err) {
+      toast.error('Failed to load comments', { id: toastId });
+      toast.success('Using Dummy Data');
+      setCommentData(commentListResponse.data);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
+    fetchComments();
+  }, [refreshCounter]);
+
+  const tableData = commentData.filter((c) => {
+    const matchesStatus = paramObj.showOnUi === '' || c.showOnUi === paramObj.showOnUi;
     const matchesSearch =
       !paramObj.search ||
       c.userName.toLowerCase().includes(paramObj.search.toLowerCase()) ||
       c.comment.toLowerCase().includes(paramObj.search.toLowerCase());
-
     const matchesDate =
       !paramObj.dateRange.length ||
       dayjs(c.createdAt).isBetween(paramObj.dateRange[0], paramObj.dateRange[1], 'day', '[]');
@@ -40,41 +61,42 @@ export default function CommentsManagement() {
   });
 
   const columns = [
-    { title: 'User Name', dataIndex: 'userName', key: 'userName' },
+    { title: 'User Name', dataIndex: 'userName' },
     {
       title: 'Comment',
       dataIndex: 'comment',
-      key: 'comment',
       ellipsis: true,
     },
     {
       title: 'Rating',
       dataIndex: 'rating',
-      key: 'rating',
       render: (val) => <Rate disabled value={val} />,
     },
     {
       title: 'Showing On UI',
       dataIndex: 'showOnUi',
-      key: 'showOnUi',
       render: (val) => <DynamicStatusTag type={val} />,
     },
-    { title: 'Created At', dataIndex: 'createdAt', key: 'createdAt' },
+    { title: 'Created At', dataIndex: 'createdAt' },
     {
       title: 'Action',
       fixed: 'right',
-      key: 'action',
       width: 140,
       render: () => (
         <Space size="small">
           <Tooltip title="View">
-            <Button type="text" icon={<EyeOutlined />} />
+            <Button type="text" icon={<EyeOutlined />} className="table-action-btn-view" />
           </Tooltip>
           <Tooltip title="Edit">
-            <Button type="text" icon={<EditOutlined />} />
+            <Button type="text" icon={<EditOutlined />} className="table-action-btn-edit" />
           </Tooltip>
           <Tooltip title="Delete">
-            <Button type="text" danger icon={<DeleteOutlined />} />
+            <Button
+              type="text"
+              danger
+              icon={<DeleteOutlined />}
+              className="table-action-btn-delete"
+            />
           </Tooltip>
         </Space>
       ),
@@ -96,16 +118,16 @@ export default function CommentsManagement() {
             <Col xs={24} sm={12} md={5}>
               <Select
                 allowClear
-                placeholder="Types"
-                value={paramObj.type || undefined}
+                placeholder="Show On UI"
+                value={paramObj.showOnUi || undefined}
                 style={{ width: '100%' }}
-                // options={USER_ROLES_ENUM}
                 onChange={(val) => setParamObj((p) => ({ ...p, showOnUi: val }))}
               >
-                <Select.Option>True</Select.Option>
-                <Select.Option>False</Select.Option>
+                <Select.Option value="true">True</Select.Option>
+                <Select.Option value="false">False</Select.Option>
               </Select>
             </Col>
+
             <Col xs={24} sm={12} md={5}>
               <RangePicker
                 style={{ width: '100%' }}
@@ -113,10 +135,11 @@ export default function CommentsManagement() {
                 onChange={(dates) => setParamObj((p) => ({ ...p, dateRange: dates || [] }))}
               />
             </Col>
+
             <Col xs={24} md={8}>
               <Input
                 allowClear
-                placeholder="Search by name or email"
+                placeholder="Search by name or comment"
                 value={paramObj.search}
                 onChange={(e) => setParamObj((p) => ({ ...p, search: e.target.value }))}
               />
@@ -132,12 +155,13 @@ export default function CommentsManagement() {
               <Button
                 block
                 onClick={() => {
-                  setParamObj({
+                  const cleared = {
                     ...paramObj,
-                    approved: '',
+                    showOnUi: '',
                     search: '',
                     dateRange: [],
-                  });
+                  };
+                  setParamObj(cleared);
                   setRefreshCounter((p) => p + 1);
                 }}
               >
@@ -154,6 +178,7 @@ export default function CommentsManagement() {
         paramObj={paramObj}
         setParamObj={setParamObj}
         setRefreshCounter={setRefreshCounter}
+        loading={loading}
       />
     </ModeCard>
   );

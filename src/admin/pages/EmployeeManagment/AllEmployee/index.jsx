@@ -13,7 +13,7 @@ import toast from 'react-hot-toast';
 import apiService from '@/admin/advanceApi/apiService';
 
 export default function AllEmployee() {
-  const [refreshCounter, setRefreshCounter] = useState(0);
+  const [, setRefreshCounter] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const [employeeData, setEmployeeData] = useState([]);
@@ -90,6 +90,7 @@ export default function AllEmployee() {
                 setInitialData(record);
                 setType('VIEW');
               }}
+              className="table-action-btn-view"
             />
           </Tooltip>
         </Space>

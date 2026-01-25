@@ -13,7 +13,7 @@ import toast from 'react-hot-toast';
 import apiService from '@/admin/advanceApi/apiService';
 
 export default function UpdateEmployeeDetails() {
-  const [refreshCounter, setRefreshCounter] = useState(0);
+  const [, setRefreshCounter] = useState(0);
   const [employeeData, setEmployeeData] = useState([]);
   const [type, setType] = useState();
 
@@ -87,6 +87,7 @@ export default function UpdateEmployeeDetails() {
                 setInitialData(record);
                 setType('VIEW');
               }}
+              className="table-action-btn-view"
             />
           </Tooltip>
 
@@ -99,6 +100,7 @@ export default function UpdateEmployeeDetails() {
                 setInitialData(record);
                 setType('EDIT');
               }}
+              className="table-action-btn-edit"
             />
           </Tooltip>
 
@@ -108,6 +110,7 @@ export default function UpdateEmployeeDetails() {
               danger
               icon={<DeleteOutlined />}
               onClick={() => setInitialData(record)}
+              className="table-action-btn-delete"
             />
           </Tooltip>
         </Space>

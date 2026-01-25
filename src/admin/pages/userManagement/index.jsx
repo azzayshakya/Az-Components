@@ -1,7 +1,6 @@
 import { Input, Select, Row, Col, Button } from 'antd';
 import ModeCard from '@/pages/antdFormTable/components/ModeCard';
 import { allUsersResponse } from '@/admin/constants/dummyResponse';
-
 import { useEffect, useState } from 'react';
 import CrudTable from '@/pages/antdFormTable/components/CrudTable';
 import ModeFieldSet from '@/pages/antdFormTable/components/FieldSet';
@@ -12,9 +11,9 @@ import apiService from '@/admin/advanceApi/apiService';
 
 export default function UserManagement() {
   const [loading, setLoading] = useState(false);
-
   const [refreshCounter, setRefreshCounter] = useState(0);
-  console.log(refreshCounter);
+  const [userData, setUserData] = useState([]);
+
   const [paramObj, setParamObj] = useState({
     limit: 10,
     offset: 0,
@@ -23,6 +22,26 @@ export default function UserManagement() {
     department: '',
     name: '',
   });
+
+  const fetchUsers = async () => {
+    const toastId = toast.loading('Fetching users...');
+    setLoading(true);
+    try {
+      const res = await apiService.getAllEmployee();
+      setUserData(res?.data || []);
+      toast.success('Users loaded successfully', { id: toastId });
+    } catch (err) {
+      toast.error('Failed to load users', { id: toastId });
+      toast.success('Using Dummy Data');
+      setUserData(allUsersResponse.data);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, [refreshCounter]);
 
   const handleClear = () => {
     setParamObj({
@@ -33,13 +52,15 @@ export default function UserManagement() {
     });
     setRefreshCounter((p) => p + 1);
   };
-  const tableData = allUsersResponse.data.filter((q) => {
+
+  const tableData = userData.filter((u) => {
     return (
-      (!paramObj.department || q.department === paramObj.department) &&
-      (!paramObj.role || q.role === paramObj.role) &&
-      (!paramObj.search || q.name.toLowerCase().includes(paramObj.search.toLowerCase()))
+      (!paramObj.department || u.department === paramObj.department) &&
+      (!paramObj.role || u.role === paramObj.role) &&
+      (!paramObj.name || u.name.toLowerCase().includes(paramObj.name.toLowerCase()))
     );
   });
+
   const columns = [
     { title: 'Employee ID', dataIndex: 'employeeId', align: 'center' },
     { title: 'Name', dataIndex: 'name', align: 'center' },
@@ -52,26 +73,7 @@ export default function UserManagement() {
       render: (status) => <DynamicStatusTag type={status} />,
     },
   ];
-  const fetchUsersData = async () => {
-    const toastId = toast.loading('Fetching employee details...');
-    setLoading(true);
 
-    try {
-      const res = await apiService.getAllEmployee();
-      setEmployeeData(res?.data || []);
-      toast.success('Employees loaded successfully', { id: toastId });
-    } catch (err) {
-      toast.error('Failed to load Employee Data', { id: toastId });
-      toast.success('Using Dummy Data');
-      setEmployeeData(employeeListResponse.data);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchUsersData();
-  }, []);
   return (
     <ModeCard title="All Users">
       <ModeFieldSet title="Filters">
@@ -127,6 +129,7 @@ export default function UserManagement() {
         paramObj={paramObj}
         setParamObj={setParamObj}
         setRefreshCounter={setRefreshCounter}
+        loading={loading}
       />
     </ModeCard>
   );

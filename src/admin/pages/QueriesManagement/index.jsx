@@ -3,13 +3,17 @@ import CrudTable from '@/pages/antdFormTable/components/CrudTable';
 import ModeFieldSet from '@/pages/antdFormTable/components/FieldSet';
 import ModeCard from '@/pages/antdFormTable/components/ModeCard';
 import { Button, Col, Input, Row, Select, Space, Tooltip } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 import { DynamicStatusTag } from '../constants/DynamicAntdStatusTag';
+import toast from 'react-hot-toast';
+import apiService from '@/admin/advanceApi/apiService';
 
 export default function QueriesManagement() {
   const [refreshCounter, setRefreshCounter] = useState(0);
-  console.log(refreshCounter);
+  const [loading, setLoading] = useState(false);
+  const [queryData, setQueryData] = useState([]);
+
   const [paramObj, setParamObj] = useState({
     limit: 10,
     offset: 0,
@@ -19,7 +23,27 @@ export default function QueriesManagement() {
     search: '',
   });
 
-  const tableData = queryListResponse.data.filter((q) => {
+  const fetchQueries = async () => {
+    const toastId = toast.loading('Fetching queries...');
+    setLoading(true);
+    try {
+      const res = await apiService.getAllQueries();
+      setQueryData(res?.data || []);
+      toast.success('Queries loaded successfully', { id: toastId });
+    } catch (err) {
+      toast.error('Failed to load queries', { id: toastId });
+      toast.success('Using Dummy Data');
+      setQueryData(queryListResponse.data);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchQueries();
+  }, [refreshCounter]);
+
+  const tableData = queryData.filter((q) => {
     return (
       (!paramObj.status || q.status === paramObj.status) &&
       (!paramObj.priority || q.priority === paramObj.priority) &&
@@ -30,42 +54,28 @@ export default function QueriesManagement() {
   });
 
   const columns = [
-    { title: 'Query ID', dataIndex: 'id', key: 'id', align: 'center' },
-    {
-      title: 'User Name',
-      dataIndex: 'userName',
-      key: 'userName',
-      align: 'center',
-    },
-    { title: 'Subject', dataIndex: 'subject', key: 'subject', align: 'center' },
+    { title: 'Query ID', dataIndex: 'id', align: 'center' },
+    { title: 'User Name', dataIndex: 'userName', align: 'center' },
+    { title: 'Subject', dataIndex: 'subject', align: 'center' },
     {
       title: 'Priority',
       dataIndex: 'priority',
-      key: 'priority',
       align: 'center',
-
-      render: (status) => <DynamicStatusTag type={status} />,
+      render: (val) => <DynamicStatusTag type={val} />,
     },
     {
       title: 'Status',
       dataIndex: 'status',
-      key: 'status',
       align: 'center',
-      render: (status) => <DynamicStatusTag type={status} />,
+      render: (val) => <DynamicStatusTag type={val} />,
     },
-    {
-      title: 'Created At',
-      dataIndex: 'createdAt',
-      key: 'createdAt',
-      align: 'center',
-    },
+    { title: 'Created At', dataIndex: 'createdAt', align: 'center' },
     {
       title: 'Action',
       fixed: 'right',
-      key: 'action',
       width: 120,
       align: 'center',
-      render: (_, record) => (
+      render: () => (
         <>
           <Space size="small">
             <Tooltip title="View">
@@ -118,7 +128,7 @@ export default function QueriesManagement() {
               allowClear
               placeholder="Status"
               style={{ width: '100%' }}
-              onChange={(val) => setParamObj({ ...paramObj, status: val })}
+              onChange={(val) => setParamObj((p) => ({ ...p, status: val }))}
             >
               <Select.Option value="pending">Pending</Select.Option>
               <Select.Option value="resolved">Resolved</Select.Option>
@@ -130,7 +140,7 @@ export default function QueriesManagement() {
               allowClear
               placeholder="Priority"
               style={{ width: '100%' }}
-              onChange={(val) => setParamObj({ ...paramObj, priority: val })}
+              onChange={(val) => setParamObj((p) => ({ ...p, priority: val }))}
             >
               <Select.Option value="low">Low</Select.Option>
               <Select.Option value="medium">Medium</Select.Option>
@@ -142,7 +152,7 @@ export default function QueriesManagement() {
             <Input
               allowClear
               placeholder="Search by user or subject"
-              onChange={(e) => setParamObj({ ...paramObj, search: e.target.value })}
+              onChange={(e) => setParamObj((p) => ({ ...p, search: e.target.value }))}
             />
           </Col>
 
@@ -151,8 +161,9 @@ export default function QueriesManagement() {
               Apply
             </Button>
           </Col>
+
           <Col xs={12} md={3}>
-            <Button type="default" block onClick={() => setRefreshCounter((p) => p + 1)}>
+            <Button block onClick={() => setRefreshCounter((p) => p + 1)}>
               Close
             </Button>
           </Col>
@@ -165,6 +176,7 @@ export default function QueriesManagement() {
         paramObj={paramObj}
         setParamObj={setParamObj}
         setRefreshCounter={setRefreshCounter}
+        loading={loading}
       />
     </ModeCard>
   );
