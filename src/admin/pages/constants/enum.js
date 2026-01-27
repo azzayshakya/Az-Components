@@ -177,10 +177,10 @@ export const DASHBOARD_REQUIREMENT_TYPE_ENUM = [
 ];
 
 export const REQUIREMENT_STATUS_ENUM = [
-  { label: 'Submitted', value: 'submitted', color: 'blue' },
-  { label: 'Under Review', value: 'under_review', color: 'orange' },
-  { label: 'In Progress', value: 'in_progress', color: 'purple' },
-  { label: 'Completed', value: 'completed', color: 'green' },
-  { label: 'Rejected', value: 'rejected', color: 'red' },
-  { label: 'On Hold', value: 'on_hold', color: 'gold' },
+  { label: 'Submitted', value: 'submitted' },
+  { label: 'Under Review', value: 'under_review' },
+  { label: 'In Progress', value: 'in_progress' },
+  { label: 'Completed', value: 'completed' },
+  { label: 'Rejected', value: 'rejected' },
+  { label: 'On Hold', value: 'on_hold' },
 ];

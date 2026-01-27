@@ -208,7 +208,7 @@ export const DynamicStatusTag = ({
       break;
 
     default:
-      color = 'default';
+      color = 'blue';
       statusText = String(type).toUpperCase();
       icon = <InfoCircleOutlined />;
   }

@@ -20,6 +20,7 @@ import apiService from '@/admin/advanceApi/apiService';
 // } from "../../constants/requirementEnums";
 import { dummyRequirementsData } from '@/admin/constants/dummyResponse';
 import { DASHBOARD_REQUIREMENT_TYPE_ENUM, REQUIREMENT_STATUS_ENUM } from '../constants/enum';
+import { DynamicStatusTag } from '../constants/DynamicAntdStatusTag';
 
 const { TextArea } = Input;
 
@@ -194,10 +195,11 @@ export default function RequirementsManagement() {
       dataIndex: 'requirementType',
       align: 'center',
       width: 150,
-      render: (type) => {
-        const typeData = DASHBOARD_REQUIREMENT_TYPE_ENUM.find((t) => t.value === type);
-        return <Tag color="blue">{typeData?.label || type}</Tag>;
-      },
+      render: (type) => <DynamicStatusTag type={type} size="large" showIcon={false} />,
+      // {
+      // const typeData = DASHBOARD_REQUIREMENT_TYPE_ENUM.find((t) => t.value === type);
+      // return <Tag color="blue">{typeData?.label || type}</Tag>;
+      // },
     },
     {
       title: 'Description',
@@ -211,10 +213,13 @@ export default function RequirementsManagement() {
       dataIndex: 'status',
       align: 'center',
       width: 120,
-      render: (status) => {
-        const statusData = REQUIREMENT_STATUS_ENUM.find((s) => s.value === status);
-        return <Tag color={statusData?.color || 'default'}>{statusData?.label || status}</Tag>;
-      },
+      render: (status) => <DynamicStatusTag type={status} />,
+
+      // {
+
+      // const statusData = REQUIREMENT_STATUS_ENUM.find((s) => s.value === status);
+      // return <Tag color={statusData?.color || 'default'}>{statusData?.label || status}</Tag>;
+      // },
     },
     {
       title: 'Opened Date',
