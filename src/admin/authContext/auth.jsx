@@ -70,27 +70,33 @@ export const AdminAuthProvider = ({ children }) => {
         console.log('⏱️  Simulating network delay (2000ms)...');
         await delay(2000);
 
-        const dummyAdmin = {
-          id: 1,
-          name: 'Ajay Admin',
-          role: 'Admin',
-          email: 'admin@elmech.live',
-          designation: 'Software Developer',
-          permissions: ['read', 'write', 'delete', 'manage_users'],
-          department: 'Engineering',
-          lastLogin: new Date().toISOString(),
-          profileImage: null,
+        const dummyUser = {
+          user_data: {
+            id: 1,
+            name: 'Ajay Admin',
+            role: 'Admin',
+            email: 'admin@elmech.live',
+            designation: 'Software Developer',
+            permissions: ['read', 'write', 'delete', 'manage_users'],
+            department: 'Engineering',
+            lastLogin: new Date().toISOString(),
+            profileImage: null,
+          },
+          token: {
+            refreshToken: 'refresh Token',
+            acessToken: 'Access Token',
+          },
         };
 
         console.log('🎭 Dummy Admin Data Loaded:');
-        console.log('   ├─ ID:', dummyAdmin.id);
-        console.log('   ├─ Name:', dummyAdmin.name);
-        console.log('   ├─ Role:', dummyAdmin.role);
-        console.log('   ├─ Email:', dummyAdmin.email);
-        console.log('   ├─ Designation:', dummyAdmin.designation);
-        console.log('   └─ Permissions:', dummyAdmin.permissions.join(', '));
+        console.log('   ├─ ID:', dummyUser.user_data.id);
+        console.log('   ├─ Name:', dummyUser.user_data.name);
+        console.log('   ├─ Role:', dummyUser.user_data.role);
+        console.log('   ├─ Email:', dummyUser.user_data.email);
+        console.log('   ├─ Designation:', dummyUser.user_data.designation);
+        console.log('   └─ Permissions:', dummyUser.user_data.permissions.join(', '));
 
-        authenticatedUser = dummyAdmin;
+        authenticatedUser = dummyUser.user_data;
       } else {
         console.log('🌐 Making REAL API call to verify admin...');
         console.log('📡 Endpoint:', getApiBaseUrl() + apiService.verifyAdminDashboardUser());
@@ -114,7 +120,7 @@ export const AdminAuthProvider = ({ children }) => {
 
             if (accessToken) {
               console.log('🔑 New Access Token received and stored');
-              localStorage.setItem(STORAGE_KEYS.ADMIN_TOKEN, accessToken);
+              localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
             }
 
             if (refreshToken) {
@@ -161,7 +167,8 @@ export const AdminAuthProvider = ({ children }) => {
       // ──────────────────────────────────────────────────────
       console.log('\n💾 STEP 4: Storing authenticated user data...');
 
-      localStorage.setItem(STORAGE_KEYS.ADMIN_USER, JSON.stringify(authenticatedUser));
+      localStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(authenticatedUser));
+      localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, JSON.stringify(authenticatedUser));
       console.log('✅ User data saved to localStorage');
 
       setAdminUser(authenticatedUser);
@@ -204,8 +211,8 @@ export const AdminAuthProvider = ({ children }) => {
   };
 
   const clearAdminData = () => {
-    localStorage.removeItem(STORAGE_KEYS.ADMIN_USER);
-    localStorage.removeItem(STORAGE_KEYS.ADMIN_TOKEN);
+    localStorage.removeItem(STORAGE_KEYS.USER_INFO);
+    localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
     setAdminUser(null);
     console.log('✅ Admin data cleared successfully');
   };

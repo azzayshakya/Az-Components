@@ -74,6 +74,11 @@ export default function RequirementsManagement() {
       setTableLoading(false);
     }
   };
+  const storedUser = localStorage.getItem('El_User_Info');
+  const userData = storedUser ? JSON.parse(storedUser) : null;
+  const userRole = userData?.role?.trim().toLowerCase();
+
+  const canEdit = ['admin', 'ceo'].includes(userRole);
 
   const handleSubmit = async (values) => {
     setLoading(true);
@@ -251,9 +256,16 @@ export default function RequirementsManagement() {
               className="table-action-btn-view"
             />
           </Tooltip>
-          <Tooltip title="Edit">
-            <Button type="text" icon={<EditOutlined />} className="table-action-btn-edit" />
-          </Tooltip>
+          {canEdit && (
+            <Tooltip title="Edit">
+              <Button
+                type="text"
+                size="small"
+                icon={<EditOutlined />}
+                className="table-action-btn-edit"
+              />
+            </Tooltip>
+          )}
 
           <Tooltip title="Delete">
             <Button
@@ -273,16 +285,9 @@ export default function RequirementsManagement() {
   return (
     <>
       <ModeCard title="Submit New Requirement">
-        <Form
-          form={form}
-          layout="vertical"
-          onFinish={handleSubmit}
-          onValuesChange={(changedValues) => {
-            console.log('📝 Form values changed:', changedValues);
-          }}
-        >
-          <Row gutter={[16, 0]}>
-            <Col xs={24} md={8}>
+        <Form form={form} layout="vertical" onFinish={handleSubmit}>
+          <Row gutter={[12, 12]} align="middle">
+            <Col xs={24} sm={12} md={8}>
               <Form.Item
                 name="path"
                 label="Page Path"
@@ -290,16 +295,15 @@ export default function RequirementsManagement() {
                   { required: true, message: 'Please enter the page path' },
                   {
                     pattern: /^\/[a-zA-Z0-9\/-]*$/,
-                    message:
-                      'Path must start with / and contain only alphanumeric characters, / and -',
+                    message: 'Path must start with / and contain only alphanumeric characters',
                   },
                 ]}
               >
-                <Input placeholder="e.g., /dashboard or /salary-management" prefix="🔗" />
+                <Input placeholder="/dashboard" />
               </Form.Item>
             </Col>
 
-            <Col xs={24} md={8}>
+            <Col xs={24} sm={12} md={8}>
               <Form.Item
                 name="requirementType"
                 label="Requirement Type"
@@ -308,32 +312,24 @@ export default function RequirementsManagement() {
                 <Select
                   placeholder="Select type"
                   options={DASHBOARD_REQUIREMENT_TYPE_ENUM}
-                  showSearch
-                  optionFilterProp="label"
+                  allowClear
                 />
               </Form.Item>
             </Col>
 
-            <Col xs={12} md={3}>
+            <Col xs={0} sm={0} md={4}>
               <Form.Item label="&nbsp;">
-                <Space>
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    loading={loading}
-                    // icon={<PlusOutlined />}
-                  >
-                    Submit
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      console.log('🔄 Resetting form');
-                      form.resetFields();
-                    }}
-                  >
-                    Clear
-                  </Button>
-                </Space>
+                <Button type="primary" htmlType="submit" loading={loading} block>
+                  Submit
+                </Button>
+              </Form.Item>
+            </Col>
+
+            <Col xs={0} sm={0} md={4}>
+              <Form.Item label="&nbsp;">
+                <Button block onClick={() => form.resetFields()}>
+                  Clear
+                </Button>
               </Form.Item>
             </Col>
 
@@ -343,18 +339,30 @@ export default function RequirementsManagement() {
                 label="Description"
                 rules={[
                   { required: true, message: 'Please provide a description' },
-                  {
-                    min: 10,
-                    message: 'Description must be at least 10 characters',
-                  },
+                  { min: 10, message: 'Minimum 10 characters required' },
                 ]}
               >
                 <TextArea
                   rows={4}
-                  placeholder="Describe the requirement in detail..."
                   maxLength={500}
                   showCount
+                  placeholder="Describe the requirement..."
                 />
+              </Form.Item>
+            </Col>
+            <Col xs={24} sm={12} md={0}>
+              <Form.Item label="&nbsp;">
+                <Button type="primary" htmlType="submit" loading={loading} block>
+                  Submit
+                </Button>
+              </Form.Item>
+            </Col>
+
+            <Col xs={24} sm={12} md={0}>
+              <Form.Item label="&nbsp;">
+                <Button block onClick={() => form.resetFields()}>
+                  Clear
+                </Button>
               </Form.Item>
             </Col>
           </Row>
