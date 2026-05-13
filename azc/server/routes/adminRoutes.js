@@ -1,4 +1,4 @@
-const router = require("express").Router();
+const router = require('express').Router();
 
 const {
   getAllUsers,
@@ -9,30 +9,30 @@ const {
   checkAdmin,
   postUserQuery,
   getUserQuery,
-} = require("../controllers/adminController");
+} = require('../controllers/adminController');
 
-const authMiddleware = require("../middleware/auth.middleware");
+const authMiddleware = require('../middleware/authMiddleware');
 
-const roleMiddleware = require("../middleware/role.middleware");
+const roleMiddleware = require('../middleware/role.middleware');
 
-router.post("/post-user-query", postUserQuery);
+router.post('/post-user-query', postUserQuery);
 
 module.exports = (getOnlineUsers) => {
-  router.use(authMiddleware, roleMiddleware("admin"));
+  router.use(authMiddleware, roleMiddleware('admin'));
 
-  router.get("/users", getAllUsers);
+  router.get('/users', getAllUsers);
 
-  router.get("/online-users", makeGetOnlineUsers(getOnlineUsers));
+  router.get('/online-users', makeGetOnlineUsers(getOnlineUsers));
 
-  router.get("/chats", getChatStats);
+  router.get('/chats', getChatStats);
 
-  router.get("/check", checkAdmin);
+  router.get('/check', checkAdmin);
 
-  router.get("/connections", getConnections);
+  router.get('/connections', getConnections);
 
-  router.get("/get-user-query", getUserQuery);
+  router.get('/get-user-query', getUserQuery);
 
-  router.delete("/users/:userId", deleteUser);
+  router.delete('/users/:userId', deleteUser);
 
   return router;
 };

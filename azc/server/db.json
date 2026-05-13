@@ -97,6 +97,17 @@
       "isOnline": false,
       "lastSeen": null,
       "createdAt": "2026-05-13T05:51:53.386Z"
+    },
+    {
+      "id": "84bd808d-34b3-4042-bf1c-d9a0d7c91a04",
+      "username": "hyy",
+      "name": "hyy",
+      "email": "ajay@gmail.com",
+      "passwordHash": "$2a$10$SLc9NXrnKpWZTaJMnyTljuM33NW.tLZMdNJdSA6LgKC1NlywjPgN6",
+      "role": "user",
+      "isOnline": false,
+      "lastSeen": null,
+      "createdAt": "2026-05-13T14:18:48.511Z"
     }
   ],
   "messages": [
@@ -2226,6 +2237,22 @@
       "text": "hnn",
       "createdAt": "2026-05-13T10:50:21.821Z",
       "isRead": true
+    },
+    {
+      "id": "1778681944809",
+      "from": "84bd808d-34b3-4042-bf1c-d9a0d7c91a04",
+      "to": "1777872170587",
+      "text": "dddd",
+      "createdAt": "2026-05-13T14:19:04.810Z",
+      "isRead": false
+    },
+    {
+      "id": "1778681988141",
+      "from": "84bd808d-34b3-4042-bf1c-d9a0d7c91a04",
+      "to": "1777872170587",
+      "text": "huu",
+      "createdAt": "2026-05-13T14:19:48.141Z",
+      "isRead": false
     }
   ],
   "userQueries": [

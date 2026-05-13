@@ -1,14 +1,26 @@
-const router = require("express").Router();
+const router = require('express').Router();
+
 const {
   register,
   login,
+  logout,
   checkUsername,
   checkEmail,
-} = require("../controllers/authController");
+} = require('../controllers/authController');
 
-router.post("/register", register);
-router.post("/login", login);
-router.get("/check-username/:username", checkUsername);
-router.get("/check-email/:email", checkEmail);
+const authMiddleware = require('../middleware/authMiddleware');
+
+const { authRateLimiter } = require('../middleware/rateLimitMiddleware');
+
+// Auth routes
+router.post('/register', authRateLimiter, register);
+
+router.post('/login', authRateLimiter, login);
+
+router.post('/logout', authMiddleware, logout);
+
+router.get('/check-username/:username', checkUsername);
+
+router.get('/check-email/:email', checkEmail);
 
 module.exports = router;
